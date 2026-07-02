@@ -1,26 +1,299 @@
 @import "tailwindcss";
+/* ============================================================================
+   globals.css
+   Global Styles — صيدلية عدنان
+   Last Updated: 2026-07-02
+   ============================================================================
+   هذا الملف هو المرجع الرسمي لجميع الـ Global Styles.
+   لا تضع هنا أي Styles خاصة بـ Components.
+   ============================================================================ */
 
+
+/* ----------------------------------------------------------------------------
+   1. Tailwind Base
+   ---------------------------------------------------------------------------- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* ----------------------------------------------------------------------------
+   2. Fonts — IBM Plex Sans Arabic (محلي للأداء الأمثل)
+   ---------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  src: url('/fonts/IBMPlexSansArabic-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  src: url('/fonts/IBMPlexSansArabic-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* ----------------------------------------------------------------------------
+   3. CSS Variables — Color Palette (من design-system.md)
+   ---------------------------------------------------------------------------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary — الأزرق الكحلي */
+  --color-primary:       #1B2B5E;
+  --color-primary-dark:  #14204A;
+  --color-primary-light: #2D4480;
+
+  /* Secondary — الأخضر */
+  --color-secondary:       #3BAA35;
+  --color-secondary-dark:  #2E8A29;
+  --color-secondary-light: #E8F5E7;
+
+  /* Background */
+  --color-bg:          #F8F9FA;
+  --color-bg-white:    #FFFFFF;
+  --color-bg-section:  #F0F4F8;
+
+  /* Surface */
+  --color-surface:       #FFFFFF;
+  --color-surface-hover: #F5F8FF;
+
+  /* Border */
+  --color-border:       #E2E8F0;
+  --color-border-focus: #3BAA35;
+
+  /* Text */
+  --color-text-primary:   #1A202C;
+  --color-text-secondary: #4A5568;
+  --color-text-muted:     #718096;
+  --color-text-inverse:   #FFFFFF;
+
+  /* States */
+  --color-success: #3BAA35;
+  --color-error:   #E53E3E;
+  --color-warning: #D69E2E;
+  --color-info:    #3182CE;
+
+  /* Spacing */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* Border Radius */
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-card:   0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+  --shadow-hover:  0 4px 16px rgba(27,43,94,0.10), 0 1px 4px rgba(0,0,0,0.06);
+  --shadow-lg:     0 8px 32px rgba(27,43,94,0.08);
+  --shadow-header: 0 1px 0px rgba(0,0,0,0.08);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+
+  /* Container */
+  --container-max:     1200px;
+  --container-padding: 24px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+/* ----------------------------------------------------------------------------
+   4. CSS Reset — حديث وخفيف
+   ---------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
+  direction: rtl;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+
+/* ----------------------------------------------------------------------------
+   5. Typography — من design-system.md
+   ---------------------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-primary);
+}
+
+h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+h2 { font-size: clamp(1.5rem,  3vw, 2rem);   }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem;    }
+
+p {
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+}
+
+
+/* ----------------------------------------------------------------------------
+   6. Container — موحد في كل الموقع
+   ---------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+
+/* ----------------------------------------------------------------------------
+   7. Global Links
+   ---------------------------------------------------------------------------- */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-secondary);
+}
+
+
+/* ----------------------------------------------------------------------------
+   8. Global Buttons — Base Styles
+   ---------------------------------------------------------------------------- */
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  transition: all var(--transition-fast);
+}
+
+
+/* ----------------------------------------------------------------------------
+   9. Global Images
+   ---------------------------------------------------------------------------- */
+img {
+  height: auto;
+  object-fit: cover;
+}
+
+
+/* ----------------------------------------------------------------------------
+   10. Accessibility — Focus States
+   ---------------------------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* إخفاء outline عند استخدام الماوس */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+
+/* ----------------------------------------------------------------------------
+   11. Scrollbar — خفيف وأنيق
+   ---------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+
+/* ----------------------------------------------------------------------------
+   12. Selection
+   ---------------------------------------------------------------------------- */
+::selection {
+  background-color: var(--color-secondary-light);
+  color: var(--color-primary);
+}
+
+
+/* ----------------------------------------------------------------------------
+   13. Performance — تحسينات الأداء
+   ---------------------------------------------------------------------------- */
+
+/* تحسين الـ Rendering للعناصر المتحركة */
+.will-change-transform {
+  will-change: transform;
+}
+
+/* إخفاء المحتوى بصرياً مع إبقائه للـ Screen Readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
