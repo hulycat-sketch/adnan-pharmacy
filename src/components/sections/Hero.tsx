@@ -16,8 +16,10 @@ export default function Hero() {
           </span>
 
           <h1 id="hero-heading" className={styles.title}>
-            رعايتكم الصحية تبدأ من هنا
-          </h1>
+  رعايتكم الصحية
+  <br />
+  <span className={styles.highlight}>تبدأ من هنا</span>
+</h1>
 
           <p className={styles.description}>{description}</p>
 

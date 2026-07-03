@@ -51,6 +51,10 @@
   margin: 0;
 }
 
+.highlight {
+  color: var(--color-secondary);
+}
+
 .description {
   margin-top: 1.5rem;
   max-width: 32rem;
