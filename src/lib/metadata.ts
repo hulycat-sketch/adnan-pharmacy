@@ -30,7 +30,7 @@ export const siteMetadata: Metadata = {
   description: SEO.defaultDescription,
 
   // --- Keywords ---
-  keywords: SEO.keywords,
+  keywords: [...SEO.keywords],
 
   // --- Authors ---
   authors: [{ name: PHARMACY.name, url: SITE.url }],
