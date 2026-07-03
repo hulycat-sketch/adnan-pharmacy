@@ -24,7 +24,7 @@ import type { Metadata }                from 'next'
 import localFont                        from 'next/font/local'
 import { siteMetadata, pharmacySchema } from '@/lib/metadata'
 import './globals.css'
-
+import Header from '../components/layout/Header'
 
 // -----------------------------------------------------------------------------
 // 1. الخط — IBM Plex Sans Arabic
@@ -76,7 +76,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             __html: JSON.stringify(pharmacySchema),
           }}
         />
-
+<Header />
         {/* main#main-content — Accessibility + قابل للتوسع */}
         <main id="main-content">
           {children}

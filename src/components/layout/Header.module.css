@@ -1,0 +1,225 @@
+/* =============================================================================
+   Header.module.css
+   ============================================================================= */
+
+/* Header الرئيسي */
+.header {
+  position:         sticky;
+  top:              0;
+  z-index:          100;
+  background-color: var(--color-bg-white);
+  border-bottom:    1px solid var(--color-border);
+}
+
+/* Shadow عند التمرير — يُفعَّل لاحقاً عبر JS بإضافة class .scrolled */
+.header.scrolled {
+  box-shadow:    0 4px 20px rgba(0, 0, 0, 0.08);
+  border-bottom: none;
+}
+
+.inner {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  height:          72px;
+}
+
+/* ------------------------------------------------------------------ */
+/* الشعار */
+/* ------------------------------------------------------------------ */
+.logo {
+  display:         flex;
+  align-items:     center;
+  gap:             var(--space-3);
+  text-decoration: none;
+}
+
+.logoImage {
+  object-fit: contain;
+}
+
+.logoText {
+  font-size:   1.125rem;
+  font-weight: 600;
+  color:       var(--color-primary);
+  line-height: 1.2;
+}
+
+/* ------------------------------------------------------------------ */
+/* القائمة — Desktop */
+/* ------------------------------------------------------------------ */
+.desktopNav {
+  display: none;
+}
+
+.navList {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-1);
+  list-style:  none;
+}
+
+.navLink {
+  display:       block;
+  font-size:     0.9375rem;
+  font-weight:   400;
+  color:         var(--color-text-secondary);
+  padding:       var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  transition:    color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.navLink:hover {
+  color:            var(--color-primary);
+  background-color: var(--color-bg-section);
+}
+
+/* Accessibility — Keyboard Navigation */
+.navLink:focus-visible {
+  outline:        2px solid var(--color-secondary);
+  outline-offset: 2px;
+  border-radius:  var(--radius-md);
+}
+
+/* الرابط النشط — جاهز للـ Routing لاحقاً */
+.navLink.active {
+  color:       var(--color-primary);
+  font-weight: 600;
+  background-color: var(--color-secondary-light);
+}
+
+/* ------------------------------------------------------------------ */
+/* الأزرار */
+/* ------------------------------------------------------------------ */
+.actions {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-3);
+}
+
+.ctaBtn {
+  display:          inline-flex;
+  align-items:      center;
+  justify-content:  center;
+  background-color: var(--color-secondary);
+  color:            #ffffff;
+  font-weight:      600;
+  font-size:        0.9375rem;
+  padding:          var(--space-2) var(--space-5);
+  border-radius:    var(--radius-md);
+  text-decoration:  none;
+  transition:       background-color var(--transition-fast);
+  cursor:           pointer;
+  border:           none;
+}
+
+.ctaBtn:hover {
+  background-color: var(--color-secondary-dark);
+  color:            #ffffff;
+}
+
+.ctaBtn:focus-visible {
+  outline:        2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+.ctaDesktop {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Hamburger */
+/* ------------------------------------------------------------------ */
+.hamburger {
+  display:         flex;
+  flex-direction:  column;
+  justify-content: center;
+  gap:             5px;
+  width:           40px;
+  height:          40px;
+  background:      transparent;
+  border:          none;
+  cursor:          pointer;
+  padding:         var(--space-2);
+  border-radius:   var(--radius-md);
+  transition:      background-color var(--transition-fast);
+}
+
+.hamburger:hover {
+  background-color: var(--color-bg-section);
+}
+
+.hamburger:focus-visible {
+  outline:        2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+.bar {
+  display:          block;
+  width:            22px;
+  height:           2px;
+  background-color: var(--color-primary);
+  transition:       var(--transition-base);
+  transform-origin: center;
+}
+
+.barTop { transform: rotate(45deg) translate(5px, 5px); }
+.barMid { opacity: 0; }
+.barBot { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* ------------------------------------------------------------------ */
+/* القائمة — Mobile */
+/* ------------------------------------------------------------------ */
+.mobileNav {
+  background-color: var(--color-bg-white);
+  border-top:       1px solid var(--color-border);
+  padding:          var(--space-4) 0;
+}
+
+.mobileList {
+  list-style: none;
+}
+
+.mobileLink {
+  display:       block;
+  padding:       var(--space-3) var(--space-4);
+  color:         var(--color-text-primary);
+  font-size:     1rem;
+  border-radius: var(--radius-md);
+  transition:    background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.mobileLink:hover {
+  background-color: var(--color-bg-section);
+  color:            var(--color-primary);
+}
+
+.mobileLink:focus-visible {
+  outline:        2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+.mobileLink.active {
+  color:            var(--color-primary);
+  font-weight:      600;
+  background-color: var(--color-secondary-light);
+}
+
+.mobileCta {
+  margin-top: var(--space-3);
+  padding:    0 var(--space-4);
+}
+
+.mobileCta .ctaBtn {
+  width:   100%;
+  padding: var(--space-3);
+}
+
+/* ============================================================
+   Responsive — Desktop (1024px+)
+   ============================================================ */
+@media (min-width: 1024px) {
+  .desktopNav { display: block; }
+  .ctaDesktop { display: inline-flex; }
+  .hamburger  { display: none; }
+}
