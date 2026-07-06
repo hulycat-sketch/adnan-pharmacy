@@ -38,8 +38,8 @@ export default function Header() {
           <Image
             src={IMAGES.logo}
             alt={`شعار ${PHARMACY.name}`}
-            width={48}
-            height={48}
+width={76}
+height={76}
             priority
             className={styles.logoImage}
           />
