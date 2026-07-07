@@ -44,7 +44,9 @@ height={44}
           />
 <div className={styles.logoContent}>
   <span className={styles.logoText}>{PHARMACY.name}</span>
-</div>        </Link>
+  <span className={styles.logoSince}>منذ عام 1981</span>
+</div>       
+ </Link>
 
         {/* ------------------------------------------------------------------ */}
         {/* القائمة — Desktop */}
