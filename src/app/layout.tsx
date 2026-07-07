@@ -42,6 +42,11 @@ const ibmPlexArabic = localFont({
       weight: '600',
       style:  'normal',
     },
+    {
+  path: '../fonts/IBMPlexSansArabic-Bold.ttf',
+  weight: '700',
+  style: 'normal',
+},
   ],
   variable: '--font-ibm-plex-arabic',
   display:  'swap',
