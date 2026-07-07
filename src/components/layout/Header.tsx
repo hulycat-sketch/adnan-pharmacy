@@ -25,8 +25,7 @@ export default function Header() {
 
   return (
     <header className={styles.header} role="banner">
-      <div className={`container ${styles.inner}`}>
-
+<div className={styles.inner}>
         {/* ------------------------------------------------------------------ */}
         {/* الشعار */}
         {/* ------------------------------------------------------------------ */}
@@ -38,13 +37,14 @@ export default function Header() {
           <Image
             src={IMAGES.logo}
             alt={`شعار ${PHARMACY.name}`}
-width={76}
-height={76}
+width={44}
+height={44}
             priority
             className={styles.logoImage}
           />
-          <span className={styles.logoText}>{PHARMACY.name}</span>
-        </Link>
+<div className={styles.logoContent}>
+  <span className={styles.logoText}>{PHARMACY.name}</span>
+</div>        </Link>
 
         {/* ------------------------------------------------------------------ */}
         {/* القائمة — Desktop */}
