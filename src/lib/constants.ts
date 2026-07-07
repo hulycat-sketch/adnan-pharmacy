@@ -122,8 +122,7 @@ export const NAV_LINKS = [
   { label: 'شركات التأمين', href: '/#insurance'  },
   { label: 'فحص البشرة',    href: '/#skin-check' },
   { label: 'المدونة',       href: '/blog'        },
-  { label: 'تواصل معنا',    href: '/#contact'    },
-] as const
+ ] as const
 
 
 // -----------------------------------------------------------------------------
