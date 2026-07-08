@@ -1,7 +1,18 @@
 .hero {
   position: relative;
   overflow: hidden;
- background-color: #f8fafc;
+ background:
+  radial-gradient(
+    circle at top left,
+    rgba(70,130,180,0.035),
+    transparent 45%
+  ),
+  radial-gradient(
+    circle at top right,
+    rgba(76, 175, 80, 0.04),
+    transparent 40%
+  ),
+  #ffffff;
 
 }
 
@@ -122,6 +133,7 @@
 
 .image {
   object-fit: contain;
+  transform: scale(1.06);
 }
 
 @media (min-width: 1024px) {
