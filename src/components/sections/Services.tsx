@@ -2,9 +2,9 @@ import Link from "next/link";
 import {
   ShoppingBag,
   Shield,
-  MessageCircle,
-  Activity,
-  Scan,
+  Pill,
+  HeartPulse,
+  ScanFace,
   Sparkles,
   type LucideIcon,
 } from "lucide-react";
@@ -20,9 +20,9 @@ import styles from "./Services.module.css";
 const ICONS: Record<string, LucideIcon> = {
   ShoppingBag,
   Shield,
-  MessageCircle,
-  Activity,
-  Scan,
+  Pill,
+  HeartPulse,
+  ScanFace,
 };
 
 function ServiceIcon({ name }: { name: string }) {
