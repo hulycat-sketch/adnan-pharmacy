@@ -128,8 +128,7 @@
   .container {
     grid-template-columns: 1fr 1fr;
     gap: 2.5rem;
-    padding: 6rem 1.5rem;
-  }
+padding: 3.5rem 1.5rem 2rem;  }
 
   .content {
     order: 1;
