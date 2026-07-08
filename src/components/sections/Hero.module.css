@@ -1,7 +1,7 @@
 .hero {
   position: relative;
   overflow: hidden;
- background-color: #fefefe;
+ background-color: #f8fafc;
 
 }
 
@@ -116,7 +116,8 @@
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: 1.5rem;
-  box-shadow: 0 20px 40px -12px rgba(27, 43, 94, 0.18);
+  box-shadow: none;
+  background: transparent;
 }
 
 .image {
