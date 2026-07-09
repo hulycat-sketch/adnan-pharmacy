@@ -196,11 +196,11 @@ export const WHY_US = [
 // -----------------------------------------------------------------------------
 export const INSURANCE_COMPANIES = [
   { name: "GIG Jordan", logo: "/images/insurance/gig.png" },
-  { name: "GlobeMed", logo: "/images/insurance/globemed.png" },
-  { name: "MedNet", logo: "/images/insurance/mednet.png" },
-  { name: "MedService", logo: "/images/insurance/medservice.png" },
-  { name: "Solidarity", logo: "/images/insurance/solidarity.png" },
-  { name: "EuroArab", logo: "/images/insurance/euroarab.png" },
+  { name: "GlobeMed", logo: "/images/insurance/globemed2.png" },
+  { name: "MedNet", logo: "/images/insurance/mednet2.png" },
+  { name: "MedService", logo: "/images/insurance/medservice2.png" },
+  { name: "Solidarity", logo: "/images/insurance/solidarity2.png" },
+  { name: "EuroArab", logo: "/images/insurance/euroarab2.png" },
 ] as const;
 
 
