@@ -201,6 +201,46 @@ export const INSURANCE_COMPANIES = [
   { name: "MedService", logo: "/images/insurance/medservice2.png" },
   { name: "Solidarity", logo: "/images/insurance/solidarity2.png" },
   { name: "EuroArab", logo: "/images/insurance/euroarab2.png" },
+  {
+  name: "Jordan Phosphate Mines",
+  logo: "/images/insurance/phosphat.png",
+},
+{
+  name: "Royalty",
+  logo: "/images/insurance/royalty.png",
+},
+{
+  name: "Arab Assurers",
+  logo: "/images/insurance/arabassurers.png",
+},
+{
+  name: "Hakeem",
+  logo: "/images/insurance/hakeem.png",
+},
+{
+  name: "Al Manara",
+  logo: "/images/insurance/almanara.png",
+},
+{
+  name: "Al Nisir",
+  logo: "/images/insurance/alnisir.png",
+},
+{
+  name: "NatHealth",
+  logo: "/images/insurance/nathealth.png",
+},
+{
+  name: "Newton",
+  logo: "/images/insurance/newton.png",
+},
+{
+  name: "Medexa",
+  logo: "/images/insurance/medexa.png",
+},
+{
+  name: "Omnicare",
+  logo: "/images/insurance/omnicare.png",
+},
 ] as const;
 
 
