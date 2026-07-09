@@ -40,7 +40,7 @@
 
 .marqueeViewport {
   overflow: hidden;
-  /* تلاشي تدريجي على الحواف بدل قصّة حادة للشعارات */
+  direction: ltr;
   -webkit-mask-image: linear-gradient(
     to left,
     transparent 0%,
@@ -59,13 +59,17 @@
 
 .marqueeTrack {
   display: flex;
+  direction: ltr;
   align-items: center;
   gap: 2.5rem;
   width: max-content;
   list-style: none;
   margin: 0;
   padding: 0 1.5rem;
-  animation: scroll-rtl 40s linear infinite;
+  animation-name: scroll-rtl;
+  animation-duration: 60s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
 .marqueeViewport:hover .marqueeTrack {
@@ -77,7 +81,6 @@
     transform: translateX(0);
   }
   to {
-    /* بما إن الصفحة RTL، الحركة الطبيعية تروح جهة اليسار */
     transform: translateX(-50%);
   }
 }
@@ -88,7 +91,7 @@
   position: relative;
   flex-shrink: 0;
   width: 160px;
-height: 80px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -101,14 +104,6 @@ height: 80px;
 .logoImage {
   object-fit: contain;
   padding: 0.5rem;
-  filter: grayscale(100%);
-  opacity: 0.75;
-  transition: filter 0.25s ease, opacity 0.25s ease;
-}
-
-.logoTile:hover .logoImage {
-  filter: grayscale(0%);
-  opacity: 1;
 }
 
 /* ===== زر عرض الكل ===== */

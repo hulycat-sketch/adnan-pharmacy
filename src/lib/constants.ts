@@ -195,12 +195,13 @@ export const WHY_US = [
 // TODO: Replace logos with real insurance company images before production.
 // -----------------------------------------------------------------------------
 export const INSURANCE_COMPANIES = [
-  { name: 'المتحدة',               logo: '/images/insurance/united.png'      },
-  { name: 'نقابة المهندسين',       logo: '/images/insurance/engineers.png'   },
-  { name: 'جامعة اليرموك',        logo: '/images/insurance/yarmouk.png'     },
-  { name: 'الشرق العربي للتأمين', logo: '/images/insurance/arab-orient.png' },
-  { name: 'ميدغلف',               logo: '/images/insurance/medgulf.png'     },
-] as const
+  { name: "GIG Jordan", logo: "/images/insurance/gig.png" },
+  { name: "GlobeMed", logo: "/images/insurance/globemed.png" },
+  { name: "MedNet", logo: "/images/insurance/mednet.png" },
+  { name: "MedService", logo: "/images/insurance/medservice.png" },
+  { name: "Solidarity", logo: "/images/insurance/solidarity.png" },
+  { name: "EuroArab", logo: "/images/insurance/euroarab.png" },
+] as const;
 
 
 // =============================================================================
