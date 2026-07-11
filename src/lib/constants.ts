@@ -201,46 +201,16 @@ export const INSURANCE_COMPANIES = [
   { name: "MedService", logo: "/images/insurance/medservice4.png" },
   { name: "Solidarity", logo: "/images/insurance/solidarity4.png" },
   { name: "EuroArab", logo: "/images/insurance/euroarab3.png" },
-  {
-  name: "Jordan Phosphate Mines",
-  logo: "/images/insurance/phosphat2.png",
-},
-{
-  name: "Royalty",
-  logo: "/images/insurance/royalty.png",
-},
-{
-  name: "Arab Assurers",
-  logo: "/images/insurance/arabassurers2.png",
-},
-{
-  name: "Hakeem",
-  logo: "/images/insurance/hakeem.png",
-},
-{
-  name: "Al Manara",
-  logo: "/images/insurance/almanara2.png",
-},
-{
-  name: "Al Nisir",
-  logo: "/images/insurance/alnisir2.png",
-},
-{
-  name: "NatHealth",
-  logo: "/images/insurance/nathealth3.png",
-},
-{
-  name: "Newton",
-  logo: "/images/insurance/newton1.png",
-},
-{
-  name: "Medexa",
-  logo: "/images/insurance/medexa1.png",
-},
-{
-  name: "Omnicare",
-  logo: "/images/insurance/omnicare3.png",
-},
+  { name: "Jordan Phosphate Mines", logo: "/images/insurance/phosphat2.png" },
+  { name: "Royalty", logo: "/images/insurance/royalty.png" },
+  { name: "Arab Assurers", logo: "/images/insurance/arabassurers2.png" },
+  { name: "Hakeem", logo: "/images/insurance/hakeem.png" },
+  { name: "Al Manara", logo: "/images/insurance/almanara2.png" },
+  { name: "Al Nisir", logo: "/images/insurance/alnisir2.png" },
+  { name: "NatHealth", logo: "/images/insurance/nathealth3.png" },
+  { name: "Newton", logo: "/images/insurance/newton1.png" },
+  { name: "Medexa", logo: "/images/insurance/medexa1.png" },
+  { name: "Omnicare", logo: "/images/insurance/omnicare3.png" },
 ] as const;
 
 
