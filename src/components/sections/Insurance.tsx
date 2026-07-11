@@ -28,7 +28,7 @@ const track = [...loopUnit, ...loopUnit];
 // مدة الحركة تتغيّر تلقائيًا مع عدد البلاطات، بحيث تضل السرعة
 // البصرية (بكسل/ثانية) ثابتة دايمًا — سواء كان عندنا 6 شركات
 // اليوم أو 27 لاحقًا، ما رح تصير الحركة أسرع أو أبطأ بالغلط.
-const SECONDS_PER_TILE = 3.5;
+const SECONDS_PER_TILE = 3.8;
 const animationDurationSeconds = loopUnit.length * SECONDS_PER_TILE;
 
 export default function Insurance() {

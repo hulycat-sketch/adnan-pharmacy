@@ -43,16 +43,16 @@
   direction: ltr;
   -webkit-mask-image: linear-gradient(
     to left,
-    transparent 0%,
-    black 8%,
-    black 92%,
+    transparent 0,
+    black 56px,
+    black calc(100% - 56px),
     transparent 100%
   );
   mask-image: linear-gradient(
     to left,
-    transparent 0%,
-    black 8%,
-    black 92%,
+    transparent 0,
+    black 56px,
+    black calc(100% - 56px),
     transparent 100%
   );
 }
@@ -61,11 +61,11 @@
   display: flex;
   direction: ltr;
   align-items: center;
-  gap: 2.5rem;
+  gap: 2.25rem;
   width: max-content;
   list-style: none;
   margin: 0;
-  padding: 0 1.5rem;
+  padding: 0 72px;
   animation-name: scroll-rtl;
   animation-duration: 60s;
   animation-timing-function: linear;
@@ -85,25 +85,37 @@
   }
 }
 
-/* ===== بطاقة الشعار ===== */
+/* ===== الشعار — عائم بدون بطاقة، بحجم بصري موحّد ===== */
 
 .logoTile {
   position: relative;
   flex-shrink: 0;
-  width: 160px;
-  height: 80px;
+  width: 158px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
-  border: 1px solid var(--color-border);
-  border-radius: 0.75rem;
-  background-color: var(--color-bg-white);
 }
 
 .logoImage {
   object-fit: contain;
-  padding: 0.5rem;
+  opacity: 1;
+  transition: transform var(--transition-base);
+}
+
+.logoTile:hover .logoImage {
+  transform: scale(1.05);
+}
+
+@media (max-width: 639px) {
+  .marqueeTrack {
+    gap: 1.5rem;
+  }
+
+  .logoTile {
+    width: 126px;
+    height: 44px;
+  }
 }
 
 /* ===== زر عرض الكل ===== */
@@ -137,5 +149,9 @@
 @media (prefers-reduced-motion: reduce) {
   .marqueeTrack {
     animation: none;
+  }
+
+  .logoImage {
+    transition: none;
   }
 }

@@ -35,6 +35,12 @@ export default function Hero() {
         </div>
 
         <div className={styles.media}>
+          <div className={styles.decor} aria-hidden="true">
+            <span className={styles.ring} />
+            <span className={styles.groundShadow} />
+            <span className={styles.platform} />
+          </div>
+
           <div className={styles.imageWrapper}>
             <Image
               src={IMAGES.hero}
