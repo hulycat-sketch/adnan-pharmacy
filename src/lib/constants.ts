@@ -195,22 +195,23 @@ export const WHY_US = [
 // TODO: Replace logos with real insurance company images before production.
 // -----------------------------------------------------------------------------
 export const INSURANCE_COMPANIES = [
-  { name: "GIG Jordan", logo: "/images/insurance/gig.png" },
+  { name: "GIG Jordan", logo: "/images/insurance/gign.png" },
   { name: "GlobeMed", logo: "/images/insurance/globemed3.png" },
   { name: "MedNet", logo: "/images/insurance/mednet3.png" },
-  { name: "MedService", logo: "/images/insurance/medservice4.png" },
+  { name: "MedService", logo: "/images/insurance/medservicen.png" },
   { name: "Solidarity", logo: "/images/insurance/solidarity4.png" },
-  { name: "EuroArab", logo: "/images/insurance/euroarab3.png" },
-  { name: "Jordan Phosphate Mines", logo: "/images/insurance/phosphat2.png" },
-  { name: "Royalty", logo: "/images/insurance/royalty.png" },
-  { name: "Arab Assurers", logo: "/images/insurance/arabassurers2.png" },
+  { name: "EuroArab", logo: "/images/insurance/euroarabn.png" },
+  { name: "safwa bank",  logo: "/images/insurance/safwa.png" },
+  { name: "Arab Bank",  logo: "/images/insurance/arab-bank.png" },
+  { name: "Al Rajhi Bank",  logo: "/images/insurance/alrajhi-bank.png" },
   { name: "Hakeem", logo: "/images/insurance/hakeem.png" },
-  { name: "Al Manara", logo: "/images/insurance/almanara2.png" },
-  { name: "Al Nisir", logo: "/images/insurance/alnisir2.png" },
+  { name: "Lawyers Association",  logo: "/images/insurance/lawyers-association.png", },
+  { name: "Dental Association",  logo: "/images/insurance/dental-association.png", },
   { name: "NatHealth", logo: "/images/insurance/nathealth3.png" },
-  { name: "Newton", logo: "/images/insurance/newton1.png" },
+  { name: "Newton", logo: "/images/insurance/newtonn.png" },
   { name: "Medexa", logo: "/images/insurance/medexa1.png" },
   { name: "Omnicare", logo: "/images/insurance/omnicare3.png" },
+  { name: "Housing Bank", logo: "/images/insurance/housing-bank.png" },
 ] as const;
 
 
