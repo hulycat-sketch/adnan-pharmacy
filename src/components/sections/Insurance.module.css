@@ -36,11 +36,20 @@
   background-color: var(--color-secondary);
 }
 
-/* ===== الـ Marquee ===== */
+/* ===== صف الشعارات (Carousel) ===== */
+
+.marqueeRow {
+  position: relative;
+}
 
 .marqueeViewport {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   direction: ltr;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-inline: 56px;
   -webkit-mask-image: linear-gradient(
     to left,
     transparent 0,
@@ -57,47 +66,81 @@
   );
 }
 
+.marqueeViewport::-webkit-scrollbar {
+  display: none;
+}
+
+.marqueeViewport:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: -2px;
+}
+
 .marqueeTrack {
   display: flex;
   direction: ltr;
   align-items: center;
-  gap: 2.25rem;
+  gap: 1.5rem;
   width: max-content;
   list-style: none;
   margin: 0;
-  padding: 0 72px;
-  animation-name: scroll-rtl;
-  animation-duration: 60s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+  padding: 0;
 }
 
-.marqueeViewport:hover .marqueeTrack {
-  animation-play-state: paused;
+/* ===== أسهم التنقل ===== */
+
+.arrowBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-white);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-card);
+  transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-@keyframes scroll-rtl {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+.arrowBtn:hover {
+  background-color: var(--color-bg-section);
+  box-shadow: var(--shadow-hover);
 }
 
-/* ===== الشعار — عائم بدون بطاقة، بحجم بصري موحّد ===== */
+.arrowBtn:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+.arrowLeft {
+  left: 0;
+}
+
+.arrowRight {
+  right: 0;
+}
+
+/* ===== الشعار — عائم بدون بطاقة، بعرض طبيعي ضمن حدود متوازنة ===== */
 
 .logoTile {
   position: relative;
   flex-shrink: 0;
-  width: 158px;
-  height: 50px;
+  height: 52px;
+  min-width: 100px;
+  max-width: 170px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .logoImage {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
   object-fit: contain;
   opacity: 1;
   transition: transform var(--transition-base);
@@ -108,13 +151,23 @@
 }
 
 @media (max-width: 639px) {
+  .marqueeViewport {
+    padding-inline: 40px;
+  }
+
   .marqueeTrack {
-    gap: 1.5rem;
+    gap: 1rem;
   }
 
   .logoTile {
-    width: 126px;
-    height: 44px;
+    height: 40px;
+    min-width: 72px;
+    max-width: 130px;
+  }
+
+  .arrowBtn {
+    width: 32px;
+    height: 32px;
   }
 }
 
@@ -147,11 +200,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marqueeTrack {
-    animation: none;
-  }
-
   .logoImage {
     transition: none;
+  }
+
+  .marqueeViewport {
+    scroll-behavior: auto;
   }
 }
