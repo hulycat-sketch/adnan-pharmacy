@@ -213,6 +213,10 @@ export const INSURANCE_COMPANIES = [
   { name: "Omnicare", logo: "/images/insurance/omnicare3.png" },
   { name: "Housing Bank", logo: "/images/insurance/housing-bank.png" },
   { name: "Jordan Islamic Bank",  logo: "/images/insurance/jordan-islamic-bank.png", },
+  { name: "yarmouk university",  logo: "/images/insurance/yarmouk-university.png", },
+  { name: "jadara university",  logo: "/images/insurance/jadara-university.png", }, 
+  { name: "Cairo Amman Bank",  logo: "/images/insurance/cairo-amman-bank.png", },
+  { name: "bank aletihad",  logo: "/images/insurance/bank-aletihad.png", },     
 ] as const;
 
 
