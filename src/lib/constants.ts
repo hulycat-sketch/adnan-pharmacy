@@ -212,6 +212,7 @@ export const INSURANCE_COMPANIES = [
   { name: "Medexa", logo: "/images/insurance/medexa1.png" },
   { name: "Omnicare", logo: "/images/insurance/omnicare3.png" },
   { name: "Housing Bank", logo: "/images/insurance/housing-bank.png" },
+  { name: "Jordan Islamic Bank",  logo: "/images/insurance/jordan-islamic-bank.png", },
 ] as const;
 
 
@@ -219,8 +220,8 @@ export const INSURANCE_COMPANIES = [
 // 13. نصوص قسم الجهات المعتمدة
 // -----------------------------------------------------------------------------
 export const INSURANCE_SECTION = {
-  title:        'الجهات والمؤسسات المعتمدة',
-  subtitle:     'نفخر بتقديم خدماتنا لمنتسبي عدد من شركات التأمين والبنوك والجامعات والنقابات والجهات المعتمدة في المملكة.',
+  title:        'الجهات المعتمدة لدينا',
+  subtitle:     'شركات التأمين • البنوك • الجامعات • النقابات',
   viewAllLabel: 'عرض جميع الجهات المعتمدة',
 } as const
 

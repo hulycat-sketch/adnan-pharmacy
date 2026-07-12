@@ -28,16 +28,38 @@
 }
 
 .underline {
+  position: relative;
   display: block;
-  width: 3rem;
-  height: 3px;
-  margin-top: 0.75rem;
+  width: 2rem;
+  height: 4px;
+  margin-top: 1.25rem;
   border-radius: 9999px;
   background-color: var(--color-secondary);
 }
 
+.underline::before,
+.underline::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 90px;
+  height: 1px;
+  background-color: var(--color-border);
+  transform: translateY(-50%);
+}
+
+.underline::before {
+  right: 100%;
+  margin-right: 12px;
+}
+
+.underline::after {
+  left: 100%;
+  margin-left: 12px;
+}
+
 .subtitle {
-  margin-top: 0.75rem;
+  margin-top: 1rem;
   max-width: 640px;
 }
 
@@ -104,15 +126,16 @@
   width: 36px;
   height: 36px;
   border-radius: 9999px;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(226, 232, 240, 0.6);
   background-color: var(--color-bg-white);
   color: var(--color-primary);
-  box-shadow: var(--shadow-card);
-  transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: background-color var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
 }
 
 .arrowBtn:hover {
   background-color: var(--color-bg-section);
+  border-color: var(--color-border);
   box-shadow: var(--shadow-hover);
 }
 
@@ -197,7 +220,7 @@
   font-size: 0.9375rem;
   font-weight: 600;
   text-decoration: none;
-  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .viewAllBtn:hover {
