@@ -192,7 +192,7 @@ export default function Insurance() {
                     width={240}
                     height={80}
                     className={styles.logoImage}
-                    style={{ height: "100%", width: "auto" }}
+                    style={{ height: "100%", width: "100%" }}
                   />
                 </li>
               ))}
