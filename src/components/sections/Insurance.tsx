@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from "re
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { INSURANCE_COMPANIES } from "@/lib/constants";
+import { INSURANCE_COMPANIES, INSURANCE_SECTION } from "@/lib/constants";
 // عدّلي المسار أعلاه ليطابق مكان constants.ts الفعلي عندك
 
 import styles from "./Insurance.module.css";
@@ -152,9 +152,10 @@ export default function Insurance() {
       <div className={styles.container}>
         <div className={styles.heading}>
           <h2 id="insurance-heading" className={styles.title}>
-            شركات التأمين التي نتعامل معها
+            {INSURANCE_SECTION.title}
           </h2>
           <span className={styles.underline} aria-hidden="true" />
+          <p className={styles.subtitle}>{INSURANCE_SECTION.subtitle}</p>
         </div>
 
         <div className={styles.marqueeRow}>
@@ -210,7 +211,7 @@ export default function Insurance() {
 
         <div className={styles.actions}>
           <Link href="#insurance" className={styles.viewAllBtn}>
-            عرض جميع شركات التأمين
+            {INSURANCE_SECTION.viewAllLabel}
           </Link>
         </div>
       </div>
