@@ -30,7 +30,8 @@ export const PHARMACY = {
 // -----------------------------------------------------------------------------
 export const IMAGES = {
   logo:    '/images/logo.png',
-  hero: '/images/adnan-pharmacy.webp',
+  hero: '/images/desktop.webp',
+  heroMobile: '/images/heromobilenew.webp',
   ogImage: '/images/og-image.jpg',
   favicon: '/favicon.ico',
 } as const

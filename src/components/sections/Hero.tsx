@@ -1,10 +1,37 @@
-import Image from "next/image";
+import { getImageProps } from "next/image";
 import Link from "next/link";
 import { PHARMACY, IMAGES } from "@/lib/constants";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
   const description = PHARMACY.description;
+
+  const heroAlt = `واجهة ${PHARMACY.name} من الخارج`;
+
+  // Art Direction: صورة مخصّصة للموبايل عن الـDesktop عبر <picture> الطبيعي
+  // بالمتصفح — يضمن تحميل صورة واحدة فقط حسب عرض الشاشة، بدل تحميل
+  // الاثنتين ثم إخفاء واحدة بـCSS.
+  const {
+    props: { srcSet: heroMobileSrcSet },
+  } = getImageProps({
+    alt: heroAlt,
+    src: IMAGES.heroMobile,
+    width: 1536,
+    height: 1024,
+    quality: 82,
+    sizes: "100vw",
+    priority: true,
+  });
+
+  const { props: heroDesktopImgProps } = getImageProps({
+    alt: heroAlt,
+    src: IMAGES.hero,
+    width: 1536,
+    height: 1024,
+    quality: 82,
+    sizes: "(max-width: 1024px) 100vw, 50vw",
+    priority: true,
+  });
 
   return (
     <section className={styles.hero} aria-labelledby="hero-heading">
@@ -42,14 +69,11 @@ export default function Hero() {
           </div>
 
           <div className={styles.imageWrapper}>
-            <Image
-              src={IMAGES.hero}
-              alt={`واجهة ${PHARMACY.name} من الخارج`}
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className={styles.image}
-            />
+            <picture className={styles.picture}>
+              <source media="(max-width: 768px)" srcSet={heroMobileSrcSet} />
+              {/* eslint-disable-next-line jsx-a11y/alt-text */}
+              <img {...heroDesktopImgProps} className={styles.image} />
+            </picture>
           </div>
         </div>
       </div>
