@@ -44,7 +44,7 @@ export default function Hero() {
           <div className={styles.imageWrapper}>
             <Image
               src={IMAGES.hero}
-              alt={`${PHARMACY.name} - داخل الصيدلية`}
+              alt={`واجهة ${PHARMACY.name} من الخارج`}
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 50vw"
