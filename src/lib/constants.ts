@@ -18,7 +18,7 @@
 export const PHARMACY = {
   name:        'صيدلية عدنان',
   nameEn:      'Adnan Pharmacy',
-  slogan:      'رعايتكم الصحية تبدأ من هنا',
+  slogan:      'رعايتكم الصحية أولويتنا',
   description: 'أكثر من أربعة عقود من الثقة والرعاية الصحية في إربد، نقدم خدمات صيدلانية متخصصة واستشارات موثوقة، لنكون دائمًا بالقرب منكم.',
   foundedYear: 1981,
 } as const
@@ -44,7 +44,7 @@ export const IMAGES = {
 export const CONTACT = {
   phone:        '+962-2-000-0000',
   phoneDisplay: '02 000 0000',
-  whatsapp:     '+962790000000',
+  whatsapp:     '962799399751',
   email:        'info@adnanpharmacy.com',
   address:      'إربد، الأردن',
   addressFull:  'شارع الجامعة، إربد، الأردن',
@@ -64,6 +64,7 @@ export const MAP = {
   lng:      35.8469,
   zoom:     15,
   embedUrl: 'https://www.google.com/maps/embed?pb=...',
+  shareUrl: 'https://maps.app.goo.gl/ncFKLBf5Txh9aAyd7',
 } as const
 
 
@@ -74,7 +75,7 @@ export const MAP = {
 export const SOCIAL = {
   instagram: 'https://instagram.com/adnanpharmacy',
   facebook:  'https://facebook.com/adnanpharmacy',
-  whatsapp:  'https://wa.me/+962790000000',
+  whatsapp:  `https://wa.me/${CONTACT.whatsapp}`,
 } as const
 
 
@@ -147,21 +148,21 @@ export const SERVICES = [
   {
     id:          'consultation',
     title:       'استشارات صيدلانية',
-    description: 'استشارات دقيقة من صيدلانيين مختصين لمساعدتكم في اختيار العلاج الأمثل.',
+    description: 'إرشادات دوائية موثوقة من فريقنا الخبير لضمان استخدام الأدوية بشكل آمن وصحيح.',
     icon:        'Pill',
     href:        '/#services',
   },
   {
     id:          'blood-pressure',
     title:       'قياس الضغط والسكر',
-    description: 'خدمة مجانية ودقيقة لمتابعة صحتكم باستخدام أحدث الأجهزة.',
+    description: 'قياس سريع ودقيق للضغط والسكر لمتابعة صحتكم اليومية.',
     icon:        'HeartPulse',
     href:        '/#services',
   },
   {
     id:          'skin-check',
-    title:       'فحص البشرة',
-    description: 'فحص احترافي للبشرة بواسطة أجهزة متخصصة وبإشراف صيدلانيين متخصصين.',
+    title:       'فحص البشرة والشعر',
+    description: 'فحص احترافي للبشرة والشعر بأجهزة متخصصة وبإشراف صيادلة مختصين.',
     icon:        'ScanFace',
     href:        '/#skin-check',
   },

@@ -1,6 +1,5 @@
 import { getImageProps } from "next/image";
-import Link from "next/link";
-import { PHARMACY, IMAGES } from "@/lib/constants";
+import { PHARMACY, IMAGES, SOCIAL, MAP } from "@/lib/constants";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
@@ -45,24 +44,35 @@ export default function Hero() {
           <h1 id="hero-heading" className={styles.title}>
   رعايتكم الصحية
   <br />
-  <span className={styles.highlight}>تبدأ من هنا</span>
+  <span className={styles.highlight}>أولويتنا</span>
 </h1>
 
           <p className={styles.description}>{description}</p>
 
           <div className={styles.actions}>
-            <Link href="/#services" className={styles.ctaPrimary}>
-              خدماتنا
-            </Link>
+            <a
+              href={SOCIAL.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.ctaPrimary}
+            >
+              تواصل معنا
+            </a>
 
-            <Link href="/#insurance" className={styles.ctaSecondary}>
-              شركات التأمين
-            </Link>
+            <a
+              href={MAP.shareUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.ctaSecondary}
+            >
+              موقعنا
+            </a>
           </div>
         </div>
 
         <div className={styles.media}>
           <div className={styles.decor} aria-hidden="true">
+            <span className={styles.capsuleAccent} />
             <span className={styles.ring} />
             <span className={styles.groundShadow} />
             <span className={styles.platform} />
