@@ -155,6 +155,15 @@
 
 .media {
   position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 1023px) {
+  .media {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
 }
 
 /* ===== زخارف هندسية مستوحاة من شعار الصيدلية (خلف الصورة فقط) — نفس لغة الأقواس أعلاه ===== */
@@ -242,18 +251,12 @@
   background: transparent;
 }
 
-.picture {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
 .image {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
-  transform: scale(1.13);
+  object-position: center;
 }
 @media (max-width: 1023px) {
   .content {
@@ -276,7 +279,8 @@
   }
 
   .image {
-    transform: scale(1);
+    object-fit: cover;
+    object-position: 20% center;
   }
 
   .imageWrapper {
@@ -296,39 +300,118 @@
   }
 }
 
-/* ===== الموبايل الصغير — صورة مخصصة + إعادة ترتيب ===== */
-@media (max-width: 768px) {
-  .content {
-    order: 2;
+/* ===== الموبايل المتوسط (480–768px) — عمودان داخل بطاقة واحدة: الصورة 45% / النص 55% ===== */
+@media (min-width: 480px) and (max-width: 768px) {
+  .heroCard {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-card);
+    margin: 1.5rem auto;
   }
 
   .media {
-    order: 1;
+    position: relative;
+    z-index: 1;
+    flex: 0 0 45%;
+    max-width: 45%;
+    margin: 0;
+    padding: 0;
   }
 
   .imageWrapper {
-    width: 92%;
-    aspect-ratio: 3 / 2;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    margin: 0;
+    border-radius: 0;
   }
 
   .image {
-    transform: scale(1.05);
+    object-fit: cover;
+    object-position: 20% center;
+  }
+
+  .decor {
+    display: none;
+  }
+
+  .container {
+    flex: 1 1 55%;
+    max-width: 55%;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 1.25rem 1rem;
+  }
+
+  .content {
+    align-items: flex-start;
+    text-align: right;
+  }
+
+  .badge {
+    font-size: 0.72rem;
+    padding: 0.35rem 0.7rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .title {
+    font-size: 1.6rem;
+    line-height: 1.25;
+  }
+
+  .description {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    margin-top: 0.6rem;
+    max-width: none;
+  }
+
+  .actions {
+    justify-content: flex-start;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .ctaPrimary,
+  .ctaSecondary {
+    padding: 0.5rem 0.85rem;
+    font-size: 0.78rem;
+    white-space: nowrap;
+  }
+}
+
+/* ===== الموبايل الصغير جداً (أقل من 480px) — نفس التكديس الحالي، بشكل أكثر إحكامًا ===== */
+@media (max-width: 479px) {
+  .imageWrapper {
+    width: 88%;
+    aspect-ratio: 16 / 10;
   }
 
   .ring {
     opacity: 0.06;
   }
 
+  .badge {
+    margin-bottom: 1rem;
+  }
+
   .title {
-    font-size: 1.95rem;
+    font-size: 1.65rem;
   }
 
   .description {
-    font-size: 0.94rem;
+    font-size: 0.9rem;
+    margin-top: 0.85rem;
   }
 
   .actions {
-    gap: 0.75rem;
+    gap: 0.6rem;
+    margin-top: 1.25rem;
   }
 
   .ctaPrimary,
@@ -340,22 +423,79 @@
 }
 
 @media (min-width: 1024px) {
+  .heroCard {
+    position: relative;
+    overflow: hidden;
+    max-width: 1180px;
+    width: calc(100% - 72px);
+    margin-inline: auto;
+    margin-top: 2rem;
+    margin-bottom: 1.25rem;
+    min-height: 360px;
+    border-radius: 22px;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-card);
+  }
+
   .container {
-    grid-template-columns: 1fr 1.2fr;
-    gap: 2.25rem;
-    padding: 3.5rem 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 360px;
+    padding: 1.75rem 2.5rem;
   }
 
   .content {
-    order: 1;
+    max-width: 460px;
   }
 
-  .media {
-    order: 2;
+  .badge {
+    font-size: 0.79rem;
+    padding: 0.45rem 0.9rem;
   }
 
   .title {
-    font-size: 3.25rem;
+    font-size: 2.3rem;
+    line-height: 1.2;
+  }
+
+  .description {
+    font-size: 0.95rem;
+    line-height: 1.9;
+  }
+
+  .ctaPrimary,
+  .ctaSecondary {
+    padding: 0.7rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .decor {
+    display: none;
+  }
+
+  .media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .imageWrapper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    border-radius: 0;
+  }
+
+  .image {
+    object-fit: cover;
+    object-position: 20% 70%;
   }
 }
 

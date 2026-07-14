@@ -30,7 +30,7 @@ export const PHARMACY = {
 // -----------------------------------------------------------------------------
 export const IMAGES = {
   logo:    '/images/logo.png',
-  hero: '/images/desktop.webp',
+  hero: '/images/hero-counter-v3.webp',
   heroMobile: '/images/heromobilenew.webp',
   ogImage: '/images/og-image.jpg',
   favicon: '/favicon.ico',
