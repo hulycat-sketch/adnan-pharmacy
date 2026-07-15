@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { generatePageMetadata } from "@/lib/metadata";
-import { SERVICE_DETAILS } from "@/lib/constants";
+import { SERVICE_DETAILS, TRUSTED_BRANDS } from "@/lib/constants";
 import ServicesHero from "@/components/sections/ServicesHero";
 import ServiceSection from "@/components/sections/ServiceSection";
+import TrustedBrandsMarquee from "@/components/sections/TrustedBrandsMarquee";
 
 export const metadata: Metadata = generatePageMetadata({
   title: "خدماتنا",
@@ -75,6 +76,8 @@ export default function ServicesPage() {
         imagePosition="left"
         lastBeforeMarquee
       />
+
+      <TrustedBrandsMarquee brands={TRUSTED_BRANDS} />
     </>
   );
 }

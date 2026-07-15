@@ -233,6 +233,24 @@ export const SERVICE_DETAILS = [
 
 
 // -----------------------------------------------------------------------------
+// 9ج. العلامات التجارية الموثوقة — لشريط TrustedBrandsMarquee
+// TODO: استبدلي الشعارات المؤقتة (placeholder-brand-*.svg) بالشعارات الفعلية
+//       داخل public/images/brands/ — تسمية الملفات: kebab-case بالإنجليزي
+//       مطابق لاسم العلامة (مثال: cerave.png). الصيغة المفضّلة: SVG، وإلا
+//       WebP، وإلا PNG. خاصية scale اختيارية للتحكم بحجم شعار معيّن لو كانت
+//       أبعاده الأصلية تخليه يبين أصغر/أكبر من الباقي بصريًا.
+// -----------------------------------------------------------------------------
+export const TRUSTED_BRANDS = [
+  { name: 'Brand One',   logo: '/images/brands/placeholder-brand-1.svg' },
+  { name: 'Derma+',      logo: '/images/brands/placeholder-brand-2.svg', scale: 0.9 },
+  { name: 'PureCare',    logo: '/images/brands/placeholder-brand-3.svg' },
+  { name: 'Vitaline',    logo: '/images/brands/placeholder-brand-4.svg' },
+  { name: 'Niva',        logo: '/images/brands/placeholder-brand-5.svg', scale: 1.1 },
+  { name: 'Skin & Co',   logo: '/images/brands/placeholder-brand-6.svg' },
+] as const
+
+
+// -----------------------------------------------------------------------------
 // 10. الإحصائيات
 // -----------------------------------------------------------------------------
 export const STATS = [

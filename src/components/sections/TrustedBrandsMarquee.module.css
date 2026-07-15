@@ -1,0 +1,163 @@
+.section {
+  background: var(--color-bg);
+  padding: 1.5rem 0 2.5rem;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-inline: 1.5rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.underline {
+  display: block;
+  width: 2rem;
+  height: 4px;
+  margin-top: 1.25rem;
+  border-radius: 9999px;
+  background-color: var(--color-secondary);
+}
+
+.description {
+  margin-top: 1rem;
+  max-width: 640px;
+}
+
+/* ===== شريط الشعارات ===== */
+
+.viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  direction: ltr;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-inline: 32px;
+  cursor: grab;
+  -webkit-mask-image: linear-gradient(
+    to left,
+    transparent 0,
+    black 32px,
+    black calc(100% - 32px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to left,
+    transparent 0,
+    black 32px,
+    black calc(100% - 32px),
+    transparent 100%
+  );
+}
+
+.viewport:active {
+  cursor: grabbing;
+}
+
+.viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.viewport:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: -2px;
+}
+
+.track {
+  display: flex;
+  direction: ltr;
+  align-items: center;
+  gap: 1.5rem;
+  width: max-content;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tile {
+  flex-shrink: 0;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+/* ===== Tablet (769px فما فوق) ===== */
+@media (min-width: 769px) {
+  .section {
+    padding: 2rem 0 3rem;
+  }
+
+  .viewport {
+    padding-inline: 48px;
+    -webkit-mask-image: linear-gradient(
+      to left,
+      transparent 0,
+      black 48px,
+      black calc(100% - 48px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to left,
+      transparent 0,
+      black 48px,
+      black calc(100% - 48px),
+      transparent 100%
+    );
+  }
+
+  .track {
+    gap: 2.5rem;
+  }
+
+  .tile {
+    height: 68px;
+  }
+}
+
+/* ===== Desktop (1024px فما فوق) ===== */
+@media (min-width: 1024px) {
+  .section {
+    padding: 2rem 0 3.5rem;
+  }
+
+  .viewport {
+    padding-inline: 64px;
+    -webkit-mask-image: linear-gradient(
+      to left,
+      transparent 0,
+      black 64px,
+      black calc(100% - 64px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to left,
+      transparent 0,
+      black 64px,
+      black calc(100% - 64px),
+      transparent 100%
+    );
+  }
+
+  .track {
+    gap: 3.5rem;
+  }
+
+  .tile {
+    height: 82px;
+  }
+}
