@@ -300,12 +300,12 @@
   }
 }
 
-/* ===== الموبايل المتوسط (480–768px) — عمودان داخل بطاقة واحدة: الصورة 45% / النص 55% ===== */
-@media (min-width: 480px) and (max-width: 768px) {
+/* ===== كل مقاسات الموبايل (حتى 768px) — صف علوي: صورة + شارة/عنوان، صف سفلي: وصف/أزرار بعرض كامل ===== */
+@media (max-width: 768px) {
   .heroCard {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
+    display: grid;
+    grid-template-columns: 45% 55%;
+    grid-template-areas: "media top" "bottom bottom";
     overflow: hidden;
     border-radius: 20px;
     border: 1px solid var(--color-border);
@@ -314,10 +314,9 @@
   }
 
   .media {
+    grid-area: media;
     position: relative;
     z-index: 1;
-    flex: 0 0 45%;
-    max-width: 45%;
     margin: 0;
     padding: 0;
   }
@@ -339,85 +338,101 @@
     display: none;
   }
 
+  /* .container و.content يفقدان صندوقهما هون فقط، عشان contentTop/contentBottom
+     يصيروا عناصر Grid مباشرة بجانب .media — بدون أي تأثير على باقي المقاسات */
   .container {
-    flex: 1 1 55%;
-    max-width: 55%;
-    display: flex;
-    align-items: center;
-    gap: 0;
-    padding: 1.25rem 1rem;
+    display: contents;
   }
 
   .content {
+    display: contents;
+  }
+
+  .contentTop {
+    grid-area: top;
+    display: flex;
+    flex-direction: column;
     align-items: flex-start;
+    justify-content: center;
     text-align: right;
+    padding: 1rem 1rem 0.75rem;
+  }
+
+  .contentBottom {
+    grid-area: bottom;
+    padding: 0.75rem 1rem 1.25rem;
   }
 
   .badge {
     font-size: 0.72rem;
     padding: 0.35rem 0.7rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.65rem;
   }
 
   .title {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     line-height: 1.25;
   }
 
   .description {
-    font-size: 0.82rem;
-    line-height: 1.6;
-    margin-top: 0.6rem;
+    font-size: 0.85rem;
+    line-height: 1.65;
+    margin-top: 0;
     max-width: none;
   }
 
   .actions {
     justify-content: flex-start;
-    gap: 0.5rem;
-    margin-top: 1rem;
+    gap: 0.6rem;
+    margin-top: 0.85rem;
   }
 
   .ctaPrimary,
   .ctaSecondary {
-    padding: 0.5rem 0.85rem;
-    font-size: 0.78rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
     white-space: nowrap;
   }
 }
 
-/* ===== الموبايل الصغير جداً (أقل من 480px) — نفس التكديس الحالي، بشكل أكثر إحكامًا ===== */
-@media (max-width: 479px) {
-  .imageWrapper {
-    width: 88%;
-    aspect-ratio: 16 / 10;
+/* ===== الموبايل الضيق جداً (أقل من 400px) — تضييق العمودين وتصغير النص أكثر ===== */
+@media (max-width: 399px) {
+  .heroCard {
+    grid-template-columns: 40% 60%;
   }
 
-  .ring {
-    opacity: 0.06;
+  .contentTop {
+    padding: 0.75rem 0.75rem 0.5rem;
+  }
+
+  .contentBottom {
+    padding: 0.5rem 0.75rem 1rem;
   }
 
   .badge {
-    margin-bottom: 1rem;
+    font-size: 0.66rem;
+    padding: 0.3rem 0.6rem;
+    margin-bottom: 0.5rem;
   }
 
   .title {
-    font-size: 1.65rem;
+    font-size: 1.3rem;
   }
 
   .description {
-    font-size: 0.9rem;
-    margin-top: 0.85rem;
+    font-size: 0.8rem;
+    line-height: 1.6;
   }
 
   .actions {
-    gap: 0.6rem;
-    margin-top: 1.25rem;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
   }
 
   .ctaPrimary,
   .ctaSecondary {
-    padding: 0.55rem 1rem;
-    font-size: 0.85rem;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.78rem;
     white-space: nowrap;
   }
 }

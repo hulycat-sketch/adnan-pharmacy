@@ -34,37 +34,41 @@ export default function Hero() {
 
         <div className={styles.container}>
           <div className={styles.content}>
-            <span className={styles.badge}>
-              <span className={styles.badgeDot} aria-hidden="true" />
-              ثقة ورعاية منذ {PHARMACY.foundedYear}
-            </span>
+            <div className={styles.contentTop}>
+              <span className={styles.badge}>
+                <span className={styles.badgeDot} aria-hidden="true" />
+                ثقة ورعاية منذ {PHARMACY.foundedYear}
+              </span>
 
-            <h1 id="hero-heading" className={styles.title}>
+              <h1 id="hero-heading" className={styles.title}>
     رعايتكم الصحية
     <br />
     <span className={styles.highlight}>أولويتنا</span>
   </h1>
+            </div>
 
-            <p className={styles.description}>{description}</p>
+            <div className={styles.contentBottom}>
+              <p className={styles.description}>{description}</p>
 
-            <div className={styles.actions}>
-              <a
-                href={SOCIAL.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.ctaPrimary}
-              >
-                تواصل معنا
-              </a>
+              <div className={styles.actions}>
+                <a
+                  href={SOCIAL.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.ctaPrimary}
+                >
+                  تواصل معنا
+                </a>
 
-              <a
-                href={MAP.shareUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.ctaSecondary}
-              >
-                موقعنا
-              </a>
+                <a
+                  href={MAP.shareUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.ctaSecondary}
+                >
+                  موقعنا
+                </a>
+              </div>
             </div>
           </div>
         </div>
