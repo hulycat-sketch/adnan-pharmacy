@@ -298,6 +298,7 @@ export const INSURANCE_COMPANIES = [
   { name: "safwa bank",  logo: "/images/insurance/safwa1.png" },
   { name: "yarmouk university",  logo: "/images/insurance/yarmouk-university.png", },
   { name: "jadara university",  logo: "/images/insurance/jadara-university.png", },
+  { name: "philadelphia university",  logo: "/images/insurance/philadelphia-university.png", },
   { name: "Lawyers Association",  logo: "/images/insurance/lawyers-association.png", },
   { name: "Dental Association",  logo: "/images/insurance/dental-association.png", },
 ] as const;
