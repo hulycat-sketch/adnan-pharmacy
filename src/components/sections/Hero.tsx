@@ -34,21 +34,17 @@ export default function Hero() {
 
         <div className={styles.container}>
           <div className={styles.content}>
-            <div className={styles.contentTop}>
-              <span className={styles.badge}>
-                <span className={styles.badgeDot} aria-hidden="true" />
-                ثقة ورعاية منذ {PHARMACY.foundedYear}
-              </span>
+            <span className={styles.badge}>
+              <span className={styles.badgeDot} aria-hidden="true" />
+              ثقة ورعاية منذ {PHARMACY.foundedYear}
+            </span>
 
+            <div className={styles.contentTop}>
               <h1 id="hero-heading" className={styles.title}>
     رعايتكم الصحية
     <br />
     <span className={styles.highlight}>أولويتنا</span>
   </h1>
-            </div>
-
-            <div className={styles.contentBottom}>
-              <p className={styles.description}>{description}</p>
 
               <div className={styles.actions}>
                 <a
@@ -70,6 +66,8 @@ export default function Hero() {
                 </a>
               </div>
             </div>
+
+            <p className={styles.description}>{description}</p>
           </div>
         </div>
       </div>
