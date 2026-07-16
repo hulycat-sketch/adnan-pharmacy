@@ -12,16 +12,18 @@
 //
 // =============================================================================
 
-import { useState }                             from 'react'
-import Link                                     from 'next/link'
-import Image                                    from 'next/image'
-import { NAV_LINKS, PHARMACY, IMAGES, CONTACT } from '@/lib/constants'
-import styles                                   from './Header.module.css'
+import { useState }                    from 'react'
+import Link                            from 'next/link'
+import Image                           from 'next/image'
+import { usePathname }                 from 'next/navigation'
+import { NAV_LINKS, PHARMACY, IMAGES } from '@/lib/constants'
+import styles                          from './Header.module.css'
 
 
 export default function Header() {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const pathname = usePathname()
 
   return (
     <header className={styles.header} role="banner">
@@ -45,7 +47,7 @@ height={44}
 <div className={styles.logoContent}>
   <span className={styles.logoText}>{PHARMACY.name}</span>
   <span className={styles.logoSince}>منذ عام 1981</span>
-</div>       
+</div>
  </Link>
 
         {/* ------------------------------------------------------------------ */}
@@ -53,31 +55,26 @@ height={44}
         {/* ------------------------------------------------------------------ */}
         <nav className={styles.desktopNav} aria-label="القائمة الرئيسية">
           <ul className={styles.navList}>
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className={styles.navLink}>
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const isActive = link.href === pathname
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className={`${styles.navLink} ${isActive ? styles.active : ''}`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              )
+            })}
           </ul>
         </nav>
 
         {/* ------------------------------------------------------------------ */}
-        {/* CTA + Hamburger */}
+        {/* Hamburger — Mobile */}
         {/* ------------------------------------------------------------------ */}
         <div className={styles.actions}>
-
-          {/* زر تواصل معنا — Desktop */}
-          <a
-            href={`tel:${CONTACT.phone}`}
-            className={`${styles.ctaBtn} ${styles.ctaDesktop}`}
-            aria-label="اتصل بصيدلية عدنان"
-          >
-            تواصل معنا
-          </a>
-
-          {/* زر Hamburger — Mobile */}
           <button
             className={styles.hamburger}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -89,7 +86,6 @@ height={44}
             <span className={`${styles.bar} ${isMenuOpen ? styles.barMid : ''}`}    />
             <span className={`${styles.bar} ${isMenuOpen ? styles.barBot : ''}`}    />
           </button>
-
         </div>
       </div>
 
@@ -103,27 +99,20 @@ height={44}
           aria-label="قائمة الموبايل"
         >
           <ul className={`container ${styles.mobileList}`}>
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className={styles.mobileLink}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-
-            <li className={styles.mobileCta}>
-              <a
-                href={`tel:${CONTACT.phone}`}
-                className={styles.ctaBtn}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                تواصل معنا
-              </a>
-            </li>
+            {NAV_LINKS.map((link) => {
+              const isActive = link.href === pathname
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className={`${styles.mobileLink} ${isActive ? styles.active : ''}`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              )
+            })}
           </ul>
         </nav>
       )}

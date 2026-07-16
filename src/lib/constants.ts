@@ -118,12 +118,12 @@ export const SEO = {
 // 8. روابط التنقل
 // -----------------------------------------------------------------------------
 export const NAV_LINKS = [
-  { label: 'الرئيسية',      href: '/'           },
-  { label: 'من نحن',        href: '/#about'      },
-  { label: 'خدماتنا',       href: '/#services'   },
-  { label: 'شركات التأمين', href: '/#insurance'  },
-  { label: 'فحص البشرة',    href: '/#skin-check' },
-  { label: 'المدونة',       href: '/blog'        },
+  { label: 'الرئيسية',    href: '/'                    },
+  { label: 'نبذة عنا',    href: '/#about'              },
+  { label: 'خدماتنا',     href: '/services'            },
+  { label: 'موقعنا',      href: MAP.shareUrl           },
+  { label: 'المدونة',     href: '/blog'                },
+  { label: 'تواصل معنا',  href: `tel:${CONTACT.phone}` },
  ] as const
 
 
