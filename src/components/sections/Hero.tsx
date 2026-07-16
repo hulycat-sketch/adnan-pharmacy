@@ -10,64 +10,54 @@ export default function Hero() {
   return (
     <section className={styles.hero} aria-labelledby="hero-heading">
       <div className={styles.heroCard}>
-        <div className={styles.media}>
-          <div className={styles.decor} aria-hidden="true">
-            <span className={styles.capsuleAccent} />
-            <span className={styles.ring} />
-            <span className={styles.groundShadow} />
-            <span className={styles.platform} />
-          </div>
-
+        <div className={styles.imageCol}>
           <div className={styles.imageWrapper}>
             <Image
               src={IMAGES.hero}
               alt={heroAlt}
-              width={1659}
-              height={948}
+              fill
               quality={90}
-              sizes="100vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) 52vw, 56vw"
               priority
               className={styles.image}
             />
           </div>
         </div>
 
-        <div className={styles.container}>
+        <div className={styles.contentCol}>
           <div className={styles.content}>
             <span className={styles.badge}>
               <span className={styles.badgeDot} aria-hidden="true" />
               ثقة ورعاية منذ {PHARMACY.foundedYear}
             </span>
 
-            <div className={styles.contentTop}>
-              <h1 id="hero-heading" className={styles.title}>
-    رعايتكم الصحية
-    <br />
-    <span className={styles.highlight}>أولويتنا</span>
-  </h1>
-
-              <div className={styles.actions}>
-                <a
-                  href={SOCIAL.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.ctaPrimary}
-                >
-                  تواصل معنا
-                </a>
-
-                <a
-                  href={MAP.shareUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.ctaSecondary}
-                >
-                  موقعنا
-                </a>
-              </div>
-            </div>
+            <h1 id="hero-heading" className={styles.title}>
+              رعايتكم الصحية
+              <br />
+              <span className={styles.highlight}>أولويتنا</span>
+            </h1>
 
             <p className={styles.description}>{description}</p>
+
+            <div className={styles.actions}>
+              <a
+                href={SOCIAL.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.ctaPrimary}
+              >
+                تواصل معنا
+              </a>
+
+              <a
+                href={MAP.shareUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.ctaSecondary}
+              >
+                موقعنا
+              </a>
+            </div>
           </div>
         </div>
       </div>
