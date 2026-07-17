@@ -1,9 +1,14 @@
 "use client";
 
-import { useCallback, useRef, type KeyboardEvent } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type KeyboardEvent,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useMarqueeScroll } from "@/lib/useMarqueeScroll";
 import styles from "./TrustedBrandsMarquee.module.css";
 
 type Brand = {
@@ -17,61 +22,187 @@ type TrustedBrandsMarqueeProps = {
   title?: string;
   description?: string;
   brands: readonly Brand[];
-  /** بكسل/ثانية — سرعة السحب التلقائي (افتراضيًا 36، بطيئة وهادئة) */
+  /** بكسل/ثانية — سرعة الانزلاق المستمر */
   speed?: number;
 };
 
 const MIN_TILES_PER_LOOP = 14;
-// نفس القيم المستخدمة بالضبط بشريط "الجهات المعتمدة" — للحفاظ على سلوك مطابق
-const TILES_PER_JUMP_DESKTOP = 2;
-const TILES_PER_JUMP_MOBILE = 1;
-const MOBILE_QUERY = "(max-width: 639px)";
 // تصغير بصري عام لكل الشعارات (~12%) — بيتضرب مع scale كل علامة على حدة
 // فبيحافظ على نفس الفروقات النسبية بينهم بالضبط، بس بحجم إجمالي أخف وأهدأ
 const GLOBAL_LOGO_SCALE = 0.88;
+const RESUME_DELAY_MS = 3000;
+const KEYBOARD_NUDGE_PX = 150;
 
 export default function TrustedBrandsMarquee({
   title,
   description,
   brands,
-  speed = 36,
+  speed = 40,
 }: TrustedBrandsMarqueeProps) {
-  const { viewportRef, pauseAndScheduleResume } = useMarqueeScroll(speed);
   const trackRef = useRef<HTMLUListElement>(null);
+  const rafRef = useRef<number | null>(null);
+  const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isPausedRef = useRef(false);
+  const isDraggingRef = useRef(false);
+  const dragStartXRef = useRef(0);
+  const dragStartPositionRef = useRef(0);
+  // موضع الانزلاق الحالي (بكسل) — المصدر الوحيد للحقيقة، سواء تغيّر
+  // بالحركة التلقائية أو بالسحب اليدوي، فما في أي Resync أو قفزة عند التبديل بينهم
+  const positionRef = useRef(0);
+  // عرض نسخة واحدة من الشعارات (نصف عرض المسار المضاعف) — أساس اللفّة اللانهائية
+  const loopWidthRef = useRef(0);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
-  // قفزة السهم: نفس منطق شريط "الجهات المعتمدة" بالضبط — تُحسب ديناميكيًا
-  // من عرض بلاطة واحدة فعلية + الفراغ الحقيقي بينها
-  const scrollByTiles = useCallback(
-    (direction: 1 | -1) => {
-      const viewport = viewportRef.current;
-      const trackEl = trackRef.current;
-      if (!viewport || !trackEl) return;
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(query.matches);
+    const onChange = () => setReducedMotion(query.matches);
+    query.addEventListener("change", onChange);
+    return () => query.removeEventListener("change", onChange);
+  }, []);
 
-      const firstTile = trackEl.firstElementChild as HTMLElement | null;
-      const tileWidth = firstTile?.getBoundingClientRect().width ?? 150;
-      const gapPx = parseFloat(getComputedStyle(trackEl).columnGap || "0") || 0;
+  const pauseAndScheduleResume = useCallback(() => {
+    isPausedRef.current = true;
+    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+    resumeTimeoutRef.current = setTimeout(() => {
+      isPausedRef.current = false;
+    }, RESUME_DELAY_MS);
+  }, []);
 
-      const isMobile = window.matchMedia(MOBILE_QUERY).matches;
-      const tilesPerJump = isMobile ? TILES_PER_JUMP_MOBILE : TILES_PER_JUMP_DESKTOP;
-      const step = tilesPerJump * (tileWidth + gapPx);
+  // استئناف فوري — يلغي أي مؤقّت استئناف مؤجَّل وينهي الإيقاف فورًا. بنستخدمها
+  // عند رفع الإصبع/الماوس فعليًا، بدل الاعتماد بس على مؤقّت الـ3 ثوانٍ اللي
+  // انضبط لحظة الضغط (وهذا بالضبط سبب "علوق" الشريط بحالة إيقاف بعد رفع
+  // الإصبع لو الضغطة كانت أطول من 3 ثوانٍ أو حصل تفاعل إضافي بعدها)
+  const resumeNow = useCallback(() => {
+    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+    isPausedRef.current = false;
+  }, []);
 
+  const applyTransform = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    track.style.transform = `translateX(${-positionRef.current}px)`;
+  }, []);
+
+  // لفّة لا نهائية سلسة تمامًا: طرح/إضافة عرض نسخة واحدة بالضبط عند تجاوز
+  // الحدّ — بما إن المسار مضاعف (نسختان متطابقتان)، هذا التصحيح ما بيغيّر
+  // شكل الشريط المرئي إطلاقًا، فما في أي قفزة أو Snapping محسوس
+  const wrapPosition = useCallback(() => {
+    const loopWidth = loopWidthRef.current;
+    if (loopWidth <= 0) return;
+    if (positionRef.current >= loopWidth) {
+      positionRef.current -= loopWidth;
+    } else if (positionRef.current < 0) {
+      positionRef.current += loopWidth;
+    }
+  }, []);
+
+  // قياس عرض نسخة واحدة من الشعارات — يُعاد حسابه تلقائيًا لو تغيّر عدد
+  // العلامات لاحقًا (بدون ما يأثر على سلاسة الحركة، لأن السرعة ثابتة
+  // بالبكسل/ثانية مش مدة إجمالية ثابتة)
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const measure = () => {
+      loopWidthRef.current = track.scrollWidth / 2;
+    };
+
+    measure();
+    const resizeObserver = new ResizeObserver(measure);
+    resizeObserver.observe(track);
+    return () => resizeObserver.disconnect();
+  }, [brands]);
+
+  // الانزلاق المستمر بسرعة ثابتة (بكسل/ثانية) — بدون Snapping أو قفزة مرئية
+  useEffect(() => {
+    if (reducedMotion) return;
+
+    let lastTime: number | null = null;
+
+    const tick = (timestamp: number) => {
+      if (!isPausedRef.current && !isDraggingRef.current && lastTime !== null) {
+        const deltaSeconds = (timestamp - lastTime) / 1000;
+        positionRef.current += speed * deltaSeconds;
+        wrapPosition();
+        applyTransform();
+      }
+      lastTime = isPausedRef.current || isDraggingRef.current ? null : timestamp;
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
+  }, [reducedMotion, speed, wrapPosition, applyTransform]);
+
+  // سحب بالماوس أو اللمس — بيحرّك نفس متغيّر الموضع (positionRef) مباشرة،
+  // فما في أي إعادة مزامنة أو قفزة لحظة الإفلات (نفس المصدر دايمًا)
+  const handlePointerDown = useCallback(
+    (event: ReactPointerEvent<HTMLDivElement>) => {
       pauseAndScheduleResume();
-      viewport.scrollBy({ left: direction * step, behavior: "smooth" });
+      isDraggingRef.current = true;
+      dragStartXRef.current = event.clientX;
+      dragStartPositionRef.current = positionRef.current;
+      event.currentTarget.setPointerCapture(event.pointerId);
     },
-    [viewportRef, pauseAndScheduleResume]
+    [pauseAndScheduleResume]
+  );
+
+  const handlePointerMove = useCallback(
+    (event: ReactPointerEvent<HTMLDivElement>) => {
+      if (!isDraggingRef.current) return;
+      const delta = event.clientX - dragStartXRef.current;
+      positionRef.current = dragStartPositionRef.current - delta;
+      wrapPosition();
+      applyTransform();
+    },
+    [wrapPosition, applyTransform]
+  );
+
+  // pointerup / pointercancel — انتهى التفاعل فعليًا (إصبع اتّرفع أو انلغى)،
+  // فبيستأنف فورًا بدون انتظار أي مؤقّت
+  const endDrag = useCallback(
+    (event: ReactPointerEvent<HTMLDivElement>) => {
+      isDraggingRef.current = false;
+      const viewport = event.currentTarget;
+      if (viewport.hasPointerCapture(event.pointerId)) {
+        viewport.releasePointerCapture(event.pointerId);
+      }
+      resumeNow();
+    },
+    [resumeNow]
+  );
+
+  // pointerleave — بيستأنف بس لو ما في سحب فعليًا شغّال حاليًا (لو الإصبع
+  // خرج من حدود العنصر بينما لسا مضغوط تحت Pointer Capture، منسيب الأمر
+  // لـpointerup/pointercancel اللي رح توصل لاحقًا لتنضيف الحالة صح)
+  const handlePointerLeave = useCallback(
+    (event: ReactPointerEvent<HTMLDivElement>) => {
+      if (isDraggingRef.current) return;
+      resumeNow();
+    },
+    [resumeNow]
   );
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLDivElement>) => {
       if (event.key === "ArrowRight") {
         event.preventDefault();
-        scrollByTiles(1);
+        pauseAndScheduleResume();
+        positionRef.current -= KEYBOARD_NUDGE_PX;
+        wrapPosition();
+        applyTransform();
       } else if (event.key === "ArrowLeft") {
         event.preventDefault();
-        scrollByTiles(-1);
+        pauseAndScheduleResume();
+        positionRef.current += KEYBOARD_NUDGE_PX;
+        wrapPosition();
+        applyTransform();
       }
     },
-    [scrollByTiles]
+    [pauseAndScheduleResume, wrapPosition, applyTransform]
   );
 
   if (brands.length === 0) return null;
@@ -91,55 +222,38 @@ export default function TrustedBrandsMarquee({
           </div>
         )}
 
-        <div className={styles.marqueeRow}>
-          <button
-            type="button"
-            className={`${styles.arrowBtn} ${styles.arrowLeft}`}
-            aria-label="الشعار السابق"
-            onClick={() => scrollByTiles(-1)}
-          >
-            <ChevronLeft size={20} aria-hidden="true" />
-          </button>
-
-          <div
-            ref={viewportRef}
-            className={styles.viewport}
-            role="region"
-            aria-label={title ?? "العلامات التجارية الموثوقة"}
-            tabIndex={0}
-            onMouseEnter={pauseAndScheduleResume}
-            onPointerDown={pauseAndScheduleResume}
-            onFocus={pauseAndScheduleResume}
-            onKeyDown={handleKeyDown}
-          >
-            <ul ref={trackRef} className={styles.track}>
-              {track.map((brand, index) => (
-                <li
-                  key={`${brand.name}-${index}`}
-                  className={styles.tile}
-                  aria-hidden={index >= loopUnit.length}
-                >
-                  <Image
-                    src={brand.logo}
-                    alt={brand.name}
-                    width={220}
-                    height={90}
-                    className={styles.logo}
-                    style={{ transform: `scale(${(brand.scale ?? 1) * GLOBAL_LOGO_SCALE})` }}
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <button
-            type="button"
-            className={`${styles.arrowBtn} ${styles.arrowRight}`}
-            aria-label="الشعار التالي"
-            onClick={() => scrollByTiles(1)}
-          >
-            <ChevronRight size={20} aria-hidden="true" />
-          </button>
+        <div
+          className={styles.viewport}
+          role="region"
+          aria-label={title ?? "العلامات التجارية الموثوقة"}
+          tabIndex={0}
+          onMouseEnter={pauseAndScheduleResume}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={endDrag}
+          onPointerLeave={handlePointerLeave}
+          onPointerCancel={endDrag}
+          onFocus={pauseAndScheduleResume}
+          onKeyDown={handleKeyDown}
+        >
+          <ul ref={trackRef} className={styles.track}>
+            {track.map((brand, index) => (
+              <li
+                key={`${brand.name}-${index}`}
+                className={styles.tile}
+                aria-hidden={index >= loopUnit.length}
+              >
+                <Image
+                  src={brand.logo}
+                  alt={brand.name}
+                  width={220}
+                  height={90}
+                  className={styles.logo}
+                  style={{ transform: `scale(${(brand.scale ?? 1) * GLOBAL_LOGO_SCALE})` }}
+                />
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
