@@ -234,19 +234,27 @@ export const SERVICE_DETAILS = [
 
 // -----------------------------------------------------------------------------
 // 9ج. العلامات التجارية الموثوقة — لشريط TrustedBrandsMarquee
-// TODO: استبدلي الشعارات المؤقتة (placeholder-brand-*.svg) بالشعارات الفعلية
-//       داخل public/images/brands/ — تسمية الملفات: kebab-case بالإنجليزي
-//       مطابق لاسم العلامة (مثال: cerave.png). الصيغة المفضّلة: SVG، وإلا
-//       WebP، وإلا PNG. خاصية scale اختيارية للتحكم بحجم شعار معيّن لو كانت
-//       أبعاده الأصلية تخليه يبين أصغر/أكبر من الباقي بصريًا.
+// لإضافة/تعديل علامة: ضيفي ملف SVG (مفضّل) داخل public/images/brands/
+// بتسمية kebab-case، وأضيفيها هون. خاصية scale اختيارية للتحكم بحجم شعار
+// معيّن لو كانت أبعاده الأصلية تخليه يبين أصغر/أكبر بصريًا من الباقي.
 // -----------------------------------------------------------------------------
 export const TRUSTED_BRANDS = [
-  { name: 'Brand One',   logo: '/images/brands/placeholder-brand-1.svg' },
-  { name: 'Derma+',      logo: '/images/brands/placeholder-brand-2.svg', scale: 0.9 },
-  { name: 'PureCare',    logo: '/images/brands/placeholder-brand-3.svg' },
-  { name: 'Vitaline',    logo: '/images/brands/placeholder-brand-4.svg' },
-  { name: 'Niva',        logo: '/images/brands/placeholder-brand-5.svg', scale: 1.1 },
-  { name: 'Skin & Co',   logo: '/images/brands/placeholder-brand-6.svg' },
+  { name: 'Avène',          logo: '/images/brands/avene.svg' },
+  { name: 'Bioderma',       logo: '/images/brands/bioderma.svg' },
+  { name: 'Bionnex',        logo: '/images/brands/bionnex.svg', scale: 1.05 },
+  { name: 'Bioten',         logo: '/images/brands/bioten.svg', scale: 1.05 },
+  { name: 'CeraVe',         logo: '/images/brands/cerave.svg', scale: 0.95 },
+  { name: 'Cetaphil',       logo: '/images/brands/cetaphil.svg', scale: 0.95 },
+  { name: 'Flexitol',       logo: '/images/brands/flexitol.svg', scale: 1.05 },
+  { name: 'Garnier',        logo: '/images/brands/garnier.svg', scale: 0.95 },
+  { name: "Johnson's",      logo: '/images/brands/johnson.svg' },
+  { name: 'La Roche-Posay', logo: '/images/brands/la-roche-posay.svg', scale: 0.95 },
+  { name: "L'Oréal",        logo: '/images/brands/loreal.svg' },
+  { name: 'Neutrogena',     logo: '/images/brands/neutrogena.svg', scale: 1.1 },
+  { name: "Palmer's",       logo: '/images/brands/palmers.svg', scale: 0.95 },
+  { name: 'QV',             logo: '/images/brands/qv.svg', scale: 1.1 },
+  { name: 'Sebamed',        logo: '/images/brands/seba-med.svg' },
+  { name: 'Vichy',          logo: '/images/brands/vichy.svg' },
 ] as const
 
 

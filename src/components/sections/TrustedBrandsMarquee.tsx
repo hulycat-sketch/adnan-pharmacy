@@ -1,7 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from "react";
+import { useCallback, useRef, type KeyboardEvent } from "react";
 import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useMarqueeScroll } from "@/lib/useMarqueeScroll";
 import styles from "./TrustedBrandsMarquee.module.css";
 
 type Brand = {
@@ -20,7 +22,13 @@ type TrustedBrandsMarqueeProps = {
 };
 
 const MIN_TILES_PER_LOOP = 14;
-const RESUME_DELAY_MS = 3000;
+// نفس القيم المستخدمة بالضبط بشريط "الجهات المعتمدة" — للحفاظ على سلوك مطابق
+const TILES_PER_JUMP_DESKTOP = 2;
+const TILES_PER_JUMP_MOBILE = 1;
+const MOBILE_QUERY = "(max-width: 639px)";
+// تصغير بصري عام لكل الشعارات (~12%) — بيتضرب مع scale كل علامة على حدة
+// فبيحافظ على نفس الفروقات النسبية بينهم بالضبط، بس بحجم إجمالي أخف وأهدأ
+const GLOBAL_LOGO_SCALE = 0.88;
 
 export default function TrustedBrandsMarquee({
   title,
@@ -28,90 +36,43 @@ export default function TrustedBrandsMarquee({
   brands,
   speed = 36,
 }: TrustedBrandsMarqueeProps) {
-  const viewportRef = useRef<HTMLDivElement>(null);
-  const rafRef = useRef<number | null>(null);
-  const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const isPausedRef = useRef(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const { viewportRef, pauseAndScheduleResume } = useMarqueeScroll(speed);
+  const trackRef = useRef<HTMLUListElement>(null);
 
-  useEffect(() => {
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(query.matches);
-    const onChange = () => setReducedMotion(query.matches);
-    query.addEventListener("change", onChange);
-    return () => query.removeEventListener("change", onChange);
-  }, []);
+  // قفزة السهم: نفس منطق شريط "الجهات المعتمدة" بالضبط — تُحسب ديناميكيًا
+  // من عرض بلاطة واحدة فعلية + الفراغ الحقيقي بينها
+  const scrollByTiles = useCallback(
+    (direction: 1 | -1) => {
+      const viewport = viewportRef.current;
+      const trackEl = trackRef.current;
+      if (!viewport || !trackEl) return;
 
-  const pauseAndScheduleResume = useCallback(() => {
-    isPausedRef.current = true;
-    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
-    resumeTimeoutRef.current = setTimeout(() => {
-      isPausedRef.current = false;
-    }, RESUME_DELAY_MS);
-  }, []);
+      const firstTile = trackEl.firstElementChild as HTMLElement | null;
+      const tileWidth = firstTile?.getBoundingClientRect().width ?? 150;
+      const gapPx = parseFloat(getComputedStyle(trackEl).columnGap || "0") || 0;
 
-  // شبكة أمان اللف اللانهائي — تشتغل بغض النظر عن مصدر التمرير
-  // (تلقائي أو سحب باللمس/الماوس)
-  useEffect(() => {
-    const viewport = viewportRef.current;
-    if (!viewport) return;
+      const isMobile = window.matchMedia(MOBILE_QUERY).matches;
+      const tilesPerJump = isMobile ? TILES_PER_JUMP_MOBILE : TILES_PER_JUMP_DESKTOP;
+      const step = tilesPerJump * (tileWidth + gapPx);
 
-    const handleScroll = () => {
-      if (isPausedRef.current) {
-        pauseAndScheduleResume();
-      }
-
-      const half = viewport.scrollWidth / 2;
-      if (half <= 0) return;
-
-      if (viewport.scrollLeft >= half) {
-        viewport.scrollLeft -= half;
-      } else if (viewport.scrollLeft < 0) {
-        viewport.scrollLeft += half;
-      }
-    };
-
-    viewport.addEventListener("scroll", handleScroll, { passive: true });
-    return () => viewport.removeEventListener("scroll", handleScroll);
-  }, [pauseAndScheduleResume]);
-
-  // الحركة التلقائية البطيئة والمستمرة — مُعطَّلة كليًا مع prefers-reduced-motion
-  useEffect(() => {
-    if (reducedMotion) return;
-    const viewport = viewportRef.current;
-    if (!viewport) return;
-
-    let lastTime: number | null = null;
-
-    const tick = (timestamp: number) => {
-      if (!isPausedRef.current && lastTime !== null) {
-        const deltaSeconds = (timestamp - lastTime) / 1000;
-        viewport.scrollLeft += speed * deltaSeconds;
-      }
-      lastTime = isPausedRef.current ? null : timestamp;
-      rafRef.current = requestAnimationFrame(tick);
-    };
-
-    rafRef.current = requestAnimationFrame(tick);
-    return () => {
-      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
-    };
-  }, [reducedMotion, speed]);
-
-  const handleKeyDown = useCallback((event: KeyboardEvent<HTMLDivElement>) => {
-    const viewport = viewportRef.current;
-    if (!viewport) return;
-
-    if (event.key === "ArrowRight") {
-      event.preventDefault();
       pauseAndScheduleResume();
-      viewport.scrollBy({ left: 150, behavior: "smooth" });
-    } else if (event.key === "ArrowLeft") {
-      event.preventDefault();
-      pauseAndScheduleResume();
-      viewport.scrollBy({ left: -150, behavior: "smooth" });
-    }
-  }, [pauseAndScheduleResume]);
+      viewport.scrollBy({ left: direction * step, behavior: "smooth" });
+    },
+    [viewportRef, pauseAndScheduleResume]
+  );
+
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        scrollByTiles(1);
+      } else if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        scrollByTiles(-1);
+      }
+    },
+    [scrollByTiles]
+  );
 
   if (brands.length === 0) return null;
 
@@ -130,35 +91,55 @@ export default function TrustedBrandsMarquee({
           </div>
         )}
 
-        <div
-          ref={viewportRef}
-          className={styles.viewport}
-          role="region"
-          aria-label={title ?? "العلامات التجارية الموثوقة"}
-          tabIndex={0}
-          onMouseEnter={pauseAndScheduleResume}
-          onPointerDown={pauseAndScheduleResume}
-          onFocus={pauseAndScheduleResume}
-          onKeyDown={handleKeyDown}
-        >
-          <ul className={styles.track}>
-            {track.map((brand, index) => (
-              <li
-                key={`${brand.name}-${index}`}
-                className={styles.tile}
-                aria-hidden={index >= loopUnit.length}
-              >
-                <Image
-                  src={brand.logo}
-                  alt={brand.name}
-                  width={220}
-                  height={90}
-                  className={styles.logo}
-                  style={{ transform: `scale(${brand.scale ?? 1})` }}
-                />
-              </li>
-            ))}
-          </ul>
+        <div className={styles.marqueeRow}>
+          <button
+            type="button"
+            className={`${styles.arrowBtn} ${styles.arrowLeft}`}
+            aria-label="الشعار السابق"
+            onClick={() => scrollByTiles(-1)}
+          >
+            <ChevronLeft size={20} aria-hidden="true" />
+          </button>
+
+          <div
+            ref={viewportRef}
+            className={styles.viewport}
+            role="region"
+            aria-label={title ?? "العلامات التجارية الموثوقة"}
+            tabIndex={0}
+            onMouseEnter={pauseAndScheduleResume}
+            onPointerDown={pauseAndScheduleResume}
+            onFocus={pauseAndScheduleResume}
+            onKeyDown={handleKeyDown}
+          >
+            <ul ref={trackRef} className={styles.track}>
+              {track.map((brand, index) => (
+                <li
+                  key={`${brand.name}-${index}`}
+                  className={styles.tile}
+                  aria-hidden={index >= loopUnit.length}
+                >
+                  <Image
+                    src={brand.logo}
+                    alt={brand.name}
+                    width={220}
+                    height={90}
+                    className={styles.logo}
+                    style={{ transform: `scale(${(brand.scale ?? 1) * GLOBAL_LOGO_SCALE})` }}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <button
+            type="button"
+            className={`${styles.arrowBtn} ${styles.arrowRight}`}
+            aria-label="الشعار التالي"
+            onClick={() => scrollByTiles(1)}
+          >
+            <ChevronRight size={20} aria-hidden="true" />
+          </button>
         </div>
       </div>
     </section>
