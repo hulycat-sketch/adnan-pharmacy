@@ -1,0 +1,20 @@
+.storySection {
+  padding-block: 1rem 3rem;
+}
+
+.storyList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ===== Desktop (1024px فما فوق) ===== */
+@media (min-width: 1024px) {
+  .storySection {
+    padding-block: 1.5rem 4rem;
+  }
+
+  .storyList {
+    gap: 2rem;
+  }
+}

@@ -1,0 +1,116 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  background-color: var(--color-bg);
+  padding-block: 1.5rem;
+}
+
+.branchTopLeft,
+.branchBottomRight {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  width: 130px;
+  height: auto;
+  color: var(--color-secondary);
+  opacity: 0.14;
+}
+
+.branchTopLeft {
+  top: -12px;
+  left: -8px;
+}
+
+.branchBottomRight {
+  bottom: -12px;
+  right: -8px;
+  transform: rotate(180deg);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--color-secondary);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+
+.dividerLine {
+  display: block;
+  width: 2.25rem;
+  height: 2px;
+  background-color: var(--color-secondary);
+  border-radius: 9999px;
+}
+
+.dividerLeaf {
+  color: var(--color-secondary);
+  flex-shrink: 0;
+}
+
+.description {
+  margin-top: 1.25rem;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--color-primary);
+}
+
+/* ===== Tablet (769px فما فوق) ===== */
+@media (min-width: 769px) {
+  .hero {
+    min-height: 190px;
+  }
+
+  .branchTopLeft,
+  .branchBottomRight {
+    width: 170px;
+  }
+
+  .title {
+    font-size: 3.25rem;
+  }
+
+  .description {
+    font-size: 1.3rem;
+  }
+}
+
+/* ===== Desktop (1024px فما فوق) ===== */
+@media (min-width: 1024px) {
+  .hero {
+    min-height: 220px;
+  }
+
+  .branchTopLeft,
+  .branchBottomRight {
+    width: 200px;
+  }
+
+  .title {
+    font-size: 3.75rem;
+  }
+
+  .description {
+    font-size: 1.4rem;
+  }
+}
