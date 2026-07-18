@@ -1,0 +1,225 @@
+.whyUs {
+  background-color: #ffffff;
+  padding-block: 3rem;
+}
+
+/* ===== عنوان القسم ===== */
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.underline {
+  display: block;
+  width: 3rem;
+  height: 3px;
+  margin-top: 0.75rem;
+  border-radius: 9999px;
+  background-color: var(--color-secondary);
+}
+
+.subtitle {
+  margin-top: 1rem;
+  max-width: 560px;
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+}
+
+/* ===== الشبكة (عمود البطاقات + عمود الإحصائية) ===== */
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.pointsCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* ===== بطاقة نقطة أفقية ===== */
+
+.pointCard {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background-color: var(--color-bg-white);
+  box-shadow: 0 2px 8px -4px rgba(27, 43, 94, 0.08);
+}
+
+.pointIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background-color: var(--color-secondary-light);
+  color: var(--color-secondary);
+}
+
+.pointText {
+  flex: 1;
+  min-width: 0;
+}
+
+.pointTitle {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-primary);
+}
+
+.pointDescription {
+  margin-top: 0.2rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+.pointCheck {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background-color: var(--color-secondary);
+  color: #ffffff;
+}
+
+/* ===== بطاقة الإحصائية ===== */
+
+.statCol {
+  display: flex;
+}
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  padding: 2rem 1.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1.5rem;
+  background-color: var(--color-bg-section);
+  box-shadow: var(--shadow-card);
+}
+
+.illustrationWrapper {
+  position: relative;
+  width: 62%;
+  aspect-ratio: 1400 / 946;
+  margin: 0 auto 0.5rem;
+}
+
+.illustration {
+  object-fit: contain;
+  object-position: center;
+}
+
+.statNumber {
+  margin: 0;
+  direction: ltr;
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-secondary);
+}
+
+.statLabel {
+  margin-top: 0.5rem;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.statSubLabel {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  max-width: 220px;
+  margin-top: 2rem;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-border);
+}
+
+.dividerIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background-color: var(--color-secondary-light);
+  color: var(--color-secondary);
+}
+
+.statMessage {
+  margin-top: 1.5rem;
+  max-width: 260px;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+/* ===== Desktop (1024px فما فوق) — عمودين جنبًا لجنب ===== */
+@media (min-width: 1024px) {
+  .whyUs {
+    padding-block: 4.5rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .grid {
+    flex-direction: row-reverse;
+    align-items: stretch;
+    gap: 2.5rem;
+  }
+
+  .pointsCol {
+    flex: 1.15;
+    justify-content: center;
+    gap: 0.9rem;
+  }
+
+  .statCol {
+    flex: 1;
+  }
+}
