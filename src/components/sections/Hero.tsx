@@ -1,6 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
-import { PHARMACY, IMAGES, SOCIAL } from "@/lib/constants";
+import { PHARMACY, IMAGES, SOCIAL, MAP } from "@/lib/constants";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
@@ -51,9 +50,14 @@ export default function Hero() {
                 تواصل معنا
               </a>
 
-              <Link href="/about" className={styles.ctaSecondary}>
-                تعرّف على قصتنا
-              </Link>
+              <a
+                href={MAP.shareUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.ctaSecondary}
+              >
+                موقعنا
+              </a>
             </div>
           </div>
         </div>

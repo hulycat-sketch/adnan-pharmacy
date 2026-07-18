@@ -134,7 +134,7 @@
 }
 
 .title {
-  font-size: 2.1rem;
+  font-size: 1.85rem;
   font-weight: 600;
   line-height: 1.3;
   color: var(--color-primary);
@@ -197,6 +197,26 @@
   background-color: var(--color-bg);
   transform: translateY(-1px);
   box-shadow: var(--shadow-hover);
+}
+
+/* ===== الموبايل فقط — الزرّان جنبًا لجنب دايمًا، بنفس الارتفاع وGap متوازن =====
+   عرض طبيعي (auto) لكل زر بدل فرض عرض متساوٍ، مع padding/font-size
+   مضبوطين عشان النص ما ينكسر لسطرين حتى على أضيق الشاشات (320px). */
+@media (max-width: 768px) {
+  .actions {
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .ctaPrimary,
+  .ctaSecondary {
+    flex: 0 1 auto;
+    min-width: 0;
+    padding-inline: 0.85rem;
+    font-size: 0.875rem;
+    white-space: nowrap;
+  }
 }
 
 /* ===== Tablet (769px فما فوق) — عمودين: صورة 52% / محتوى 48% ===== */
