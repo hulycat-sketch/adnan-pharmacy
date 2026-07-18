@@ -30,7 +30,7 @@ export const PHARMACY = {
 // -----------------------------------------------------------------------------
 export const IMAGES = {
   logo:    '/images/logo.png',
-  hero: '/images/adnan-pharmacy-hero-02.webp',
+  hero: '/images/home-hero-pharmacy.webp',
   heroMobile: '/images/heromobilenew.webp',
   ogImage: '/images/og-image.jpg',
   favicon: '/favicon.ico',
@@ -120,7 +120,6 @@ export const SEO = {
 export const NAV_LINKS = [
   { label: 'الرئيسية',    href: '/'                    },
   { label: 'نبذة عنا', href: '/about' },
-  { label: 'خدماتنا',     href: '/services'            },
   { label: 'موقعنا',      href: MAP.shareUrl           },
   { label: 'المدونة',     href: '/blog'                },
   { label: 'تواصل معنا',  href: `tel:${CONTACT.phone}` },

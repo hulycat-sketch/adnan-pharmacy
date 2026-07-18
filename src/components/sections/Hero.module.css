@@ -74,27 +74,27 @@
 /* ------------------------------------------------------------------ */
 .imageCol {
   width: 100%;
-  background: #f8fafc;
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 10px;
 }
 
 .imageWrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 1536 / 1024;
+  aspect-ratio: 1 / 1;
   border-radius: 14px;
-  /* فاصل بصري ناعم جدًا بين الصورة والمحتوى — بديل عن أي Overlay أبيض ثقيل.
-     overflow:hidden هون بس عشان تدوير زوايا الصورة، مش لأي قصّ بالمحتوى —
-     الصورة معروضة بنسبتها الطبيعية بالكامل بدون تكبير أو قصّ. */
+  background-color: #ffffff;
+  /* overflow:hidden هون بس عشان تدوير زوايا الصورة — الصورة أصلًا مربعة
+     بنفس نسبة الحاوية، فبتظهر كاملة بدون أي قصّ أو تكبير. */
   overflow: hidden;
-  box-shadow: inset -6px 0 10px -8px rgba(15, 23, 42, 0.12);
 }
 
 .image {
   object-fit: contain;
+  object-position: center;
 }
 
 /* ------------------------------------------------------------------ */
@@ -208,12 +208,12 @@
   }
 
   .imageCol {
-    width: 53%;
-    padding: 16px;
+    width: 42%;
+    padding: 12px;
   }
 
   .contentCol {
-    width: 47%;
+    width: 58%;
     display: flex;
     align-items: center;
     padding: 1.75rem 2rem;
@@ -248,12 +248,12 @@
   }
 
   .imageCol {
-    width: 53%;
+    width: 42%;
     padding: 16px;
   }
 
   .contentCol {
-    width: 47%;
+    width: 58%;
     padding: 1.75rem 2.5rem;
   }
 

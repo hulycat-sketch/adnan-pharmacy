@@ -84,11 +84,6 @@ export default function Services() {
           ))}
         </div>
 
-        <div className={styles.viewAllWrap}>
-          <Link href="/services" className={styles.viewAllBtn}>
-            عرض جميع الخدمات
-          </Link>
-        </div>
       </div>
     </section>
   );
