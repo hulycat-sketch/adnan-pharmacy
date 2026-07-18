@@ -1,10 +1,9 @@
 import Image from "next/image";
-import { PHARMACY, IMAGES, SOCIAL, MAP } from "@/lib/constants";
+import { PHARMACY, HERO_SECTION, IMAGES, SOCIAL, MAP } from "@/lib/constants";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
-  const description =
-    "منذ عام 1981، تقدّم صيدلية عدنان رعاية صيدلانية موثوقة لأهالي المنطقة، من خلال استشارات صحية دقيقة، وتوفير الأدوية ومستحضرات العناية من علامات تجارية موثوقة، بخبرة طويلة واهتمام حقيقي بكل مريض.";
+  const description = HERO_SECTION.description;
 
   const heroAlt = `واجهة ${PHARMACY.name} من الخارج`;
 
