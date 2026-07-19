@@ -38,6 +38,9 @@ export const HERO_SECTION = {
 // -----------------------------------------------------------------------------
 export const IMAGES = {
   logo:    '/images/logo.png',
+  // نسخة شعار مخصّصة للـFooter فقط — بخلفية زرقاء مطابقة لخلفية الـFooter،
+  // مدمَجة بالصورة نفسها (مش شفافة). الهيدر بيضل يستخدم logo العادي.
+  logoFooter: '/images/logo-footer.png',
   hero: '/images/home-hero-pharmacy.webp',
   heroMobile: '/images/heromobilenew.webp',
   ogImage: '/images/og-image.jpg',
@@ -50,15 +53,19 @@ export const IMAGES = {
 // TODO: Replace with real contact details before production.
 // -----------------------------------------------------------------------------
 export const CONTACT = {
-  phone:        '+962-2-000-0000',
-  phoneDisplay: '02 000 0000',
-  whatsapp:     '962799399751',
-  email:        'info@adnanpharmacy.com',
-  address:      'إربد، الأردن',
-  addressFull:  'شارع الجامعة، إربد، الأردن',
+  phone:           '+962-2-000-0000',
+  phoneDisplay:    '02 000 0000',
+  whatsapp:        '962799399751',
+  whatsappDisplay: '0799 399 751',
+  email:           'muhdalmomani@gmail.com',
+  address:         'إربد، الأردن',
+  addressLandmark: 'دوار الجامعة – مقابل أسواق الغزاوي',
+  addressFull:     'دوار الجامعة – مقابل أسواق الغزاوي، إربد، الأردن',
   workingHours: {
-    weekdays: 'السبت – الخميس: 8 صباحاً – 10 مساءً',
-    friday:   'الجمعة: 9 صباحاً – 10 مساءً',
+    dailyLabel:  'يوميًا:',
+    dailyValue:  '9:00 صباحًا حتى 3:00 فجرًا',
+    closedLabel: 'الثلاثاء:',
+    closedValue: 'عطلة',
   },
 } as const
 
@@ -132,6 +139,18 @@ export const NAV_LINKS = [
   { label: 'المدونة',     href: '/blog'                },
   { label: 'تواصل معنا',  href: `tel:${CONTACT.phone}` },
  ] as const
+
+
+// -----------------------------------------------------------------------------
+// 8ب. روابط سريعة — Footer
+// -----------------------------------------------------------------------------
+export const FOOTER_LINKS = [
+  { label: 'الرئيسية',        href: '/'                    },
+  { label: 'عن صيدلية عدنان', href: '/about'                },
+  { label: 'موقعنا',          href: MAP.shareUrl           },
+  { label: 'المدونة',         href: '/blog'                },
+  { label: 'تواصل معنا',      href: `tel:${CONTACT.phone}` },
+] as const
 
 
 // -----------------------------------------------------------------------------

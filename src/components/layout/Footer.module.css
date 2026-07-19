@@ -1,0 +1,362 @@
+.footer {
+  --footer-bg: #0c4a98;
+  --footer-text: #ffffff;
+  --footer-text-secondary: #e7eef8;
+  --footer-divider: rgba(255, 255, 255, 0.12);
+
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+}
+
+/* ===== الشبكة — 3 أعمدة (شعار / روابط / تواصل) ===== */
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+  padding-block: 1.875rem;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------------ */
+/* عمود الشعار */
+/* ------------------------------------------------------------------ */
+.logoCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logoImage {
+  width: auto;
+  height: 4.8rem;
+}
+
+.logoText {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--footer-text);
+}
+
+/* ------------------------------------------------------------------ */
+/* العنوان المشترك للأعمدة */
+/* ------------------------------------------------------------------ */
+.heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 0 1.5rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--footer-text);
+}
+
+.headingUnderline {
+  display: block;
+  width: 3rem;
+  height: 2px;
+  margin-top: 0.75rem;
+  border-radius: 9999px;
+  background-color: var(--color-secondary);
+}
+
+/* ===== عنوان فرعي — "ساعات العمل" أسفل معلومات التواصل ===== */
+.subheading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 0 1.25rem;
+  font-size: 1.225rem;
+  font-weight: 700;
+  color: var(--footer-text);
+}
+
+/* ------------------------------------------------------------------ */
+/* عمود الروابط السريعة */
+/* ------------------------------------------------------------------ */
+.linksCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.linksList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.link {
+  font-size: 1.1875rem;
+  font-weight: 500;
+  color: var(--footer-text-secondary);
+  transition: color var(--transition-fast, 0.2s ease);
+}
+
+.link:hover {
+  color: var(--color-secondary);
+}
+
+/* ------------------------------------------------------------------ */
+/* عمود معلومات التواصل */
+/* ------------------------------------------------------------------ */
+.contactCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contactList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.contactList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.contactIcon {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  color: var(--color-secondary);
+}
+
+.contactLink,
+.contactText {
+  font-size: 1.1875rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--footer-text-secondary);
+  text-align: right;
+}
+
+.contactLink {
+  transition: color var(--transition-fast, 0.2s ease);
+}
+
+/* ===== قسم ساعات العمل — أسفل معلومات التواصل، مسافة مريحة تفصله ===== */
+.hoursBlock {
+  margin-top: 1.25rem;
+}
+
+.hoursList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.hoursRow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.hoursLabel {
+  font-size: 1.1875rem;
+  font-weight: 700;
+  color: var(--footer-text);
+}
+
+.hoursValue {
+  font-size: 1.1875rem;
+  font-weight: 500;
+  color: var(--footer-text-secondary);
+}
+
+/* رقم الهاتف أرقام فقط بدون أي حرف — بدون هيك بينعكس ترتيبه بصريًا جوا
+   سياق RTL (نفس مشكلة "23+" يلي انصلحت بقسم لماذا صيدلية عدنان).
+   الـdirection/isolate هون على span داخلي بس، مش على الـ<a> نفسه اللي هو
+   عنصر Flex ضمن صف الآيقونة — هيك الصف نفسه بيضل محكوم بـRTL الموقع
+   بالكامل، وبس النص جوا الرابط هو اللي بيترتب LTR. */
+.phoneNumber {
+  display: inline-block;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.contactLink:hover {
+  color: var(--color-secondary);
+}
+
+/* ------------------------------------------------------------------ */
+/* الشريط السفلي */
+/* ------------------------------------------------------------------ */
+.bottomBar {
+  border-top: 1px solid var(--footer-divider);
+}
+
+.bottomInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding-block: 0.875rem;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: 1px solid var(--footer-divider);
+  color: var(--footer-text);
+  transition: background-color var(--transition-fast, 0.2s ease), border-color var(--transition-fast, 0.2s ease);
+}
+
+.socialLink:hover {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: #ffffff;
+}
+
+.socialIcon {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.copyright {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--footer-text-secondary);
+}
+
+/* ===== Tablet (769px فما فوق) — 3 أعمدة جنبًا لجنب ===== */
+@media (min-width: 769px) {
+  .grid {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2.25rem;
+    text-align: unset;
+    padding-block: 3rem 2.25rem;
+  }
+
+  .logoCol,
+  .linksCol {
+    align-items: center;
+  }
+
+  .contactCol {
+    align-items: flex-start;
+  }
+
+  .heading,
+  .subheading {
+    align-items: center;
+  }
+
+  .contactCol .heading,
+  .contactCol .subheading {
+    align-items: flex-start;
+  }
+
+  .linksList,
+  .contactList {
+    align-items: center;
+  }
+
+  .contactList,
+  .hoursList,
+  .hoursRow {
+    align-items: flex-start;
+  }
+
+  .contactList li {
+    text-align: right;
+  }
+
+  /* ===== مسافات مضغوطة على الديسكتوب — قيم مختلفة عن الموبايل عمدًا ===== */
+  .linksList {
+    gap: 0.9375rem;
+  }
+
+  .contactList {
+    gap: 0.8125rem;
+  }
+
+  .subheading {
+    margin: 0 0 1rem;
+  }
+
+  .hoursBlock {
+    margin-top: 1.5rem;
+  }
+
+  .hoursList {
+    gap: 0.5rem;
+  }
+
+  .bottomInner {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.9375rem;
+  }
+
+  /* copyright بياخذ باقي المساحة (flex:1) وبيمحاذي نصّه لليمين جوّاها —
+     هيك بيلزق فعليًا بالحافة اليمنى لنفس الـcontainer (بمحاذاة عمود
+     الشعار فوقه). فيسبوك بياخذ حجمه الطبيعي بس ويضل عالحافة اليسرى. */
+  .socialLink {
+    order: 2;
+    flex-shrink: 0;
+  }
+
+  .copyright {
+    order: 1;
+    flex: 1;
+    text-align: right;
+  }
+
+  /* ===== تكبير الخط بحوالي 15–20% إضافية على الديسكتوب لتحسين القراءة ===== */
+  .logoText {
+    font-size: 1.55rem;
+  }
+
+  .heading {
+    font-size: 1.4rem;
+  }
+
+  .subheading {
+    font-size: 1.225rem;
+  }
+
+  .link {
+    font-size: 1.225rem;
+  }
+
+  .contactLink,
+  .contactText,
+  .hoursLabel,
+  .hoursValue {
+    font-size: 1.225rem;
+  }
+
+  .copyright {
+    font-size: 1.225rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    gap: 3.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link,
+  .contactLink,
+  .socialLink {
+    transition: none;
+  }
+}

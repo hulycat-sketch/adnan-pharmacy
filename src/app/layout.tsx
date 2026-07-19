@@ -25,6 +25,7 @@ import localFont                        from 'next/font/local'
 import { siteMetadata, pharmacySchema } from '@/lib/metadata'
 import './globals.css'
 import Header from '../components/layout/Header'
+import Footer from '../components/layout/Footer'
 
 // -----------------------------------------------------------------------------
 // 1. الخط — IBM Plex Sans Arabic
@@ -86,6 +87,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <main id="main-content">
           {children}
         </main>
+
+        <Footer />
 
       </body>
     </html>
