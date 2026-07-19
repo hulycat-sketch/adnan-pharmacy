@@ -244,24 +244,28 @@ export const SERVICE_DETAILS = [
 // لإضافة/تعديل علامة: ضيفي ملف SVG (مفضّل) داخل public/images/brands/
 // بتسمية kebab-case، وأضيفيها هون. خاصية scale اختيارية للتحكم بحجم شعار
 // معيّن لو كانت أبعاده الأصلية تخليه يبين أصغر/أكبر بصريًا من الباقي.
+//
+// ملاحظة: الملفات "-trimmed.png" مقصوصة (trim) لحدود الرسمة الفعلية —
+// نفس أسلوب pharmacy-line-art-trimmed.png — عشان كل الشعارات تطلع بنفس
+// الحجم البصري تلقائيًا بدون الحاجة لمعامل scale يدوي لكل شعار جديد.
 // -----------------------------------------------------------------------------
 export const TRUSTED_BRANDS = [
-  { name: 'Avène',          logo: '/images/brands/avene.svg' },
-  { name: 'Bioderma',       logo: '/images/brands/bioderma.svg' },
-  { name: 'Bionnex',        logo: '/images/brands/bionnex.svg', scale: 1.05 },
-  { name: 'Bioten',         logo: '/images/brands/bioten.svg', scale: 1.05 },
-  { name: 'CeraVe',         logo: '/images/brands/cerave.svg', scale: 0.95 },
-  { name: 'Cetaphil',       logo: '/images/brands/cetaphil.svg', scale: 0.95 },
-  { name: 'Flexitol',       logo: '/images/brands/flexitol.svg', scale: 1.05 },
-  { name: 'Garnier',        logo: '/images/brands/garnier.svg', scale: 0.95 },
-  { name: "Johnson's",      logo: '/images/brands/johnson.svg' },
-  { name: 'La Roche-Posay', logo: '/images/brands/la-roche-posay.svg', scale: 0.95 },
-  { name: "L'Oréal",        logo: '/images/brands/loreal.svg' },
-  { name: 'Neutrogena',     logo: '/images/brands/neutrogena.svg', scale: 1.1 },
-  { name: "Palmer's",       logo: '/images/brands/palmers.svg', scale: 0.95 },
-  { name: 'QV',             logo: '/images/brands/qv.svg', scale: 1.1 },
-  { name: 'Sebamed',        logo: '/images/brands/seba-med.svg' },
-  { name: 'Vichy',          logo: '/images/brands/vichy.svg' },
+  { name: 'Avène',          logo: '/images/brands/avene-trimmed.png' },
+  { name: 'Bioderma',       logo: '/images/brands/bioderma-trimmed.png' },
+  { name: 'Bionnex',        logo: '/images/brands/bionnex-trimmed.png' },
+  { name: 'Bioten',         logo: '/images/brands/bioten-trimmed.png' },
+  { name: 'CeraVe',         logo: '/images/brands/cerave-trimmed.png' },
+  { name: 'Cetaphil',       logo: '/images/brands/cetaphil-trimmed.png' },
+  { name: 'Flexitol',       logo: '/images/brands/flexitol-trimmed.png' },
+  { name: 'Garnier',        logo: '/images/brands/garnier-trimmed.png' },
+  { name: "Johnson's",      logo: '/images/brands/johnson-trimmed.png' },
+  { name: 'La Roche-Posay', logo: '/images/brands/la-roche-posay-trimmed.png' },
+  { name: "L'Oréal",        logo: '/images/brands/loreal-trimmed.png' },
+  { name: 'Neutrogena',     logo: '/images/brands/neutrogena-trimmed.png' },
+  { name: "Palmer's",       logo: '/images/brands/palmers-trimmed.png' },
+  { name: 'QV',             logo: '/images/brands/qv-trimmed.png' },
+  { name: 'Sebamed',        logo: '/images/brands/seba-med-trimmed.png' },
+  { name: 'Vichy',          logo: '/images/brands/vichy-trimmed.png' },
 ] as const
 
 
