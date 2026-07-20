@@ -391,54 +391,35 @@ export const INSURANCE_SECTION = {
 // 14. لماذا صيدلية عدنان؟ — للصفحة الرئيسية
 // -----------------------------------------------------------------------------
 export const WHY_US_SECTION = {
-  title:    'لماذا صيدلية عدنان؟',
-  subtitle: 'أكثر من أربعة عقود من الثقة والخبرة في خدمة المجتمع.',
+  title: 'لماذا صيدلية عدنان؟',
 } as const
 
 export const WHY_US_POINTS = [
   {
     id:          'since-1981',
     title:       'خبرة منذ عام 1981',
-    description: 'أكثر من 40 عامًا من الخبرة في تقديم الرعاية الصيدلانية الموثوقة.',
+    description: 'أكثر من أربعة عقود في خدمة أهالي إربد.',
     icon:        'Calendar',
   },
   {
-    id:          'trusted-consultation',
-    title:       'استشارات صيدلانية موثوقة',
-    description: 'نقدّم استشارات دقيقة ومخصصة تناسب احتياجاتكم الصحية.',
-    icon:        'Stethoscope',
-  },
-  {
-    id:          'specialized-team',
-    title:       'خبرة صيدلانية متخصصة',
-    description: 'فريق من الصيادلة المؤهلين لتقديم أفضل خدمة لكم.',
-    icon:        'Users',
-  },
-  {
-    id:          'accredited-partners',
-    title:       'تعامل مع جهات معتمدة',
-    description: 'شراكات موثوقة مع شركات التأمين والجهات المعتمدة.',
+    id:          'responsible-care',
+    title:       'رعاية صيدلانية مسؤولة',
+    description: 'سلامة المراجع واحتياجاته في المقام الأول.',
     icon:        'ShieldCheck',
   },
   {
-    id:          'personal-care',
-    title:       'رعاية شخصية لكل مريض',
-    description: 'نهتم بأدق التفاصيل لنضمن راحتكم ورضاكم الدائم.',
-    icon:        'HeartHandshake',
+    id:          'qualified-team',
+    title:       'فريق صيدلاني مؤهل',
+    description: 'معرفة مهنية وخبرة عملية في خدمتكم.',
+    icon:        'UserRound',
   },
   {
-    id:          'rare-medication',
-    title:       'مستحضرات ومكملات موثوقة',
-    description: 'نوفر مجموعة مختارة من المستحضرات والمكملات الصحية من علامات تجارية موثوقة.',
-    icon:        'PillBottle',
+    id:          'our-values',
+    title:       'الوضوح والأمانة',
+    description: 'نقدم إرشادات واضحة وتعاملًا قائمًا على الاحترام.',
+    icon:        'Heart',
   },
 ] as const
-
-export const WHY_US_STAT = {
-  label:    'جهة معتمدة',
-  sublabel: 'للتأمينات والخدمات الصحية',
-  message:  'نلتزم بتقديم أفضل رعاية لمرضانا.',
-} as const
 
 
 // =============================================================================
