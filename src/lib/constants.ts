@@ -66,7 +66,7 @@ export const CONTACT = {
     dailyLabel:  'يوميًا:',
     dailyValue:  '9:00 صباحًا حتى 3:00 فجرًا',
     closedLabel: 'الثلاثاء:',
-    closedValue: 'عطلة',
+    closedValue: 'مغلق',
   },
 } as const
 
