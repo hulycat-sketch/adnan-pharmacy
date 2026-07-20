@@ -1,5 +1,5 @@
 .footer {
-  --footer-bg: #0c4a98;
+  --footer-bg: var(--color-primary-dark);
   --footer-text: #ffffff;
   --footer-text-secondary: #e7eef8;
   --footer-divider: rgba(255, 255, 255, 0.12);
@@ -31,7 +31,7 @@
 
 .logoImage {
   width: auto;
-  height: 4.8rem;
+  height: 4rem;
 }
 
 .logoText {
@@ -60,17 +60,6 @@
   margin-top: 0.75rem;
   border-radius: 9999px;
   background-color: var(--color-secondary);
-}
-
-/* ===== عنوان فرعي — "ساعات العمل" أسفل معلومات التواصل ===== */
-.subheading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 0 1.25rem;
-  font-size: 1.225rem;
-  font-weight: 700;
-  color: var(--footer-text);
 }
 
 /* ------------------------------------------------------------------ */
@@ -112,19 +101,18 @@
 .contactList {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.75rem;
 }
 
 .contactList li {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.65rem;
 }
 
 .contactIcon {
   flex-shrink: 0;
-  margin-top: 0.15rem;
   color: var(--color-secondary);
 }
 
@@ -139,37 +127,6 @@
 
 .contactLink {
   transition: color var(--transition-fast, 0.2s ease);
-}
-
-/* ===== قسم ساعات العمل — أسفل معلومات التواصل، مسافة مريحة تفصله ===== */
-.hoursBlock {
-  margin-top: 1.25rem;
-}
-
-.hoursList {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.7rem;
-}
-
-.hoursRow {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.hoursLabel {
-  font-size: 1.1875rem;
-  font-weight: 700;
-  color: var(--footer-text);
-}
-
-.hoursValue {
-  font-size: 1.1875rem;
-  font-weight: 500;
-  color: var(--footer-text-secondary);
 }
 
 /* رقم الهاتف أرقام فقط بدون أي حرف — بدون هيك بينعكس ترتيبه بصريًا جوا
@@ -194,10 +151,13 @@
   border-top: 1px solid var(--footer-divider);
 }
 
+/* صف واحد أفقي على كل المقاسات — الأيقونة يسار، حقوق النشر أقصى اليمين،
+   الاثنين بمستوى واحد رأسيًا (متل ما كانت قبل هالجولة، بدون تغيير للموبايل) */
 .bottomInner {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   gap: 0.75rem;
   padding-block: 0.875rem;
 }
@@ -206,6 +166,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  order: 2;
+  flex-shrink: 0;
   width: 2.25rem;
   height: 2.25rem;
   border-radius: 50%;
@@ -226,9 +188,13 @@
 }
 
 .copyright {
+  order: 1;
+  flex: 1;
   margin: 0;
-  font-size: 0.9375rem;
+  font-size: 0.8125rem;
+  white-space: nowrap;
   color: var(--footer-text-secondary);
+  text-align: right;
 }
 
 /* ===== Tablet (769px فما فوق) — 3 أعمدة جنبًا لجنب ===== */
@@ -251,13 +217,11 @@
     align-items: flex-start;
   }
 
-  .heading,
-  .subheading {
+  .heading {
     align-items: center;
   }
 
-  .contactCol .heading,
-  .contactCol .subheading {
+  .contactCol .heading {
     align-items: flex-start;
   }
 
@@ -266,9 +230,7 @@
     align-items: center;
   }
 
-  .contactList,
-  .hoursList,
-  .hoursRow {
+  .contactList {
     align-items: flex-start;
   }
 
@@ -285,37 +247,9 @@
     gap: 0.8125rem;
   }
 
-  .subheading {
-    margin: 0 0 1rem;
-  }
-
-  .hoursBlock {
-    margin-top: 1.5rem;
-  }
-
-  .hoursList {
-    gap: 0.5rem;
-  }
-
   .bottomInner {
-    flex-direction: row;
-    justify-content: space-between;
     gap: 1rem;
     padding-block: 0.9375rem;
-  }
-
-  /* copyright بياخذ باقي المساحة (flex:1) وبيمحاذي نصّه لليمين جوّاها —
-     هيك بيلزق فعليًا بالحافة اليمنى لنفس الـcontainer (بمحاذاة عمود
-     الشعار فوقه). فيسبوك بياخذ حجمه الطبيعي بس ويضل عالحافة اليسرى. */
-  .socialLink {
-    order: 2;
-    flex-shrink: 0;
-  }
-
-  .copyright {
-    order: 1;
-    flex: 1;
-    text-align: right;
   }
 
   /* ===== تكبير الخط بحوالي 15–20% إضافية على الديسكتوب لتحسين القراءة ===== */
@@ -327,18 +261,12 @@
     font-size: 1.4rem;
   }
 
-  .subheading {
-    font-size: 1.225rem;
-  }
-
   .link {
     font-size: 1.225rem;
   }
 
   .contactLink,
-  .contactText,
-  .hoursLabel,
-  .hoursValue {
+  .contactText {
     font-size: 1.225rem;
   }
 

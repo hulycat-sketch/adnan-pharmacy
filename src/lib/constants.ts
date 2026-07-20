@@ -38,9 +38,10 @@ export const HERO_SECTION = {
 // -----------------------------------------------------------------------------
 export const IMAGES = {
   logo:    '/images/logo.png',
-  // نسخة شعار مخصّصة للـFooter فقط — بخلفية زرقاء مطابقة لخلفية الـFooter،
-  // مدمَجة بالصورة نفسها (مش شفافة). الهيدر بيضل يستخدم logo العادي.
-  logoFooter: '/images/logo-footer.png',
+  // نسخة شعار مخصّصة للـFooter — بخلفية شفافة (مش مدمَجة بلون معيّن)، فبتبين
+  // صح فوق أي لون خلفية للـFooter بدون الحاجة تتعدّل كل ما يتغيّر اللون.
+  // الهيدر بيضل يستخدم logo العادي.
+  logoFooter: '/images/footer-logo.png',
   hero: '/images/home-hero-pharmacy.webp',
   heroMobile: '/images/heromobilenew.webp',
   ogImage: '/images/og-image.jpg',
@@ -145,11 +146,9 @@ export const NAV_LINKS = [
 // 8ب. روابط سريعة — Footer
 // -----------------------------------------------------------------------------
 export const FOOTER_LINKS = [
-  { label: 'الرئيسية',        href: '/'                    },
-  { label: 'عن صيدلية عدنان', href: '/about'                },
-  { label: 'موقعنا',          href: MAP.shareUrl           },
-  { label: 'المدونة',         href: '/blog'                },
-  { label: 'تواصل معنا',      href: `tel:${CONTACT.phone}` },
+  { label: 'الرئيسية',        href: '/'      },
+  { label: 'عن صيدلية عدنان', href: '/about' },
+  { label: 'المدونة',         href: '/blog'  },
 ] as const
 
 

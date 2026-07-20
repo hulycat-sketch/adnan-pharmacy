@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { PHARMACY, IMAGES, CONTACT, SOCIAL, FOOTER_LINKS } from "@/lib/constants";
 import styles from "./Footer.module.css";
 
@@ -22,8 +22,8 @@ export default function Footer() {
           <Image
             src={IMAGES.logoFooter}
             alt={`شعار ${PHARMACY.name}`}
-            width={2400}
-            height={1792}
+            width={800}
+            height={800}
             className={styles.logoImage}
           />
           <span className={styles.logoText}>{PHARMACY.name}</span>
@@ -73,24 +73,16 @@ export default function Footer() {
                 <span className={styles.phoneNumber}>{CONTACT.whatsappDisplay}</span>
               </a>
             </li>
-          </ul>
 
-          <div className={styles.hoursBlock}>
-            <h4 className={styles.subheading}>
-              ساعات العمل
-              <span className={styles.headingUnderline} aria-hidden="true" />
-            </h4>
-            <div className={styles.hoursList}>
-              <div className={styles.hoursRow}>
-                <span className={styles.hoursLabel}>{CONTACT.workingHours.dailyLabel}</span>
-                <span className={styles.hoursValue}>{CONTACT.workingHours.dailyValue}</span>
-              </div>
-              <div className={styles.hoursRow}>
-                <span className={styles.hoursLabel}>{CONTACT.workingHours.closedLabel}</span>
-                <span className={styles.hoursValue}>{CONTACT.workingHours.closedValue}</span>
-              </div>
-            </div>
-          </div>
+            <li>
+              <Clock className={styles.contactIcon} width={20} height={20} aria-hidden="true" />
+              <span className={styles.contactText}>
+                {CONTACT.workingHours.dailyLabel} {CONTACT.workingHours.dailyValue}
+                <br />
+                {CONTACT.workingHours.closedLabel} {CONTACT.workingHours.closedValue}
+              </span>
+            </li>
+          </ul>
         </div>
       </div>
 
