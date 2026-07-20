@@ -50,7 +50,7 @@
 
 @media (min-width: 1024px) {
   .grid {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.25rem;
   }
 }
@@ -82,7 +82,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 2rem 1.5rem;
+  padding: 1.75rem 1.3rem;
   border: 1px solid var(--color-border);
   border-radius: 1rem;
   background-color: var(--color-bg-white);
@@ -100,14 +100,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3.75rem;
-  height: 3.75rem;
-  margin-bottom: 1.25rem;
+  width: 3.375rem;
+  height: 3.375rem;
+  margin-bottom: 1.1rem;
   border-radius: 50%;
   background-color: var(--color-secondary-light);
 }
 
 .icon {
+  color: var(--color-secondary);
+}
+
+.titleAccent {
   color: var(--color-secondary);
 }
 
@@ -175,40 +179,3 @@
   margin: 0;
   flex-grow: 1;
 }
-
-/* ===== زر "عرض جميع الخدمات" — رابط حقيقي لصفحة /services، على Desktop وMobile معًا ===== */
-
-.viewAllWrap {
-  display: flex;
-  justify-content: center;
-  margin-top: 2.5rem;
-}
-
-.viewAllBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.75rem;
-  border-radius: 9999px;
-  border: 1px solid rgba(27, 43, 94, 0.25);
-  background: linear-gradient(180deg, #ffffff 0%, var(--color-bg-section) 100%);
-  color: var(--color-primary);
-  font-size: 0.9375rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.viewAllBtn:hover {
-  background: var(--color-primary);
-  color: #ffffff;
-  box-shadow: var(--shadow-hover);
-  transform: translateY(-2px);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .viewAllBtn {
-    transition: none;
-  }
-}
-

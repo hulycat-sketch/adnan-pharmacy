@@ -13,7 +13,7 @@ export default function Home() {
       <WhyUs />
       <TrustedBrandsMarquee
         title="العلامات التجارية الموثوقة"
-        description="نوفر مجموعة مختارة من أفضل العلامات التجارية العالمية في العناية الصحية والتجميل."
+        description="نوفر مجموعة مختارة من أبرز العلامات العالمية في العناية بالبشرة والصحة والجمال."
         brands={TRUSTED_BRANDS}
       />
     </>

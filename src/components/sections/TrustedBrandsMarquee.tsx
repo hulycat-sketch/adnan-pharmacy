@@ -27,9 +27,6 @@ type TrustedBrandsMarqueeProps = {
 };
 
 const MIN_TILES_PER_LOOP = 14;
-// تصغير بصري عام لكل الشعارات (~12%) — بيتضرب مع scale كل علامة على حدة
-// فبيحافظ على نفس الفروقات النسبية بينهم بالضبط، بس بحجم إجمالي أخف وأهدأ
-const GLOBAL_LOGO_SCALE = 0.88;
 const RESUME_DELAY_MS = 3000;
 const KEYBOARD_NUDGE_PX = 150;
 
@@ -178,13 +175,10 @@ export default function TrustedBrandsMarquee({
   // pointerleave — بيستأنف بس لو ما في سحب فعليًا شغّال حاليًا (لو الإصبع
   // خرج من حدود العنصر بينما لسا مضغوط تحت Pointer Capture، منسيب الأمر
   // لـpointerup/pointercancel اللي رح توصل لاحقًا لتنضيف الحالة صح)
-  const handlePointerLeave = useCallback(
-    (event: ReactPointerEvent<HTMLDivElement>) => {
-      if (isDraggingRef.current) return;
-      resumeNow();
-    },
-    [resumeNow]
-  );
+  const handlePointerLeave = useCallback(() => {
+    if (isDraggingRef.current) return;
+    resumeNow();
+  }, [resumeNow]);
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLDivElement>) => {
@@ -249,7 +243,7 @@ export default function TrustedBrandsMarquee({
                   width={220}
                   height={90}
                   className={styles.logo}
-                  style={{ transform: `scale(${(brand.scale ?? 1) * GLOBAL_LOGO_SCALE})` }}
+                  style={brand.scale ? { transform: `scale(${brand.scale})` } : undefined}
                 />
               </li>
             ))}

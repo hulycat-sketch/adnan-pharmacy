@@ -78,15 +78,18 @@
 
 .tile {
   flex-shrink: 0;
-  height: 56px;
+  width: 132px;
+  height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .logo {
-  height: 100%;
   width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
 }
 
@@ -119,7 +122,8 @@
   }
 
   .tile {
-    height: 68px;
+    width: 158px;
+    height: 62px;
   }
 }
 
@@ -152,6 +156,7 @@
   }
 
   .tile {
-    height: 82px;
+    width: 185px;
+    height: 72px;
   }
 }

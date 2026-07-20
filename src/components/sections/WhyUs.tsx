@@ -7,7 +7,7 @@ import {
   Leaf,
   type LucideIcon,
 } from "lucide-react";
-import { WHY_US_SECTION, WHY_US_POINTS } from "@/lib/constants";
+import { WHY_US_POINTS } from "@/lib/constants";
 import styles from "./WhyUs.module.css";
 
 // خريطة الأيقونات: المفتاح هون لازم يطابق حرفيًا القيمة المكتوبة

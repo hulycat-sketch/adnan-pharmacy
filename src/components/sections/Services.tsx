@@ -1,6 +1,5 @@
 import Link from "next/link";
 import {
-  ShoppingBag,
   Shield,
   Pill,
   HeartPulse,
@@ -18,7 +17,6 @@ import styles from "./Services.module.css";
 // لو أضفتي خدمة جديدة بأيقونة غير موجودة هون، استوردي المكوّن من
 // lucide-react وأضيفيه لهذا الكائن.
 const ICONS: Record<string, LucideIcon> = {
-  ShoppingBag,
   Shield,
   Pill,
   HeartPulse,
@@ -31,21 +29,29 @@ function ServiceIcon({ name, size = 28 }: { name: string; size?: number }) {
   return <Icon className={styles.icon} width={size} height={size} aria-hidden="true" />;
 }
 
-// ترتيب/اختيار الخدمات الأربع المميّزة بشبكة الموبايل المضغوطة —
-// باقي الخدمات (اليوم: علامات تجارية موثوقة) تبقى بالمشروع وتُكشف
-// عبر زر "عرض جميع الخدمات" بدل حذفها.
-const MOBILE_HIGHLIGHT_IDS: readonly string[] = [
-  "consultation",
-  "skin-check",
-  "blood-pressure",
-  "insurance",
-];
+// بيعرض العنوان عاديًا، إلا لو الخدمة معها titleHighlight (متل "مجاني" بفحص
+// البشرة والشعر) — عندها بيلوّن الكلمة المحدَّدة بس بالأخضر، وباقي العنوان
+// يضل بلون العنوان الافتراضي (كحلي).
+function ServiceTitle({ service }: { service: (typeof SERVICES)[number] }) {
+  const highlight = "titleHighlight" in service ? service.titleHighlight : undefined;
+  if (!highlight) return <>{service.title}</>;
+
+  const index = service.title.indexOf(highlight);
+  if (index === -1) return <>{service.title}</>;
+
+  const before = service.title.slice(0, index);
+  const after = service.title.slice(index + highlight.length);
+
+  return (
+    <>
+      {before}
+      <span className={styles.titleAccent}>{highlight}</span>
+      {after}
+    </>
+  );
+}
 
 export default function Services() {
-  const highlightedServices = MOBILE_HIGHLIGHT_IDS.map((id) =>
-    SERVICES.find((service) => service.id === id)
-  ).filter((service): service is (typeof SERVICES)[number] => Boolean(service));
-
   return (
     <section className={styles.services} aria-labelledby="services-heading">
       <div className={styles.container}>
@@ -56,7 +62,7 @@ export default function Services() {
           <span className={styles.underline} aria-hidden="true" />
         </div>
 
-        {/* شبكة الـDesktop/Tablet — بدون أي تغيير، تُخفى بـCSS على الموبايل فقط */}
+        {/* شبكة الـDesktop/Tablet — تُخفى بـCSS على الموبايل فقط */}
         <div className={styles.grid}>
           {SERVICES.map((service) => (
             <Link key={service.id} href={service.href} className={styles.card}>
@@ -64,7 +70,9 @@ export default function Services() {
                 <ServiceIcon name={service.icon} />
               </div>
 
-              <h3 className={styles.cardTitle}>{service.title}</h3>
+              <h3 className={styles.cardTitle}>
+                <ServiceTitle service={service} />
+              </h3>
               <p className={styles.cardDescription}>{service.description}</p>
             </Link>
           ))}
@@ -72,18 +80,19 @@ export default function Services() {
 
         {/* شبكة الموبايل المضغوطة (عمودين) — تظهر فقط عند 768px فأقل */}
         <div className={styles.mobileGrid}>
-          {highlightedServices.map((service) => (
+          {SERVICES.map((service) => (
             <Link key={service.id} href={service.href} className={styles.cardCompact}>
               <div className={styles.iconWrapperCompact}>
                 <ServiceIcon name={service.icon} size={20} />
               </div>
 
-              <h3 className={styles.cardTitleCompact}>{service.title}</h3>
+              <h3 className={styles.cardTitleCompact}>
+                <ServiceTitle service={service} />
+              </h3>
               <p className={styles.cardDescriptionCompact}>{service.description}</p>
             </Link>
           ))}
         </div>
-
       </div>
     </section>
   );
