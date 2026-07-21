@@ -90,7 +90,7 @@ export const MAP = {
 // -----------------------------------------------------------------------------
 export const SOCIAL = {
   instagram: 'https://instagram.com/adnanpharmacy',
-  facebook:  'https://facebook.com/adnanpharmacy',
+  facebook:  'https://web.facebook.com/profile.php?id=100057314685906&locale=ar_AR',
   whatsapp:  `https://wa.me/${CONTACT.whatsapp}`,
 } as const
 
@@ -364,8 +364,14 @@ export const WHY_US = [
 // -----------------------------------------------------------------------------
 // 12. شركات التأمين
 // TODO: Replace logos with real insurance company images before production.
-// خاصية scale اختيارية (متل TRUSTED_BRANDS) — للتعويض عن شعار مصدره فيه
-// هوامش فارغة أكتر من الباقي، فبيبين أصغر بصريًا رغم نفس صندوق العرض.
+//
+// - shape: نسبة أبعاد الشعار بعد القصّ (wide/medium/square) — تحدد صندوق
+//   الحجم المناسب لكل شعار على الموبايل (كل نوع أبعاده مختلفة عمدًا حتى
+//   الشعارات المربعة ما تضل صغيرة جوا صندوق عريض مصمم للشعارات المستطيلة).
+// - scale: تصحيح شامل (ديسكتوب + موبايل) لشعار فيه هامش فارغ داخلي أكبر
+//   من الباقي — موجود من جولة سابقة، ما تغيّر.
+// - visualScale: تصحيح إضافي خاص بالموبايل فقط (فوق الـshape الجديد)،
+//   لنفس سبب scale بالضبط بس مضبوط لصندوق الموبايل الجديد تحديدًا.
 // -----------------------------------------------------------------------------
 export const INSURANCE_CATEGORIES = [
   { id: "insurance",    label: "شركات التأمين" },
@@ -375,34 +381,34 @@ export const INSURANCE_CATEGORIES = [
 ] as const;
 
 export const INSURANCE_COMPANIES = [
-  { name: "GIG Jordan", logo: "/images/insurance/gign.png", category: "insurance" },
-  { name: "GlobeMed", logo: "/images/insurance/globemed3.png", category: "insurance" },
-  { name: "MedNet", logo: "/images/insurance/mednet3.png", category: "insurance" },
-  { name: "MedService", logo: "/images/insurance/medservicen.png", category: "insurance" },
-  { name: "Solidarity", logo: "/images/insurance/solidarity4.png", category: "insurance" },
-  { name: "EuroArab", logo: "/images/insurance/euroarabn.png", category: "insurance" },
-  { name: "Hakeem", logo: "/images/insurance/hakeem.png", category: "insurance" },
-  { name: "NatHealth", logo: "/images/insurance/nathealth3.png", category: "insurance" },
-  { name: "Newton", logo: "/images/insurance/newtonn.png", category: "insurance" },
-  { name: "Medexa", logo: "/images/insurance/medexa1.png", category: "insurance" },
-  { name: "Omnicare", logo: "/images/insurance/omnicare3.png", category: "insurance" },
-  { name: "Al Nisr Al Arabi Insurance", logo: "/images/insurance/al-nisir-alarabi-insurance.png", category: "insurance" },
-  { name: "Al Manara Islamic Insurance", logo: "/images/insurance/almanara-islamic-insurance.png", category: "insurance" },
-  { name: "Arab Potash", logo: "/images/insurance/arab-potash.png", category: "insurance" },
-  { name: "Jordan Phosphate Mines", logo: "/images/insurance/phosphate-mines.png", category: "insurance" },
-  { name: "Arab Bank",  logo: "/images/insurance/arab-bank2.png", category: "banks" },
-  { name: "Al Rajhi Bank",  logo: "/images/insurance/alrajhi-bank1.png", category: "banks" },
-  { name: "Housing Bank", logo: "/images/insurance/housing-bank.png", category: "banks", scale: 1.2 },
-  { name: "Jordan Islamic Bank",  logo: "/images/insurance/jordan-islamic-bank.png", category: "banks", scale: 1.25 },
-  { name: "Cairo Amman Bank",  logo: "/images/insurance/cairo-amman-bank.png", category: "banks" },
-  { name: "bank aletihad",  logo: "/images/insurance/bank-aletihad.png", category: "banks" },
-  { name: "safwa bank",  logo: "/images/insurance/safwa1.png", category: "banks", scale: 1.15 },
-  { name: "yarmouk university",  logo: "/images/insurance/yarmouk-university.png", category: "universities" },
-  { name: "jadara university",  logo: "/images/insurance/jadara-university.png", category: "universities" },
-  { name: "philadelphia university",  logo: "/images/insurance/philadelphia-university.png", category: "universities" },
-  { name: "irbid national university",  logo: "/images/insurance/irbid-national-university.png", category: "universities" },
-  { name: "Lawyers Association",  logo: "/images/insurance/lawyers-association.png", category: "syndicates" },
-  { name: "Dental Association",  logo: "/images/insurance/dental-association.png", category: "syndicates" },
+  { name: "GIG Jordan", logo: "/images/insurance/gign.png", category: "insurance", shape: "medium", scale: 1.4 },
+  { name: "MedService", logo: "/images/insurance/medservicen.png", category: "insurance", shape: "medium", scale: 1.2 },
+  { name: "MedNet", logo: "/images/insurance/mednet3.png", category: "insurance", shape: "medium", visualScale: 1.08 },
+  { name: "GlobeMed", logo: "/images/insurance/globemed3.png", category: "insurance", shape: "wide", scale: 1.1 },
+  { name: "Solidarity", logo: "/images/insurance/solidarity4.png", category: "insurance", shape: "wide", scale: 1.13 },
+  { name: "Hakeem", logo: "/images/insurance/hakeem.png", category: "insurance", shape: "medium", scale: 1.15 },
+  { name: "EuroArab", logo: "/images/insurance/euroarabn.png", category: "insurance", shape: "medium" },
+  { name: "NatHealth", logo: "/images/insurance/nathealth3.png", category: "insurance", shape: "wide", scale: 1.1 },
+  { name: "Newton", logo: "/images/insurance/newtonn.png", category: "insurance", shape: "wide", scale: 1.1 },
+  { name: "Medexa", logo: "/images/insurance/medexa1.png", category: "insurance", shape: "wide", scale: 1.1 },
+  { name: "Omnicare", logo: "/images/insurance/omnicare3.png", category: "insurance", shape: "wide", scale: 1.11 },
+  { name: "Al Nisr Al Arabi Insurance", logo: "/images/insurance/al-nisir-alarabi-insurance.png", category: "insurance", shape: "medium", scale: 1.11 },
+  { name: "Al Manara Islamic Insurance", logo: "/images/insurance/almanara-islamic-insurance.png", category: "insurance", shape: "square", visualScale: 1.12 },
+  { name: "Arab Potash", logo: "/images/insurance/arab-potash.png", category: "insurance", shape: "square" },
+  { name: "Jordan Phosphate Mines", logo: "/images/insurance/phosphate-mines.png", category: "insurance", shape: "square" },
+  { name: "Arab Bank",  logo: "/images/insurance/arab-bank2.png", category: "banks", shape: "wide", visualScale: 1.12 },
+  { name: "Al Rajhi Bank",  logo: "/images/insurance/alrajhi-bank1.png", category: "banks", shape: "wide" },
+  { name: "Housing Bank", logo: "/images/insurance/housing-bank.png", category: "banks", shape: "wide", scale: 1.2 },
+  { name: "Jordan Islamic Bank",  logo: "/images/insurance/jordan-islamic-bank.png", category: "banks", shape: "wide", scale: 1.25, visualScale: 1.15 },
+  { name: "Cairo Amman Bank",  logo: "/images/insurance/cairo-amman-bank.png", category: "banks", shape: "wide", visualScale: 1.12 },
+  { name: "bank aletihad",  logo: "/images/insurance/bank-aletihad.png", category: "banks", shape: "wide", visualScale: 1.1 },
+  { name: "safwa bank",  logo: "/images/insurance/safwa1.png", category: "banks", shape: "wide", scale: 1.15, visualScale: 1.08 },
+  { name: "yarmouk university",  logo: "/images/insurance/yarmouk-university.png", category: "universities", shape: "square" },
+  { name: "jadara university",  logo: "/images/insurance/jadara-university.png", category: "universities", shape: "square", scale: 1.15 },
+  { name: "philadelphia university",  logo: "/images/insurance/philadelphia-university.png", category: "universities", shape: "square" },
+  { name: "irbid national university",  logo: "/images/insurance/irbid-national-university.png", category: "universities", shape: "square" },
+  { name: "Lawyers Association",  logo: "/images/insurance/lawyers-association.png", category: "syndicates", shape: "medium" },
+  { name: "Dental Association",  logo: "/images/insurance/dental-association.png", category: "syndicates", shape: "wide" },
 ] as const;
 
 

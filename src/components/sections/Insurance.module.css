@@ -106,13 +106,11 @@
   color: #ffffff;
 }
 
-/* ===== لوحة الشعارات — بطاقة بيضاء واحدة، صفوف Flex تتمركز تلقائيًا =====
-   استُبدلت شبكة CSS Grid بـFlex-wrap: عرض كل شعار نسبة مئوية ثابتة من
-   الصف (وليس max-width على البلاطة نفسها)، فبيضل عدد الشعارات بالصف ثابت
-   تمامًا (2 موبايل / 3 تابلت / 4 ديسكتوب) بدون ما ينكسر، وبنفس الوقت
-   justify-content: center بيوسّط أي صف أخير ناقص تلقائيًا (بدل ما يضل
-   ملزوق يمين/يسار) — يعالج حالة النقابات (عنصرين بس) والبنوك والتأمين
-   (آخر صف فيه أقل من العدد الكامل). */
+/* ===== لوحة الشعارات — بطاقة بيضاء واحدة (card) تحوي صفوف Flex (grid) =====
+   .card يحمل الشكل البصري (حدود/ظل/خلفية/padding) و.grid يحمل التوضيب
+   فقط (flex-wrap + gap) — الفصل هاد لازم لأنه على الموبايل ممكن يكون
+   جوا نفس البطاقة أكتر من .grid وحدة (أول 8 شعارات + بقية الشعارات
+   القابلة للطي بفئة شركات التأمين)، بدون ما نكرر شكل البطاقة نفسه. */
 
 .panelWrap {
   padding: 0 1.5rem;
@@ -127,18 +125,21 @@
   }
 }
 
+.card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background-color: var(--color-bg-white);
+  box-shadow: var(--shadow-card);
+  padding: 1.75rem 1.25rem;
+  animation: insuranceFadeIn 220ms ease;
+}
+
 .grid {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 1.75rem 1.25rem;
-  padding: 1.75rem 1.25rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  background-color: var(--color-bg-white);
-  box-shadow: var(--shadow-card);
-  animation: insuranceFadeIn 220ms ease;
 }
 
 .logoTile {
@@ -147,17 +148,38 @@
   align-items: center;
   justify-content: center;
   flex: 0 1 calc(50% - 0.625rem);
-  height: 56px;
+  height: 84px;
 }
 
 .logoImage {
   object-fit: contain;
-  max-width: 130px;
-  max-height: 56px;
+  /* --scale: تصحيح شامل (من جولة سابقة) بيضل شغال بكل الأحجام.
+     --visual-scale: تصحيح إضافي خاص بصندوق الموبايل الجديد بس — ديسكتوب/
+     تابلت بيتجاهلوه بالكامل (شوفي الـmedia queries تحت). */
+  transform: scale(calc(var(--scale, 1) * var(--visual-scale, 1)));
+}
+
+/* ===== أحجام حسب شكل الشعار (موبايل) — كل نوع له نسبة أبعاد مختلفة
+   عمدًا حتى الشعارات المربعة/الدائرية ما تضل صغيرة جوا صندوق مصمّم
+   أصلًا للشعارات المستطيلة العريضة ===== */
+.logoImageWide {
+  max-width: 132px;
+  max-height: 50px;
+}
+
+.logoImageMedium {
+  max-width: 110px;
+  max-height: 58px;
+}
+
+.logoImageSquare {
+  max-width: 68px;
+  max-height: 68px;
 }
 
 /* فئة تحوي 3 شعارات فأقل (متل النقابات) — تكبيرها بما إنها بتاخد صفًا
-   واحدًا فاضي أصلًا، فالتكبير بيملأ المساحة بشكل أنسب بصريًا */
+   واحدًا فاضي أصلًا، فالتكبير بيملأ المساحة بشكل أنسب بصريًا. مواصفات
+   sparse (خاصيتين) أعلى تحديدًا من أي صندوق شكل، فبتغلبه تلقائيًا */
 .sparse .logoTile {
   flex-basis: calc(50% - 1.5rem);
   height: 84px;
@@ -168,11 +190,72 @@
   max-height: 84px;
 }
 
+/* ===== "عرض جميع شركات التأمين" — حصرًا فئة شركات التأمين على الموبايل
+   (تختفي بالكامل من 769px فما فوق، شوفي تحت) ===== */
+.expandable {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 320ms ease, opacity 240ms ease;
+}
+
+.expandableOpen {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition: grid-template-rows 320ms ease, opacity 280ms ease 60ms;
+}
+
+.expandableInner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.expandableGrid {
+  margin-top: 1.75rem;
+}
+
+.expandBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 230px;
+  max-width: calc(100% - 32px);
+  height: 48px;
+  min-height: 48px;
+  margin: 22px auto 0;
+  border: 1px solid var(--color-primary);
+  border-radius: 9999px;
+  background-color: var(--color-bg-white);
+  color: var(--color-primary);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.expandBtn svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.expandBtn:hover {
+  background-color: var(--color-bg-section);
+}
+
+.expandBtn:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
 /* ===== Tablet (769px فما فوق) — 3 شعارات بالصف ===== */
 @media (min-width: 769px) {
+  .card {
+    padding: 2.25rem 2rem;
+  }
+
   .grid {
     gap: 2rem 1.5rem;
-    padding: 2.25rem 2rem;
   }
 
   .logoTile {
@@ -183,6 +266,8 @@
   .logoImage {
     max-width: 150px;
     max-height: 64px;
+    /* ديسكتوب/تابلت بيتجاهلوا visualScale بالكامل — تصميمهم ما بيتغيّر */
+    transform: scale(var(--scale, 1));
   }
 
   .sparse .logoTile {
@@ -194,13 +279,27 @@
     max-width: 210px;
     max-height: 96px;
   }
+
+  /* باقي الفئات أصلًا كاملة دايمًا؛ هيك بس تأكيد إضافي إذا انفتحت الصفحة
+     على تابلت/ديسكتوب مباشرة بحالة "غير موسّعة" */
+  .expandable {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  .expandBtn {
+    display: none;
+  }
 }
 
 /* ===== Desktop (1024px فما فوق) — 4 شعارات بالصف ===== */
 @media (min-width: 1024px) {
+  .card {
+    padding: 2.75rem;
+  }
+
   .grid {
     gap: 2.5rem 2rem;
-    padding: 2.75rem;
   }
 
   .logoTile {
@@ -236,11 +335,17 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tab {
+  .tab,
+  .expandBtn {
     transition: none;
   }
 
-  .grid {
+  .card {
     animation: none;
+  }
+
+  .expandable,
+  .expandableOpen {
+    transition: none;
   }
 }

@@ -11,7 +11,7 @@
 // =============================================================================
 
 import type { Metadata } from 'next'
-import { PHARMACY, SITE, CONTACT, SEO, IMAGES } from './constants'
+import { PHARMACY, SITE, CONTACT, SEO, IMAGES, SOCIAL } from './constants'
 
 
 // -----------------------------------------------------------------------------
@@ -174,7 +174,8 @@ export const pharmacySchema = {
     'Fr 09:00-22:00',
   ],
   sameAs: [
-    // TODO: Add official social media URLs before production.
+    SOCIAL.facebook,
+    // TODO: Add remaining official social media URLs (Instagram, etc.) once confirmed.
   ],
   // TODO: Add geo coordinates once Google Maps location is finalized.
   // geo: {
