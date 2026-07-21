@@ -1,0 +1,41 @@
+.breadcrumb {
+  padding-block: 1.25rem 0;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8125rem;
+}
+
+.link {
+  color: var(--color-text-muted);
+}
+
+.link:hover {
+  color: var(--color-secondary);
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  color: var(--color-text-muted);
+  opacity: 0.6;
+}
+
+.current {
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  max-width: 16rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 769px) {
+  .current {
+    max-width: 28rem;
+  }
+}

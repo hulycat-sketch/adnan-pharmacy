@@ -1,0 +1,88 @@
+.hero {
+  background-color: var(--color-bg);
+  padding-block: 2rem 1.5rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.description {
+  margin-top: 0.75rem;
+  max-width: 36rem;
+  font-size: 0.9375rem;
+}
+
+.searchWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 26rem;
+  margin-top: 1.5rem;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 50%;
+  inset-inline-start: 1rem;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.75rem 1.1rem 0.75rem 1.1rem;
+  padding-inline-start: 2.6rem;
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  background-color: var(--color-bg-white);
+  color: var(--color-text-primary);
+  font-size: 0.9375rem;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.searchInput::placeholder {
+  color: var(--color-text-muted);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 3px var(--color-secondary-light);
+}
+
+/* ===== Tablet (769px فما فوق) ===== */
+@media (min-width: 769px) {
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+}
+
+/* ===== Desktop (1024px فما فوق) ===== */
+@media (min-width: 1024px) {
+  .hero {
+    padding-block: 2.75rem 2rem;
+  }
+
+  .title {
+    font-size: 2.75rem;
+  }
+
+  .searchWrapper {
+    margin-top: 1.75rem;
+  }
+}
