@@ -1,79 +1,50 @@
 "use client";
 
-import { useCallback, useRef, type KeyboardEvent } from "react";
-import Link from "next/link";
+import { useMemo, useRef, useState, type KeyboardEvent } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { INSURANCE_COMPANIES, INSURANCE_SECTION } from "@/lib/constants";
-// عدّلي المسار أعلاه ليطابق مكان constants.ts الفعلي عندك
-
-import { useMarqueeScroll } from "@/lib/useMarqueeScroll";
+import {
+  INSURANCE_CATEGORIES,
+  INSURANCE_COMPANIES,
+  INSURANCE_SECTION,
+} from "@/lib/constants";
 import styles from "./Insurance.module.css";
 
-// نضمن إن "الوحدة الواحدة" (نصف الشريط) تحتوي دايمًا على عدد كافٍ
-// من الشعارات بحيث عرضها يتجاوز أي شاشة ممكنة، بغض النظر عن عدد
-// الشركات الفعلي بـ constants.ts (6 اليوم، أو 27 لاحقًا).
-// المعادلة: لو عندنا شركات كتير أصلًا (16+)، ما بنكرر شي.
-// لو قليلين، بنكررهم لحد ما نوصل 16 بلاطة بالوحدة الواحدة على الأقل.
-const MIN_TILES_PER_LOOP = 16;
-const repeatFactor = Math.max(
-  1,
-  Math.ceil(MIN_TILES_PER_LOOP / INSURANCE_COMPANIES.length)
-);
-
-const loopUnit = Array.from({ length: repeatFactor }).flatMap(
-  () => INSURANCE_COMPANIES
-);
-
-// الشريط الكامل = نسختان متطابقتان تمامًا من نفس الوحدة —
-// هذا وحده يضمن إمكانية "القفزة الخفية" عند منتصف عرض التمرير
-// (scrollWidth / 2) بدون أي فراغ مرئي، بغض النظر عن عدد الشركات.
-const track = [...loopUnit, ...loopUnit];
-
-const AUTO_SCROLL_PX_PER_SECOND = 40; // بطيء وهادئ
-const TILES_PER_JUMP_DESKTOP = 2;
-const TILES_PER_JUMP_MOBILE = 1;
-const MOBILE_QUERY = "(max-width: 639px)";
+type CategoryId = (typeof INSURANCE_CATEGORIES)[number]["id"];
 
 export default function Insurance() {
-  const { viewportRef, pauseAndScheduleResume } = useMarqueeScroll(
-    AUTO_SCROLL_PX_PER_SECOND
+  const [activeCategory, setActiveCategory] = useState<CategoryId>(
+    INSURANCE_CATEGORIES[0].id
   );
-  const trackRef = useRef<HTMLUListElement>(null);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  // قفزة السهم: تُحسب ديناميكيًا من عرض بلاطة واحدة فعلية + الفراغ الحقيقي بينها
-  const scrollByTiles = useCallback(
-    (direction: 1 | -1) => {
-      const viewport = viewportRef.current;
-      const trackEl = trackRef.current;
-      if (!viewport || !trackEl) return;
-
-      const firstTile = trackEl.firstElementChild as HTMLElement | null;
-      const tileWidth = firstTile?.getBoundingClientRect().width ?? 150;
-      const gapPx = parseFloat(getComputedStyle(trackEl).columnGap || "0") || 0;
-
-      const isMobile = window.matchMedia(MOBILE_QUERY).matches;
-      const tilesPerJump = isMobile ? TILES_PER_JUMP_MOBILE : TILES_PER_JUMP_DESKTOP;
-      const step = tilesPerJump * (tileWidth + gapPx);
-
-      pauseAndScheduleResume();
-      viewport.scrollBy({ left: direction * step, behavior: "smooth" });
-    },
-    [viewportRef, pauseAndScheduleResume]
+  const visibleCompanies = useMemo(
+    () => INSURANCE_COMPANIES.filter((company) => company.category === activeCategory),
+    [activeCategory]
   );
 
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === "ArrowRight") {
-        event.preventDefault();
-        scrollByTiles(1);
-      } else if (event.key === "ArrowLeft") {
-        event.preventDefault();
-        scrollByTiles(-1);
-      }
-    },
-    [scrollByTiles]
-  );
+  // فئة تحوي عددًا قليلًا من الشعارات (3 فأقل، متل النقابات حاليًا) — بتاخد
+  // تكبيرًا خاصًا بما إنها بتبقى وسط بطاقة واسعة بمساحة فاضية كتير غيرها
+  const isSparse = visibleCompanies.length <= 3;
+  const isUniversities = activeCategory === "universities";
+
+  // تنقّل لوحة مفاتيح كامل بين التبويبات (نمط WAI-ARIA Tabs — تفعيل تلقائي):
+  // الأسهم يمين/يسار تنقل التركيز وتفعّل التبويب فورًا، Home/End للطرفين
+  const handleTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    let nextIndex: number | null = null;
+
+    if (event.key === "ArrowRight") nextIndex = (index + 1) % INSURANCE_CATEGORIES.length;
+    else if (event.key === "ArrowLeft")
+      nextIndex = (index - 1 + INSURANCE_CATEGORIES.length) % INSURANCE_CATEGORIES.length;
+    else if (event.key === "Home") nextIndex = 0;
+    else if (event.key === "End") nextIndex = INSURANCE_CATEGORIES.length - 1;
+
+    if (nextIndex === null) return;
+
+    event.preventDefault();
+    const nextCategory = INSURANCE_CATEGORIES[nextIndex];
+    setActiveCategory(nextCategory.id);
+    tabRefs.current[nextIndex]?.focus();
+  };
 
   return (
     <section
@@ -90,61 +61,67 @@ export default function Insurance() {
           <p className={styles.subtitle}>{INSURANCE_SECTION.subtitle}</p>
         </div>
 
-        <div className={styles.marqueeRow}>
-          <button
-            type="button"
-            className={`${styles.arrowBtn} ${styles.arrowLeft}`}
-            aria-label="الشعار السابق"
-            onClick={() => scrollByTiles(-1)}
-          >
-            <ChevronLeft size={20} aria-hidden="true" />
-          </button>
+        <div className={styles.tabs} role="tablist" aria-label="تصنيف الجهات المعتمدة">
+          {INSURANCE_CATEGORIES.map((category, index) => {
+            const isActive = category.id === activeCategory;
 
+            return (
+              <button
+                key={category.id}
+                ref={(node) => {
+                  tabRefs.current[index] = node;
+                }}
+                type="button"
+                role="tab"
+                id={`insurance-tab-${category.id}`}
+                aria-selected={isActive}
+                aria-controls="insurance-panel"
+                tabIndex={isActive ? 0 : -1}
+                className={`${styles.tab} ${isActive ? styles.tabActive : ""}`}
+                onClick={() => setActiveCategory(category.id)}
+                onKeyDown={(event) => handleTabKeyDown(event, index)}
+              >
+                {category.label}
+              </button>
+            );
+          })}
+        </div>
+
+        <div
+          key={activeCategory}
+          id="insurance-panel"
+          role="tabpanel"
+          aria-labelledby={`insurance-tab-${activeCategory}`}
+          className={styles.panelWrap}
+        >
           <div
-            ref={viewportRef}
-            className={styles.marqueeViewport}
-            role="region"
-            aria-label="شركاء التأمين"
-            tabIndex={0}
-            onMouseEnter={pauseAndScheduleResume}
-            onPointerDown={pauseAndScheduleResume}
-            onFocus={pauseAndScheduleResume}
-            onKeyDown={handleKeyDown}
+            className={`${styles.grid} ${isSparse ? styles.sparse : ""} ${
+              isUniversities ? styles.universities : ""
+            }`}
           >
-            <ul ref={trackRef} className={styles.marqueeTrack}>
-              {track.map((company, index) => (
-                <li
-                  key={`${company.name}-${index}`}
-                  className={styles.logoTile}
-                  aria-hidden={index >= loopUnit.length}
-                >
+            {visibleCompanies.map((company) => {
+              // بعض الشعارات المصدر فيها هوامش فارغة أكتر من الباقي، فبتبين
+              // أصغر بصريًا رغم نفس صندوق العرض — scale اختياري بيعوّض عن هيك
+              const scale = "scale" in company ? company.scale : undefined;
+
+              return (
+                <div key={company.name} className={styles.logoTile}>
                   <Image
                     src={company.logo}
                     alt={company.name}
                     width={240}
                     height={80}
                     className={styles.logoImage}
-                    style={{ height: "100%", width: "100%" }}
+                    style={{
+                      height: "100%",
+                      width: "100%",
+                      ...(scale ? { transform: `scale(${scale})` } : {}),
+                    }}
                   />
-                </li>
-              ))}
-            </ul>
+                </div>
+              );
+            })}
           </div>
-
-          <button
-            type="button"
-            className={`${styles.arrowBtn} ${styles.arrowRight}`}
-            aria-label="الشعار التالي"
-            onClick={() => scrollByTiles(1)}
-          >
-            <ChevronRight size={20} aria-hidden="true" />
-          </button>
-        </div>
-
-        <div className={styles.actions}>
-          <Link href="#insurance" className={styles.viewAllBtn}>
-            {INSURANCE_SECTION.viewAllLabel}
-          </Link>
         </div>
       </div>
     </section>

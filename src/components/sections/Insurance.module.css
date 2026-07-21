@@ -16,15 +16,15 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
   padding: 0 1.5rem;
 }
 
 .title {
+  margin: 0;
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--color-primary);
-  margin: 0;
 }
 
 .underline {
@@ -63,176 +63,184 @@
   max-width: 640px;
 }
 
-/* ===== صف الشعارات (Carousel) ===== */
+/* ===== تبويبات التصنيف ===== */
 
-.marqueeRow {
-  position: relative;
-}
-
-.marqueeViewport {
-  overflow-x: auto;
-  overflow-y: hidden;
-  direction: ltr;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding-inline: 56px;
-  -webkit-mask-image: linear-gradient(
-    to left,
-    transparent 0,
-    black 56px,
-    black calc(100% - 56px),
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to left,
-    transparent 0,
-    black 56px,
-    black calc(100% - 56px),
-    transparent 100%
-  );
-}
-
-.marqueeViewport::-webkit-scrollbar {
-  display: none;
-}
-
-.marqueeViewport:focus-visible {
-  outline: 2px solid var(--color-secondary);
-  outline-offset: -2px;
-}
-
-.marqueeTrack {
+.tabs {
   display: flex;
-  direction: ltr;
-  align-items: center;
-  gap: 1.25rem;
-  width: max-content;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* ===== أسهم التنقل ===== */
-
-.arrowBtn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-  display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 9999px;
-  border: 1px solid rgba(226, 232, 240, 0.6);
-  background-color: var(--color-bg-white);
-  color: var(--color-primary);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-  transition: background-color var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-}
-
-.arrowBtn:hover {
-  background-color: var(--color-bg-section);
-  border-color: var(--color-border);
-  box-shadow: var(--shadow-hover);
-}
-
-.arrowBtn:focus-visible {
-  outline: 2px solid var(--color-secondary);
-  outline-offset: 2px;
-}
-
-.arrowLeft {
-  left: 0;
-}
-
-.arrowRight {
-  right: 0;
-}
-
-/* ===== الشعار — عائم بدون بطاقة، بعرض طبيعي ضمن حدود متوازنة ===== */
-
-.logoTile {
-  position: relative;
-  flex-shrink: 0;
-  width: 100px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.logoImage {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  opacity: 1;
-  transition: transform 280ms ease;
-}
-
-.logoTile:hover .logoImage {
-  transform: scale(1.08);
-}
-
-@media (max-width: 639px) {
-  .marqueeViewport {
-    padding-inline: 40px;
-  }
-
-  .marqueeTrack {
-    gap: 0.75rem;
-  }
-
-  .logoTile {
-    width: 78px;
-    height: 50px;
-  }
-
-  .arrowBtn {
-    width: 32px;
-    height: 32px;
-  }
-}
-
-/* ===== زر عرض الكل ===== */
-
-.actions {
-  display: flex;
-  justify-content: center;
-  margin-top: 2.5rem;
+  gap: 0.65rem;
+  margin-bottom: 2rem;
   padding: 0 1.5rem;
 }
 
-.viewAllBtn {
+.tab {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  padding: 0.6rem 1.25rem;
   border-radius: 9999px;
-  padding: 0.75rem 1.75rem;
   border: 1px solid var(--color-border);
   background-color: var(--color-bg-white);
   color: var(--color-primary);
   font-size: 0.9375rem;
   font-weight: 600;
-  text-decoration: none;
-  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
 }
 
-.viewAllBtn:hover {
-  background-color: var(--color-primary);
+.tab:hover {
+  background-color: var(--color-bg-section);
+  border-color: var(--color-border);
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+.tabActive,
+.tabActive:hover {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
   color: #ffffff;
+}
+
+/* ===== لوحة الشعارات — بطاقة بيضاء واحدة، صفوف Flex تتمركز تلقائيًا =====
+   استُبدلت شبكة CSS Grid بـFlex-wrap: عرض كل شعار نسبة مئوية ثابتة من
+   الصف (وليس max-width على البلاطة نفسها)، فبيضل عدد الشعارات بالصف ثابت
+   تمامًا (2 موبايل / 3 تابلت / 4 ديسكتوب) بدون ما ينكسر، وبنفس الوقت
+   justify-content: center بيوسّط أي صف أخير ناقص تلقائيًا (بدل ما يضل
+   ملزوق يمين/يسار) — يعالج حالة النقابات (عنصرين بس) والبنوك والتأمين
+   (آخر صف فيه أقل من العدد الكامل). */
+
+.panelWrap {
+  padding: 0 1.5rem;
+}
+
+@keyframes insuranceFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem 1.25rem;
+  padding: 1.75rem 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background-color: var(--color-bg-white);
   box-shadow: var(--shadow-card);
-  transform: translateY(-2px);
+  animation: insuranceFadeIn 220ms ease;
+}
+
+.logoTile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 1 calc(50% - 0.625rem);
+  height: 56px;
+}
+
+.logoImage {
+  object-fit: contain;
+  max-width: 130px;
+  max-height: 56px;
+}
+
+/* فئة تحوي 3 شعارات فأقل (متل النقابات) — تكبيرها بما إنها بتاخد صفًا
+   واحدًا فاضي أصلًا، فالتكبير بيملأ المساحة بشكل أنسب بصريًا */
+.sparse .logoTile {
+  flex-basis: calc(50% - 1.5rem);
+  height: 84px;
+}
+
+.sparse .logoImage {
+  max-width: 190px;
+  max-height: 84px;
+}
+
+/* ===== Tablet (769px فما فوق) — 3 شعارات بالصف ===== */
+@media (min-width: 769px) {
+  .grid {
+    gap: 2rem 1.5rem;
+    padding: 2.25rem 2rem;
+  }
+
+  .logoTile {
+    flex-basis: calc(33.333% - 1rem);
+    height: 64px;
+  }
+
+  .logoImage {
+    max-width: 150px;
+    max-height: 64px;
+  }
+
+  .sparse .logoTile {
+    flex-basis: calc(33.333% - 2rem);
+    height: 96px;
+  }
+
+  .sparse .logoImage {
+    max-width: 210px;
+    max-height: 96px;
+  }
+}
+
+/* ===== Desktop (1024px فما فوق) — 4 شعارات بالصف ===== */
+@media (min-width: 1024px) {
+  .grid {
+    gap: 2.5rem 2rem;
+    padding: 2.75rem;
+  }
+
+  .logoTile {
+    flex-basis: calc(25% - 1.5rem);
+    height: 72px;
+  }
+
+  .logoImage {
+    max-width: 160px;
+    max-height: 72px;
+  }
+
+  .sparse .logoTile {
+    flex-basis: calc(33.333% - 2rem);
+    height: 110px;
+  }
+
+  .sparse .logoImage {
+    max-width: 240px;
+    max-height: 110px;
+  }
+
+  /* فئة الجامعات — تكبير خفيف لأن شعاراتها مقصوصة بإحكام أصلًا (بدون هامش
+     زائد)، فبتستحمل تكبيرًا بسيطًا بدون ما تبين فاضية جوا صندوقها */
+  .universities .logoTile {
+    height: 84px;
+  }
+
+  .universities .logoImage {
+    max-width: 190px;
+    max-height: 84px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .logoImage {
+  .tab {
     transition: none;
   }
 
-  .marqueeViewport {
-    scroll-behavior: auto;
+  .grid {
+    animation: none;
   }
 }

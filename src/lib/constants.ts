@@ -343,31 +343,45 @@ export const WHY_US = [
 // -----------------------------------------------------------------------------
 // 12. شركات التأمين
 // TODO: Replace logos with real insurance company images before production.
+// خاصية scale اختيارية (متل TRUSTED_BRANDS) — للتعويض عن شعار مصدره فيه
+// هوامش فارغة أكتر من الباقي، فبيبين أصغر بصريًا رغم نفس صندوق العرض.
 // -----------------------------------------------------------------------------
+export const INSURANCE_CATEGORIES = [
+  { id: "insurance",    label: "شركات التأمين" },
+  { id: "banks",        label: "البنوك" },
+  { id: "universities", label: "الجامعات" },
+  { id: "syndicates",   label: "النقابات" },
+] as const;
+
 export const INSURANCE_COMPANIES = [
-  { name: "GIG Jordan", logo: "/images/insurance/gign.png" },
-  { name: "GlobeMed", logo: "/images/insurance/globemed3.png" },
-  { name: "MedNet", logo: "/images/insurance/mednet3.png" },
-  { name: "MedService", logo: "/images/insurance/medservicen.png" },
-  { name: "Solidarity", logo: "/images/insurance/solidarity4.png" },
-  { name: "EuroArab", logo: "/images/insurance/euroarabn.png" },
-  { name: "Hakeem", logo: "/images/insurance/hakeem.png" },
-  { name: "NatHealth", logo: "/images/insurance/nathealth3.png" },
-  { name: "Newton", logo: "/images/insurance/newtonn.png" },
-  { name: "Medexa", logo: "/images/insurance/medexa1.png" },
-  { name: "Omnicare", logo: "/images/insurance/omnicare3.png" },
-  { name: "Arab Bank",  logo: "/images/insurance/arab-bank2.png" },
-  { name: "Al Rajhi Bank",  logo: "/images/insurance/alrajhi-bank1.png" },
-  { name: "Housing Bank", logo: "/images/insurance/housing-bank.png" },
-  { name: "Jordan Islamic Bank",  logo: "/images/insurance/jordan-islamic-bank.png", },
-  { name: "Cairo Amman Bank",  logo: "/images/insurance/cairo-amman-bank.png", },
-  { name: "bank aletihad",  logo: "/images/insurance/bank-aletihad.png", },
-  { name: "safwa bank",  logo: "/images/insurance/safwa1.png" },
-  { name: "yarmouk university",  logo: "/images/insurance/yarmouk-university.png", },
-  { name: "jadara university",  logo: "/images/insurance/jadara-university.png", },
-  { name: "philadelphia university",  logo: "/images/insurance/philadelphia-university.png", },
-  { name: "Lawyers Association",  logo: "/images/insurance/lawyers-association.png", },
-  { name: "Dental Association",  logo: "/images/insurance/dental-association.png", },
+  { name: "GIG Jordan", logo: "/images/insurance/gign.png", category: "insurance" },
+  { name: "GlobeMed", logo: "/images/insurance/globemed3.png", category: "insurance" },
+  { name: "MedNet", logo: "/images/insurance/mednet3.png", category: "insurance" },
+  { name: "MedService", logo: "/images/insurance/medservicen.png", category: "insurance" },
+  { name: "Solidarity", logo: "/images/insurance/solidarity4.png", category: "insurance" },
+  { name: "EuroArab", logo: "/images/insurance/euroarabn.png", category: "insurance" },
+  { name: "Hakeem", logo: "/images/insurance/hakeem.png", category: "insurance" },
+  { name: "NatHealth", logo: "/images/insurance/nathealth3.png", category: "insurance" },
+  { name: "Newton", logo: "/images/insurance/newtonn.png", category: "insurance" },
+  { name: "Medexa", logo: "/images/insurance/medexa1.png", category: "insurance" },
+  { name: "Omnicare", logo: "/images/insurance/omnicare3.png", category: "insurance" },
+  { name: "Al Nisr Al Arabi Insurance", logo: "/images/insurance/al-nisir-alarabi-insurance.png", category: "insurance" },
+  { name: "Al Manara Islamic Insurance", logo: "/images/insurance/almanara-islamic-insurance.png", category: "insurance" },
+  { name: "Arab Potash", logo: "/images/insurance/arab-potash.png", category: "insurance" },
+  { name: "Jordan Phosphate Mines", logo: "/images/insurance/phosphate-mines.png", category: "insurance" },
+  { name: "Arab Bank",  logo: "/images/insurance/arab-bank2.png", category: "banks" },
+  { name: "Al Rajhi Bank",  logo: "/images/insurance/alrajhi-bank1.png", category: "banks" },
+  { name: "Housing Bank", logo: "/images/insurance/housing-bank.png", category: "banks", scale: 1.2 },
+  { name: "Jordan Islamic Bank",  logo: "/images/insurance/jordan-islamic-bank.png", category: "banks", scale: 1.25 },
+  { name: "Cairo Amman Bank",  logo: "/images/insurance/cairo-amman-bank.png", category: "banks" },
+  { name: "bank aletihad",  logo: "/images/insurance/bank-aletihad.png", category: "banks" },
+  { name: "safwa bank",  logo: "/images/insurance/safwa1.png", category: "banks", scale: 1.15 },
+  { name: "yarmouk university",  logo: "/images/insurance/yarmouk-university.png", category: "universities" },
+  { name: "jadara university",  logo: "/images/insurance/jadara-university.png", category: "universities" },
+  { name: "philadelphia university",  logo: "/images/insurance/philadelphia-university.png", category: "universities" },
+  { name: "irbid national university",  logo: "/images/insurance/irbid-national-university.png", category: "universities" },
+  { name: "Lawyers Association",  logo: "/images/insurance/lawyers-association.png", category: "syndicates" },
+  { name: "Dental Association",  logo: "/images/insurance/dental-association.png", category: "syndicates" },
 ] as const;
 
 
@@ -375,9 +389,8 @@ export const INSURANCE_COMPANIES = [
 // 13. نصوص قسم الجهات المعتمدة
 // -----------------------------------------------------------------------------
 export const INSURANCE_SECTION = {
-  title:        'الجهات المعتمدة لدينا',
-  subtitle:     'شركات التأمين • البنوك • الجامعات • النقابات',
-  viewAllLabel: 'عرض جميع الجهات المعتمدة',
+  title:    'الجهات المعتمدة لدينا',
+  subtitle: 'نتعامل مع مجموعة واسعة من الجهات والمؤسسات المعتمدة لتسهيل حصولكم على خدماتنا.',
 } as const
 
 
