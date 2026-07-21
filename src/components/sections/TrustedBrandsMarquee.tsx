@@ -5,6 +5,7 @@ import {
   useEffect,
   useRef,
   useState,
+  type CSSProperties,
   type KeyboardEvent,
   type PointerEvent as ReactPointerEvent,
 } from "react";
@@ -14,7 +15,8 @@ import styles from "./TrustedBrandsMarquee.module.css";
 type Brand = {
   name: string;
   logo: string;
-  scale?: number;
+  /** تصحيح اختياري خاص بالموبايل فقط (فراغ شفاف داخلي مختلف عن الباقي) */
+  visualScale?: number;
 };
 
 type TrustedBrandsMarqueeProps = {
@@ -243,7 +245,11 @@ export default function TrustedBrandsMarquee({
                   width={220}
                   height={90}
                   className={styles.logo}
-                  style={brand.scale ? { transform: `scale(${brand.scale})` } : undefined}
+                  style={
+                    brand.visualScale
+                      ? ({ "--visual-scale": brand.visualScale } as CSSProperties)
+                      : undefined
+                  }
                 />
               </li>
             ))}

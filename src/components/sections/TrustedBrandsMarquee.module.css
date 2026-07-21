@@ -68,7 +68,7 @@
   display: flex;
   direction: ltr;
   align-items: center;
-  gap: 1.5rem;
+  gap: 10px;
   width: max-content;
   list-style: none;
   margin: 0;
@@ -76,10 +76,13 @@
   will-change: transform;
 }
 
+/* عرض كل خانة محسوب من عرض الشاشة نفسها (vw) — مش رقم ثابت — حتى يضل
+   دايمًا 4 شعارات كاملة بادية بأي عرض موبايل (المعادلة: خانة = ¼ الشاشة
+   ناقص حصتها من الـpadding الجانبي والفجوات الثلاث بين الأربع خانات) */
 .tile {
   flex-shrink: 0;
-  width: 132px;
-  height: 52px;
+  width: calc(25vw - 23.5px);
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,13 +91,34 @@
 .logo {
   width: auto;
   height: auto;
-  max-width: 100%;
-  max-height: 100%;
+  /* min() مهم هون: عند العرض 360-406px تقريبًا الخانة نفسها أضيق من
+     78px، فلو تركنا max-width:78px ثابت رح يفيض الشعار برا خانته
+     ويلمس الشعار المجاور (خصوصًا شعارين عريضين جنب بعض). 100% بترجع
+     الحد الأقصى لعرض الخانة نفسها، أيّهم أصغر بيتطبّق */
+  max-width: min(78px, 100%);
+  max-height: 36px;
   object-fit: contain;
+  /* تصحيح اختياري خاص بالموبايل فقط — للشعارات يلي فراغها الشفاف الداخلي
+     مختلف عن الباقي (--visual-scale بتنعطى عبر inline style لو محدّدة) */
+  transform: scale(var(--visual-scale, 1));
+}
+
+/* تحت 360px الخانة السابقة بتصير ضيقة كتير لأربع شعارات واضحة، فبيرجع
+   يترتب 3 خانات كاملة بس (نفس فكرة معادلة الـvw، بس بقسمة على 3) */
+@media (max-width: 359px) {
+  .tile {
+    width: calc(33.333vw - 28px);
+  }
 }
 
 /* ===== Tablet (769px فما فوق) ===== */
 @media (min-width: 769px) {
+  .logo {
+    max-width: 100%;
+    max-height: 100%;
+    transform: none;
+  }
+
   .section {
     padding: 2rem 0 3rem;
   }
