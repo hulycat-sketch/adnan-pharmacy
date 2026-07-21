@@ -1,5 +1,5 @@
-import { Leaf } from "lucide-react";
 import { ABOUT_HERO } from "@/lib/constants";
+import LeafDivider from "./LeafDivider";
 import styles from "./AboutHero.module.css";
 
 export default function AboutHero() {
@@ -11,11 +11,7 @@ export default function AboutHero() {
             {ABOUT_HERO.title}
           </h1>
 
-          <span className={styles.divider} aria-hidden="true">
-            <span className={styles.dividerLine} />
-            <Leaf width={16} height={16} className={styles.dividerIcon} />
-            <span className={styles.dividerLine} />
-          </span>
+          <LeafDivider />
 
           <p className={styles.subtitle}>{ABOUT_HERO.subtitle}</p>
           <p className={styles.intro}>{ABOUT_HERO.intro}</p>

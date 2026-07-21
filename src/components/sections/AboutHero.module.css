@@ -18,28 +18,6 @@
   color: var(--color-secondary);
 }
 
-/* نفس مكوّن/ستايل الفاصل الموجود تحت "لماذا صيدلية عدنان؟" بالضبط —
-   لتقوية الاتساق البصري بين الصفحة الرئيسية وصفحة نبذة عنا */
-.divider {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  width: 100%;
-  max-width: 220px;
-  margin-top: 1rem;
-}
-
-.dividerLine {
-  flex: 1;
-  height: 1px;
-  background-color: var(--color-border);
-}
-
-.dividerIcon {
-  flex-shrink: 0;
-  color: var(--color-secondary);
-}
-
 .subtitle {
   margin-top: 1rem;
   font-size: 1.0625rem;
@@ -80,10 +58,6 @@
 
   .title {
     font-size: 3rem;
-  }
-
-  .divider {
-    margin-top: 1rem;
   }
 
   .subtitle {

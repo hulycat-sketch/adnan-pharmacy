@@ -1,5 +1,6 @@
 import { Calendar, Clock, MapPin, type LucideIcon } from "lucide-react";
 import { ABOUT_LEGACY } from "@/lib/constants";
+import LeafDivider from "./LeafDivider";
 import styles from "./AboutLegacy.module.css";
 
 const ICONS: Record<string, LucideIcon> = {
@@ -16,6 +17,7 @@ export default function AboutLegacy() {
           <h2 id="about-legacy-heading" className={styles.title}>
             {ABOUT_LEGACY.title}
           </h2>
+          <LeafDivider />
           <p className={styles.description}>{ABOUT_LEGACY.description}</p>
         </div>
 

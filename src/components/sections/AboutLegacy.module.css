@@ -12,15 +12,17 @@
   margin-bottom: 1.75rem;
 }
 
+/* نفس أخضر عنوان "قصتنا" بالـHero — لربط بداية الصفحة بخاتمتها بصريًا،
+   بحجم أصغر شوي من الـH1 الرئيسي (مش أكبر ولا مساوي) */
 .title {
   margin: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--color-primary);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-secondary);
 }
 
 .description {
-  margin-top: 0.75rem;
+  margin-top: 1rem;
   max-width: 34rem;
   font-size: 0.9375rem;
 }
@@ -119,6 +121,10 @@
   .desktopOnly {
     display: inline;
   }
+
+  .title {
+    font-size: 2.5rem;
+  }
 }
 
 /* ===== Desktop (1024px فما فوق) ===== */
@@ -132,7 +138,7 @@
   }
 
   .title {
-    font-size: 1.875rem;
+    font-size: 2.75rem;
   }
 
   .description {

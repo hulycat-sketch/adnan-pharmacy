@@ -1,0 +1,19 @@
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  max-width: 220px;
+  margin-top: 1rem;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-border);
+}
+
+.dividerIcon {
+  flex-shrink: 0;
+  color: var(--color-secondary);
+}
