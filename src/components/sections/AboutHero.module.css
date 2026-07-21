@@ -1,39 +1,9 @@
 .hero {
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 160px;
   background-color: var(--color-bg);
-  padding-block: 1.5rem;
-}
-
-.branchTopLeft,
-.branchBottomRight {
-  position: absolute;
-  z-index: 0;
-  pointer-events: none;
-  width: 130px;
-  height: auto;
-  color: var(--color-secondary);
-  opacity: 0.14;
-}
-
-.branchTopLeft {
-  top: -12px;
-  left: -8px;
-}
-
-.branchBottomRight {
-  bottom: -12px;
-  right: -8px;
-  transform: rotate(180deg);
+  padding-block: 2rem 1.5rem;
 }
 
 .content {
-  position: relative;
-  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,75 +12,88 @@
 
 .title {
   margin: 0;
-  font-size: 2.5rem;
+  font-size: 2.25rem;
   font-weight: 700;
-  line-height: 1.15;
+  line-height: 1.2;
   color: var(--color-secondary);
 }
 
+/* نفس مكوّن/ستايل الفاصل الموجود تحت "لماذا صيدلية عدنان؟" بالضبط —
+   لتقوية الاتساق البصري بين الصفحة الرئيسية وصفحة نبذة عنا */
 .divider {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  margin-top: 1.25rem;
+  gap: 0.65rem;
+  width: 100%;
+  max-width: 220px;
+  margin-top: 1rem;
 }
 
 .dividerLine {
-  display: block;
-  width: 2.25rem;
-  height: 2px;
-  background-color: var(--color-secondary);
-  border-radius: 9999px;
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-border);
 }
 
-.dividerLeaf {
-  color: var(--color-secondary);
+.dividerIcon {
   flex-shrink: 0;
+  color: var(--color-secondary);
 }
 
-.description {
-  margin-top: 1.25rem;
-  font-size: 1.15rem;
-  font-weight: 500;
+.subtitle {
+  margin-top: 1rem;
+  font-size: 1.0625rem;
+  font-weight: 600;
   color: var(--color-primary);
+}
+
+.intro {
+  margin-top: 0.75rem;
+  max-width: 34rem;
+  font-size: 0.9375rem;
 }
 
 /* ===== Tablet (769px فما فوق) ===== */
 @media (min-width: 769px) {
   .hero {
-    min-height: 190px;
-  }
-
-  .branchTopLeft,
-  .branchBottomRight {
-    width: 170px;
+    padding-block: 2.5rem 1.75rem;
   }
 
   .title {
-    font-size: 3.25rem;
+    font-size: 2.75rem;
   }
 
-  .description {
-    font-size: 1.3rem;
+  .subtitle {
+    font-size: 1.15rem;
+  }
+
+  .intro {
+    font-size: 1rem;
   }
 }
 
 /* ===== Desktop (1024px فما فوق) ===== */
 @media (min-width: 1024px) {
   .hero {
-    min-height: 220px;
-  }
-
-  .branchTopLeft,
-  .branchBottomRight {
-    width: 200px;
+    padding-block: 2.5rem 1.5rem;
   }
 
   .title {
-    font-size: 3.75rem;
+    font-size: 3rem;
   }
 
-  .description {
-    font-size: 1.4rem;
+  .divider {
+    margin-top: 1rem;
+  }
+
+  .subtitle {
+    margin-top: 0.9rem;
+    font-size: 1.25rem;
+  }
+
+  .intro {
+    margin-top: 0.7rem;
+    max-width: 38rem;
+    font-size: 1.0625rem;
   }
 }

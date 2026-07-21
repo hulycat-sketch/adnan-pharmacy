@@ -1,0 +1,63 @@
+.section {
+  background-color: var(--color-secondary-light);
+  padding-block: 1.75rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 32rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.iconCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  background-color: var(--color-bg-white);
+  color: var(--color-secondary-dark);
+  box-shadow: var(--shadow-card);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--color-primary);
+}
+
+.description {
+  margin-top: 0.65rem;
+  font-size: 0.9375rem;
+}
+
+/* ===== Desktop (1024px فما فوق) ===== */
+@media (min-width: 1024px) {
+  .section {
+    padding-block: 2.5rem;
+  }
+
+  .content {
+    max-width: 38rem;
+  }
+
+  .iconCircle {
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .description {
+    margin-top: 0.75rem;
+    font-size: 1rem;
+  }
+}
