@@ -247,6 +247,7 @@ export default function TrustedBrandsMarquee({
                   alt={brand.name}
                   width={220}
                   height={90}
+                  draggable={false}
                   className={styles.logo}
                   style={
                     {
