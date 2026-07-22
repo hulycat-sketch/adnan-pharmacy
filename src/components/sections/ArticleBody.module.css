@@ -59,11 +59,114 @@
   color: var(--color-secondary-dark);
 }
 
+.calloutTitle {
+  margin: 0 0 0.35rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
 .calloutText {
   margin: 0;
   font-size: 0.9375rem;
   line-height: 1.75;
   color: var(--color-primary);
+}
+
+/* ===== جدول مقارنة — عمود التمرير الأفقي على الموبايل بدل ضغط النص ===== */
+.tableWrapper {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem 1rem;
+  text-align: start;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.table thead th {
+  background-color: var(--color-bg-section);
+  color: var(--color-primary);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table td {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* ===== أسئلة شائعة ===== */
+.faq {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+
+.faqItem {
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.faqItem:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.faqQuestion {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.faqAnswer {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--color-text-secondary);
+}
+
+/* ===== إخلاء المسؤولية الطبي — مقصود بتصميم محايد (بدون خلفية خضراء)
+   ليختلف بصريًا عن صندوق "نصيحة من الصيدلية" أعلاه ===== */
+.disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin: 2rem 0 0;
+  padding: 1rem 1.25rem;
+  background-color: var(--color-bg-section);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.disclaimerIcon {
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  color: var(--color-text-muted);
+}
+
+.disclaimerText {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: var(--color-text-muted);
 }
 
 @media (min-width: 1024px) {
@@ -77,5 +180,17 @@
 
   .listItem {
     font-size: 1.0625rem;
+  }
+
+  .table {
+    font-size: 0.9375rem;
+  }
+
+  .faqQuestion {
+    font-size: 1.0625rem;
+  }
+
+  .faqAnswer {
+    font-size: 1rem;
   }
 }

@@ -1,4 +1,4 @@
-import { ShieldCheck } from "lucide-react";
+import { Info, ShieldCheck } from "lucide-react";
 import type { ArticleBlock } from "@/lib/blog";
 import styles from "./ArticleBody.module.css";
 
@@ -40,7 +40,56 @@ export default function ArticleBody({ blocks }: ArticleBodyProps) {
             return (
               <div key={index} className={styles.callout} role="note">
                 <ShieldCheck width={20} height={20} className={styles.calloutIcon} aria-hidden="true" />
-                <p className={styles.calloutText}>{block.text}</p>
+                <div>
+                  {block.title && <p className={styles.calloutTitle}>{block.title}</p>}
+                  <p className={styles.calloutText}>{block.text}</p>
+                </div>
+              </div>
+            );
+
+          case "table":
+            return (
+              <div key={index} className={styles.tableWrapper}>
+                <table className={styles.table}>
+                  <thead>
+                    <tr>
+                      {block.headers.map((header) => (
+                        <th key={header} scope="col">
+                          {header}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {block.rows.map((row, rowIndex) => (
+                      <tr key={rowIndex}>
+                        {row.map((cell, cellIndex) => (
+                          <td key={cellIndex}>{cell}</td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            );
+
+          case "faq":
+            return (
+              <div key={index} className={styles.faq}>
+                {block.items.map((item) => (
+                  <div key={item.question} className={styles.faqItem}>
+                    <h3 className={styles.faqQuestion}>{item.question}</h3>
+                    <p className={styles.faqAnswer}>{item.answer}</p>
+                  </div>
+                ))}
+              </div>
+            );
+
+          case "disclaimer":
+            return (
+              <div key={index} className={styles.disclaimer} role="note">
+                <Info width={18} height={18} className={styles.disclaimerIcon} aria-hidden="true" />
+                <p className={styles.disclaimerText}>{block.text}</p>
               </div>
             );
 
