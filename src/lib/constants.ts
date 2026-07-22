@@ -254,29 +254,31 @@ export const SERVICE_DETAILS = [
 // -----------------------------------------------------------------------------
 // 9ج. العلامات التجارية الموثوقة — لشريط TrustedBrandsMarquee
 // لإضافة/تعديل علامة: ضيفي ملف SVG (مفضّل) داخل public/images/brands/
-// بتسمية kebab-case، وأضيفيها هون. خاصية scale اختيارية للتحكم بحجم شعار
-// معيّن لو كانت أبعاده الأصلية تخليه يبين أصغر/أكبر بصريًا من الباقي.
+// بتسمية kebab-case، وأضيفيها هون. خاصية visualScale اختيارية (خاصة
+// بالموبايل فقط) للتحكم بحجم شعار معيّن لو نسبة أبعاده (عريض جدًا أو
+// مربّع) خلّته يبين أصغر/أكبر بصريًا من الباقي جوا نفس صندوق العرض.
 //
 // ملاحظة: الملفات "-trimmed.png" مقصوصة (trim) لحدود الرسمة الفعلية —
-// نفس أسلوب pharmacy-line-art-trimmed.png — عشان كل الشعارات تطلع بنفس
-// الحجم البصري تلقائيًا بدون الحاجة لمعامل scale يدوي لكل شعار جديد.
+// نفس أسلوب pharmacy-line-art-trimmed.png — عشان ما في هامش شفاف داخلي
+// زائد. الفرق البصري المتبقي (يلي visualScale بيعالجه) سببه نسبة
+// أبعاد كل شعار نفسها (عريض جدًا مقابل مربّع)، مش الهامش الداخلي.
 // -----------------------------------------------------------------------------
 export const TRUSTED_BRANDS = [
   { name: 'Avène',          logo: '/images/brands/avene-trimmed.png' },
-  { name: 'Bioderma',       logo: '/images/brands/bioderma-trimmed.png' },
-  { name: 'Bionnex',        logo: '/images/brands/bionnex-trimmed.png' },
+  { name: 'Bioderma',       logo: '/images/brands/bioderma-trimmed.png', visualScale: 1.18 },
+  { name: 'Bionnex',        logo: '/images/brands/bionnex-trimmed.png', visualScale: 1.1 },
   { name: 'Bioten',         logo: '/images/brands/bioten-trimmed.png' },
   { name: 'CeraVe',         logo: '/images/brands/cerave-trimmed.png' },
-  { name: 'Cetaphil',       logo: '/images/brands/cetaphil-trimmed.png' },
-  { name: 'Flexitol',       logo: '/images/brands/flexitol-trimmed.png' },
+  { name: 'Cetaphil',       logo: '/images/brands/cetaphil-trimmed.png', visualScale: 0.85 },
+  { name: 'Flexitol',       logo: '/images/brands/flexitol-trimmed.png', visualScale: 1.1 },
   { name: 'Garnier',        logo: '/images/brands/garnier-trimmed.png' },
   { name: "Johnson's",      logo: '/images/brands/johnson-trimmed.png' },
   { name: 'La Roche-Posay', logo: '/images/brands/la-roche-posay-trimmed.png' },
-  { name: "L'Oréal",        logo: '/images/brands/loreal-trimmed.png' },
-  { name: 'Neutrogena',     logo: '/images/brands/neutrogena-trimmed.png' },
+  { name: "L'Oréal",        logo: '/images/brands/loreal-trimmed.png', visualScale: 1.1 },
+  { name: 'Neutrogena',     logo: '/images/brands/neutrogena-trimmed.png', visualScale: 1.15 },
   { name: "Palmer's",       logo: '/images/brands/palmers-trimmed.png' },
-  { name: 'QV',             logo: '/images/brands/qv-trimmed.png' },
-  { name: 'Sebamed',        logo: '/images/brands/seba-med-trimmed.png' },
+  { name: 'QV',             logo: '/images/brands/qv-trimmed.png', visualScale: 0.85 },
+  { name: 'Sebamed',        logo: '/images/brands/seba-med-trimmed.png', visualScale: 0.85 },
   { name: 'Vichy',          logo: '/images/brands/vichy-trimmed.png' },
 ] as const
 

@@ -68,7 +68,7 @@
   display: flex;
   direction: ltr;
   align-items: center;
-  gap: 10px;
+  gap: 16px;
   width: max-content;
   list-style: none;
   margin: 0;
@@ -81,7 +81,7 @@
    ناقص حصتها من الـpadding الجانبي والفجوات الثلاث بين الأربع خانات) */
 .tile {
   flex-shrink: 0;
-  width: calc(25vw - 23.5px);
+  width: calc(25vw - 28px);
   height: 72px;
   display: flex;
   align-items: center;
@@ -91,11 +91,11 @@
 .logo {
   width: auto;
   height: auto;
-  /* min() مهم هون: عند العرض 360-406px تقريبًا الخانة نفسها أضيق من
-     78px، فلو تركنا max-width:78px ثابت رح يفيض الشعار برا خانته
-     ويلمس الشعار المجاور (خصوصًا شعارين عريضين جنب بعض). 100% بترجع
-     الحد الأقصى لعرض الخانة نفسها، أيّهم أصغر بيتطبّق */
-  max-width: min(78px, 100%);
+  /* min() مهم هون: عند العرض تحت ~400px الخانة نفسها أضيق من 72px،
+     فلو تركنا max-width:72px ثابت رح يفيض الشعار برا خانته ويلمس
+     الشعار المجاور. 100% بترجع الحد الأقصى لعرض الخانة نفسها، أيّهم
+     أصغر بيتطبّق */
+  max-width: min(72px, 100%);
   max-height: 36px;
   object-fit: contain;
   /* تصحيح اختياري خاص بالموبايل فقط — للشعارات يلي فراغها الشفاف الداخلي
@@ -107,7 +107,7 @@
    يترتب 3 خانات كاملة بس (نفس فكرة معادلة الـvw، بس بقسمة على 3) */
 @media (max-width: 359px) {
   .tile {
-    width: calc(33.333vw - 28px);
+    width: calc(33.333vw - 32px);
   }
 }
 
