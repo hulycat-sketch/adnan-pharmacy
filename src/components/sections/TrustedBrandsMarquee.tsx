@@ -15,7 +15,10 @@ import styles from "./TrustedBrandsMarquee.module.css";
 type Brand = {
   name: string;
   logo: string;
-  /** تصحيح اختياري خاص بالموبايل فقط (فراغ شفاف داخلي مختلف عن الباقي) */
+  /** تصحيح شامل (ديسكتوب + موبايل) — لملف مصدره غير مقصوص فيه هامش
+     شفاف داخلي حقيقي (بخلاف باقي ملفات "-trimmed.png") */
+  scale?: number;
+  /** تصحيح إضافي خاص بالموبايل فقط، فوق scale لو موجود */
   visualScale?: number;
 };
 
@@ -246,9 +249,10 @@ export default function TrustedBrandsMarquee({
                   height={90}
                   className={styles.logo}
                   style={
-                    brand.visualScale
-                      ? ({ "--visual-scale": brand.visualScale } as CSSProperties)
-                      : undefined
+                    {
+                      ...(brand.scale ? { "--scale": brand.scale } : {}),
+                      ...(brand.visualScale ? { "--visual-scale": brand.visualScale } : {}),
+                    } as CSSProperties
                   }
                 />
               </li>

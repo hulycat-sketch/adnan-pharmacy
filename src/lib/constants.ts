@@ -273,7 +273,7 @@ export const TRUSTED_BRANDS = [
   { name: 'Flexitol',       logo: '/images/brands/flexitol-trimmed.png', visualScale: 1.1 },
   { name: 'Garnier',        logo: '/images/brands/garnier-trimmed.png' },
   { name: "Johnson's",      logo: '/images/brands/johnson-trimmed.png' },
-  { name: 'La Roche-Posay', logo: '/images/brands/la-roche-posay-trimmed.png' },
+  { name: 'La Roche-Posay', logo: '/images/brands/laroche-posay.png', scale: 1.2 },
   { name: "L'Oréal",        logo: '/images/brands/loreal-trimmed.png', visualScale: 1.1 },
   { name: 'Neutrogena',     logo: '/images/brands/neutrogena-trimmed.png', visualScale: 1.15 },
   { name: "Palmer's",       logo: '/images/brands/palmers-trimmed.png' },
