@@ -98,9 +98,12 @@ export default function Footer() {
             <FacebookIcon className={styles.socialIcon} />
           </a>
 
-          <p className={styles.copyright}>
-            © {year} {PHARMACY.name}. جميع الحقوق محفوظة.
-          </p>
+          <div className={styles.copyrightBlock}>
+            <p className={styles.copyright}>
+              © {year} جميع الحقوق محفوظة ل{PHARMACY.name}
+            </p>
+            <p className={styles.credit}>Designed &amp; Developed by Omama Khrais</p>
+          </div>
         </div>
       </div>
     </footer>

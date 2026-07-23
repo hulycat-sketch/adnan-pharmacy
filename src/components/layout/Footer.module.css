@@ -188,14 +188,25 @@
   height: 1.05rem;
 }
 
-.copyright {
+.copyrightBlock {
   order: 1;
   flex: 1;
+}
+
+.copyright {
   margin: 0;
   font-size: 0.8125rem;
   white-space: nowrap;
   color: var(--footer-text-secondary);
   text-align: right;
+}
+
+/* توقيع مصمم/مطوّر الموقع — هادئ ومتناسق، بدون رابط أو أيقونة أو حركة */
+.credit {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.68);
+  text-align: center;
 }
 
 /* ===== Tablet (769px فما فوق) — 3 أعمدة جنبًا لجنب ===== */
