@@ -25,6 +25,13 @@ export default function ArticleBody({ blocks }: ArticleBodyProps) {
               </h2>
             );
 
+          case "subheading":
+            return (
+              <h3 key={index} className={styles.subheading}>
+                {block.text}
+              </h3>
+            );
+
           case "list":
             return (
               <ul key={index} className={styles.list}>

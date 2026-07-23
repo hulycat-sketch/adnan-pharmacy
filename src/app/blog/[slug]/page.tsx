@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { generatePageMetadata } from "@/lib/metadata";
+import { generatePageMetadata, generateArticleSchema, generateFaqSchema } from "@/lib/metadata";
 import {
   BLOG_ARTICLES,
   getArticleBySlug,
@@ -49,9 +49,22 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   }
 
   const category = getCategoryById(article.category);
+  const articleSchema = generateArticleSchema(article);
+  const faqSchema = generateFaqSchema(article);
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+
       <article>
         <div className="container">
           <ArticleBreadcrumb currentTitle={article.title} />

@@ -12,6 +12,7 @@
 
 import type { Metadata } from 'next'
 import { PHARMACY, SITE, CONTACT, SEO, IMAGES, SOCIAL } from './constants'
+import type { BlogArticle } from './blog'
 
 
 // -----------------------------------------------------------------------------
@@ -183,4 +184,76 @@ export const pharmacySchema = {
   //   latitude:   32.5568,
   //   longitude:  35.8469,
   // },
+}
+
+
+// -----------------------------------------------------------------------------
+// 4. Article / FAQ Schema — لمقالات المدونة (src/app/blog/[slug]/page.tsx)
+// -----------------------------------------------------------------------------
+const ARABIC_MONTHS: Record<string, string> = {
+  'يناير': '01', 'فبراير': '02', 'مارس': '03', 'أبريل': '04',
+  'مايو': '05', 'يونيو': '06', 'يوليو': '07', 'أغسطس': '08',
+  'سبتمبر': '09', 'أكتوبر': '10', 'نوفمبر': '11', 'ديسمبر': '12',
+}
+
+/** يحوّل تاريخ نصي بالعربي (متل "23 يوليو 2026") لصيغة ISO المطلوبة بـ Schema.org */
+function parseArabicDateToISO(text: string): string | undefined {
+  const match = text.match(/(\d{1,2})\s+(\S+)\s+(\d{4})/)
+  if (!match) return undefined
+  const [, day, monthName, year] = match
+  const month = ARABIC_MONTHS[monthName]
+  if (!month) return undefined
+  return `${year}-${month}-${day.padStart(2, '0')}`
+}
+
+export function generateArticleSchema(article: BlogArticle) {
+  const datePublished = parseArabicDateToISO(article.publishedAt)
+
+  return {
+    '@context':  'https://schema.org',
+    '@type':     'Article',
+    headline:    article.title,
+    description: article.excerpt,
+    image:       [`${SITE.url}${article.image}`],
+    ...(datePublished ? { datePublished } : {}),
+    author: {
+      '@type': 'Organization',
+      name:     PHARMACY.name,
+      url:      SITE.url,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name:     PHARMACY.name,
+      logo: {
+        '@type': 'ImageObject',
+        url:      `${SITE.url}${IMAGES.logo}`,
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id':    `${SITE.url}/blog/${article.slug}`,
+    },
+  }
+}
+
+/** بترجع null لو المقال ما فيه أي كتلة أسئلة شائعة (faq) */
+export function generateFaqSchema(article: BlogArticle) {
+  const questions = article.body
+    .filter((block) => block.type === 'faq')
+    .flatMap((block) => block.items)
+
+  if (questions.length === 0) return null
+
+  return {
+    '@context': 'https://schema.org',
+    '@type':    'FAQPage',
+    mainEntity: questions.map((item) => ({
+      '@type': 'Question',
+      name:     item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text:     item.answer,
+      },
+    })),
+  }
 }
