@@ -1,5 +1,6 @@
 import { Search } from "lucide-react";
 import { BLOG_SECTION } from "@/lib/constants";
+import LeafDivider from "./LeafDivider";
 import styles from "./BlogHero.module.css";
 
 type BlogHeroProps = {
@@ -15,6 +16,9 @@ export default function BlogHero({ searchQuery, onSearchChange }: BlogHeroProps)
           <h1 id="blog-hero-heading" className={styles.title}>
             {BLOG_SECTION.title}
           </h1>
+
+          <LeafDivider />
+
           <p className={styles.description}>{BLOG_SECTION.description}</p>
 
           <div className={styles.searchWrapper}>

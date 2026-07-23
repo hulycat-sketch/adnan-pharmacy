@@ -12,14 +12,15 @@
 
 .title {
   margin: 0;
-  font-size: 2rem;
+  font-size: 2.25rem;
   font-weight: 700;
-  color: var(--color-primary);
+  line-height: 1.2;
+  color: var(--color-secondary);
 }
 
 .description {
   margin-top: 0.75rem;
-  max-width: 36rem;
+  max-width: 34rem;
   font-size: 0.9375rem;
 }
 
@@ -63,8 +64,12 @@
 
 /* ===== Tablet (769px فما فوق) ===== */
 @media (min-width: 769px) {
+  .hero {
+    padding-block: 2.5rem 1.75rem;
+  }
+
   .title {
-    font-size: 2.5rem;
+    font-size: 2.75rem;
   }
 
   .description {
@@ -75,11 +80,17 @@
 /* ===== Desktop (1024px فما فوق) ===== */
 @media (min-width: 1024px) {
   .hero {
-    padding-block: 2.75rem 2rem;
+    padding-block: 2.5rem 1.5rem;
   }
 
   .title {
-    font-size: 2.75rem;
+    font-size: 3rem;
+  }
+
+  .description {
+    margin-top: 0.7rem;
+    max-width: 38rem;
+    font-size: 1.0625rem;
   }
 
   .searchWrapper {
