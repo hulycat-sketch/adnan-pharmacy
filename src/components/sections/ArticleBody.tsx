@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Info, ShieldCheck } from "lucide-react";
 import type { ArticleBlock } from "@/lib/blog";
 import styles from "./ArticleBody.module.css";
@@ -14,7 +15,17 @@ export default function ArticleBody({ blocks }: ArticleBodyProps) {
           case "paragraph":
             return (
               <p key={index} className={styles.paragraph}>
-                {block.text}
+                {typeof block.text === "string"
+                  ? block.text
+                  : block.text.map((run, runIndex) =>
+                      typeof run === "string" ? (
+                        run
+                      ) : (
+                        <Link key={runIndex} href={run.href} className={styles.inlineLink}>
+                          {run.text}
+                        </Link>
+                      )
+                    )}
               </p>
             );
 

@@ -9,6 +9,16 @@
   line-height: 1.9;
 }
 
+.inlineLink {
+  color: var(--color-secondary-dark);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.inlineLink:hover {
+  color: var(--color-primary);
+}
+
 .heading {
   margin: 2rem 0 1rem;
   font-size: 1.25rem;
