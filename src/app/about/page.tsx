@@ -5,6 +5,7 @@ import AboutHero from "@/components/sections/AboutHero";
 import ServiceSection from "@/components/sections/ServiceSection";
 import AboutMedicalFamily from "@/components/sections/AboutMedicalFamily";
 import AboutLegacy from "@/components/sections/AboutLegacy";
+import ScrollToTopOnMount from "@/components/sections/ScrollToTopOnMount";
 
 export const metadata: Metadata = generatePageMetadata({
   title: "نبذة عنا",
@@ -14,6 +15,7 @@ export const metadata: Metadata = generatePageMetadata({
 export default function AboutPage() {
   return (
     <>
+      <ScrollToTopOnMount />
       <AboutHero />
 
       <ServiceSection

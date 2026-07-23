@@ -1,15 +1,20 @@
 .section {
-  background-color: var(--color-secondary-light);
-  padding-block: 1.75rem;
+  padding-block: 1.5rem;
 }
 
+/* بطاقة محتواة (بدل شريط أخضر بعرض الشاشة بالكامل) — خلفية خضراء فاتحة
+   جدًا + حدّ أخضر خفيف + زوايا مدورة، بنفس أسلوب البطاقات بالموقع */
 .content {
   display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 32rem;
   margin-inline: auto;
+  padding: 1.5rem 1.25rem;
   text-align: center;
+  background-color: var(--color-secondary-light);
+  border: 1px solid rgba(59, 170, 53, 0.25);
+  border-radius: var(--radius-xl);
 }
 
 .iconCircle {
@@ -39,11 +44,12 @@
 /* ===== Desktop (1024px فما فوق) ===== */
 @media (min-width: 1024px) {
   .section {
-    padding-block: 2.5rem;
+    padding-block: 2rem;
   }
 
   .content {
     max-width: 38rem;
+    padding: 1.75rem 2.5rem;
   }
 
   .iconCircle {
