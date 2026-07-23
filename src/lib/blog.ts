@@ -280,16 +280,3 @@ export function getArticleBySlug(slug: string): BlogArticle | undefined {
 export function getFeaturedArticle(): BlogArticle | undefined {
   return BLOG_ARTICLES.find((article) => article.featured);
 }
-
-/** مقالات أخرى غير المقال الحالي — بالأولوية لنفس التصنيف، ثم البقية */
-export function getRelatedArticles(slug: string, count = 3): BlogArticle[] {
-  const others = BLOG_ARTICLES.filter((article) => article.slug !== slug);
-  const current = getArticleBySlug(slug);
-
-  const sameCategory = current
-    ? others.filter((article) => article.category === current.category)
-    : [];
-  const rest = others.filter((article) => !sameCategory.includes(article));
-
-  return [...sameCategory, ...rest].slice(0, count);
-}

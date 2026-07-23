@@ -6,13 +6,11 @@ import {
   BLOG_ARTICLES,
   getArticleBySlug,
   getCategoryById,
-  getRelatedArticles,
 } from "@/lib/blog";
 import ArticleBreadcrumb from "@/components/sections/ArticleBreadcrumb";
 import CategoryBadge from "@/components/sections/CategoryBadge";
 import ArticleMeta from "@/components/sections/ArticleMeta";
 import ArticleBody from "@/components/sections/ArticleBody";
-import RelatedArticles from "@/components/sections/RelatedArticles";
 import BlogConsultationCta from "@/components/sections/BlogConsultationCta";
 import styles from "./page.module.css";
 
@@ -51,7 +49,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   }
 
   const category = getCategoryById(article.category);
-  const relatedArticles = getRelatedArticles(article.slug);
 
   return (
     <>
@@ -82,7 +79,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         </div>
       </article>
 
-      <RelatedArticles articles={relatedArticles} />
       <BlogConsultationCta />
     </>
   );
