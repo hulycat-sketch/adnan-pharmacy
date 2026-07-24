@@ -53,7 +53,7 @@ function ServiceTitle({ service }: { service: (typeof SERVICES)[number] }) {
 
 export default function Services() {
   return (
-    <section className={styles.services} aria-labelledby="services-heading">
+    <section id="services" className={styles.services} aria-labelledby="services-heading">
       <div className={styles.container}>
         <div className={styles.heading}>
           <h2 id="services-heading" className={styles.title}>

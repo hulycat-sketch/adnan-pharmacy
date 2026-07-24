@@ -32,7 +32,7 @@ export default function Hero() {
             </span>
 
             <h1 id="hero-heading" className={styles.title}>
-              رعايتكم الصحية
+              رعايتكم الصحية{" "}
               <br />
               <span className={styles.highlight}>أولويتنا</span>
             </h1>

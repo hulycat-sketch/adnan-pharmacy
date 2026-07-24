@@ -75,6 +75,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <body className={ibmPlexArabic.className}>
 
+        <a href="#main-content" className="skip-link">
+          تخطي إلى المحتوى الرئيسي
+        </a>
+
         {/* JSON-LD — Pharmacy Structured Data لـ Google */}
         <script
           type="application/ld+json"

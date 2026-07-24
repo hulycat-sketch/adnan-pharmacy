@@ -162,7 +162,7 @@ export const SERVICES = [
     titleHighlight: 'مجاني',
     description:    'فحص مجاني باستخدام أجهزة متخصصة لمساعدتكم على فهم احتياجات البشرة والشعر.',
     icon:           'ScanFace',
-    href:           '/#skin-check',
+    href:           '/#services',
   },
   {
     id:          'blood-pressure',

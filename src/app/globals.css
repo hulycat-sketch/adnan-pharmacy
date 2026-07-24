@@ -244,6 +244,23 @@ img {
   outline: none;
 }
 
+/* رابط "تخطي إلى المحتوى" — مخفي بصريًا، بيظهر بس عند التنقل بلوحة المفاتيح */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  inset-inline-start: var(--space-4);
+  z-index: 1000;
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+}
+
+.skip-link:focus-visible {
+  top: var(--space-4);
+}
+
 
 /* ----------------------------------------------------------------------------
    11. Scrollbar — خفيف وأنيق

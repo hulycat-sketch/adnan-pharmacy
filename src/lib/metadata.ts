@@ -96,9 +96,9 @@ export const siteMetadata: Metadata = {
 // الاستخدام في أي صفحة:
 //
 // export const metadata = generatePageMetadata({
-//   title: 'خدماتنا',
-//   description: 'تعرف على خدمات صيدلية عدنان...',
-//   path: '/services',
+//   title: 'نبذة عنا',
+//   description: 'تعرف على صيدلية عدنان...',
+//   path: '/about',
 // })
 // -----------------------------------------------------------------------------
 interface PageMetadataProps {
@@ -197,7 +197,7 @@ const ARABIC_MONTHS: Record<string, string> = {
 }
 
 /** يحوّل تاريخ نصي بالعربي (متل "23 يوليو 2026") لصيغة ISO المطلوبة بـ Schema.org */
-function parseArabicDateToISO(text: string): string | undefined {
+export function parseArabicDateToISO(text: string): string | undefined {
   const match = text.match(/(\d{1,2})\s+(\S+)\s+(\d{4})/)
   if (!match) return undefined
   const [, day, monthName, year] = match

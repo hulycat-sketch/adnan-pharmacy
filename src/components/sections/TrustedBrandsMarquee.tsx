@@ -53,11 +53,14 @@ export default function TrustedBrandsMarquee({
   const positionRef = useRef(0);
   // عرض نسخة واحدة من الشعارات (نصف عرض المسار المضاعف) — أساس اللفّة اللانهائية
   const loopWidthRef = useRef(0);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(() =>
+    typeof window !== "undefined"
+      ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      : false
+  );
 
   useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(query.matches);
     const onChange = () => setReducedMotion(query.matches);
     query.addEventListener("change", onChange);
     return () => query.removeEventListener("change", onChange);
