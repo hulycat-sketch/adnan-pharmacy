@@ -4,7 +4,7 @@ import { PHARMACY, SITE, IMAGES } from "@/lib/constants";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: PHARMACY.name,
-    short_name: "عدنان",
+    short_name: PHARMACY.name,
     description: PHARMACY.description,
     lang: SITE.language,
     dir: SITE.dir,
