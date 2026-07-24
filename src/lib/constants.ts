@@ -46,6 +46,11 @@ export const IMAGES = {
   heroMobile: '/images/heromobilenew.webp',
   ogImage: '/og-image.jpg',
   favicon: '/favicon.ico',
+  favicon16: '/favicon-16x16.png',
+  favicon32: '/favicon-32x32.png',
+  appleTouchIcon: '/apple-touch-icon.png',
+  androidChrome192: '/android-chrome-192x192.png',
+  androidChrome512: '/android-chrome-512x512.png',
 } as const
 
 

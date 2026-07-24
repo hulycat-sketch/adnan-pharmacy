@@ -78,8 +78,16 @@ export const siteMetadata: Metadata = {
 
   // --- Icons ---
   icons: {
-    icon:    IMAGES.favicon,
-    apple:   IMAGES.favicon,
+    icon: [
+      { url: IMAGES.favicon,           sizes: 'any' },
+      { url: IMAGES.favicon16,         sizes: '16x16',   type: 'image/png' },
+      { url: IMAGES.favicon32,         sizes: '32x32',   type: 'image/png' },
+      { url: IMAGES.androidChrome192,  sizes: '192x192', type: 'image/png' },
+      { url: IMAGES.androidChrome512,  sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [
+      { url: IMAGES.appleTouchIcon, sizes: '180x180', type: 'image/png' },
+    ],
   },
 
   // --- Verification (أضيفي لاحقاً بعد ربط Google Search Console) ---
