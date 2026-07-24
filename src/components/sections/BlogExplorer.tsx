@@ -4,8 +4,10 @@ import { useMemo, useState } from "react";
 import {
   BLOG_ALL_CATEGORY_ID,
   BLOG_ARTICLES,
+  getArticleSearchText,
   getFeaturedArticle,
 } from "@/lib/blog";
+import { matchesAllSearchWords, normalizeArabicText, splitSearchWords } from "@/lib/search";
 import BlogHero from "./BlogHero";
 import BlogCategoryFilter from "./BlogCategoryFilter";
 import BlogFeaturedArticle from "./BlogFeaturedArticle";
@@ -20,20 +22,29 @@ export default function BlogExplorer() {
   const featuredArticle = getFeaturedArticle();
   const isDefaultView = activeCategory === BLOG_ALL_CATEGORY_ID && searchQuery.trim() === "";
 
+  // نص بحث كل مقال مطبَّع مسبقًا مرة وحدة بس (BLOG_ARTICLES ثابتة ما بتتغيّر)،
+  // بدل ما نعيد بناءه وتطبيعه من جديد بكل ضغطة زر أثناء الكتابة
+  const articleSearchTextBySlug = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const article of BLOG_ARTICLES) {
+      map.set(article.slug, getArticleSearchText(article));
+    }
+    return map;
+  }, []);
+
   const filteredArticles = useMemo(() => {
-    const query = searchQuery.trim();
+    const queryWords = splitSearchWords(normalizeArabicText(searchQuery));
 
     return BLOG_ARTICLES.filter((article) => {
       const matchesCategory =
         activeCategory === BLOG_ALL_CATEGORY_ID || article.category === activeCategory;
-      const matchesQuery =
-        query === "" ||
-        article.title.includes(query) ||
-        article.excerpt.includes(query);
 
-      return matchesCategory && matchesQuery;
+      if (!matchesCategory) return false;
+
+      const searchableText = articleSearchTextBySlug.get(article.slug) ?? "";
+      return matchesAllSearchWords(searchableText, queryWords);
     });
-  }, [activeCategory, searchQuery]);
+  }, [activeCategory, searchQuery, articleSearchTextBySlug]);
 
   const gridArticles = isDefaultView
     ? filteredArticles.filter((article) => article.slug !== featuredArticle?.slug)

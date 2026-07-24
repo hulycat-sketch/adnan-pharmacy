@@ -11,12 +11,12 @@ export default function BlogEmptyState({ onReset }: BlogEmptyStateProps) {
       <span className={styles.iconCircle} aria-hidden="true">
         <SearchX width={26} height={26} strokeWidth={1.75} />
       </span>
-      <p className={styles.title}>لم نجد أي مقالات مطابقة</p>
+      <p className={styles.title}>لم يتم العثور على مقالات مطابقة.</p>
       <p className={styles.description}>
-        جرّبي كلمة بحث مختلفة أو اختاري تصنيفًا آخر.
+        جرّب كلمة مختلفة أو استعرض جميع المقالات.
       </p>
       <button type="button" className={styles.resetBtn} onClick={onReset}>
-        إعادة ضبط البحث
+        عرض جميع المقالات
       </button>
     </div>
   );
