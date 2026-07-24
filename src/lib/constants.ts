@@ -143,7 +143,7 @@ export const NAV_LINKS = [
   { label: 'نبذة عنا', href: '/about' },
   { label: 'المدونة',     href: '/blog'                },
   { label: 'موقعنا',      href: MAP.shareUrl           },
-  { label: 'تواصل معنا',  href: `tel:${CONTACT.phone}` },
+  { label: 'تواصل معنا',  href: '/contact'             },
  ] as const
 
 
