@@ -3,10 +3,12 @@ import Services from "@/components/sections/Services";
 import WhyUs from "@/components/sections/WhyUs";
 import Insurance from "@/components/sections/Insurance";
 import TrustedBrandsMarquee from "@/components/sections/TrustedBrandsMarquee";
+import ScrollToTopOnMount from "@/components/sections/ScrollToTopOnMount";
 import { TRUSTED_BRANDS } from "@/lib/constants";
 export default function Home() {
   return (
     <>
+      <ScrollToTopOnMount />
       <Hero />
       <Services />
     <Insurance />

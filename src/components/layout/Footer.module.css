@@ -316,6 +316,27 @@
   .grid {
     gap: 3.6rem;
   }
+
+  /* على الديسكتوب بس: توقيع "Designed & Developed" لازم يتمركز فعليًا
+     بمنتصف الصفحة (مش منتصف المساحة المتبقية بعد أيقونة فيسبوك، يلي
+     كانت بتخلّيه ينزاح شوي عن المنتصف الحقيقي). position:absolute مع
+     ارتكاز 50% من bottomInner نفسه (يلي عرضه = عرض الـcontainer، فمنتصفه
+     = منتصف الصفحة تمامًا) بيعزله عن تفاوت عرض نص حقوق النشر عن عرض
+     الأيقونة. min-height على copyrightBlock بيحافظ على نفس ارتفاع الصف
+     تمامًا، لأن السطر ما عاد يساهم بارتفاعه الطبيعي بعد ما صار مطلقًا. */
+  .bottomInner {
+    position: relative;
+  }
+
+  .copyrightBlock {
+    min-height: 65px;
+  }
+
+  .credit {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

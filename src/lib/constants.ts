@@ -136,8 +136,8 @@ export const SEO = {
 export const NAV_LINKS = [
   { label: 'الرئيسية',    href: '/'                    },
   { label: 'نبذة عنا', href: '/about' },
-  { label: 'موقعنا',      href: MAP.shareUrl           },
   { label: 'المدونة',     href: '/blog'                },
+  { label: 'موقعنا',      href: MAP.shareUrl           },
   { label: 'تواصل معنا',  href: `tel:${CONTACT.phone}` },
  ] as const
 
@@ -420,8 +420,8 @@ export const INSURANCE_CATEGORIES = [
 ] as const;
 
 export const INSURANCE_COMPANIES = [
-  { name: "GIG Jordan", logo: "/images/insurance/gign.png", category: "insurance", shape: "medium", scale: 1.4 },
-  { name: "MedService", logo: "/images/insurance/medservicen.png", category: "insurance", shape: "medium", scale: 1.2 },
+  { name: "GIG Jordan", logo: "/images/insurance/gign.png", category: "insurance", shape: "medium", scale: 1.4, visualScale: 0.95 },
+  { name: "MedService", logo: "/images/insurance/medservicen.png", category: "insurance", shape: "medium", scale: 1.2, visualScale: 0.95 },
   { name: "MedNet", logo: "/images/insurance/mednet3.png", category: "insurance", shape: "medium", visualScale: 1.08 },
   { name: "GlobeMed", logo: "/images/insurance/globemed3.png", category: "insurance", shape: "wide", scale: 1.1 },
   { name: "Solidarity", logo: "/images/insurance/solidarity4.png", category: "insurance", shape: "wide", scale: 1.13 },
@@ -477,7 +477,7 @@ export const WHY_US_POINTS = [
   {
     id:          'responsible-care',
     title:       'رعاية صيدلانية مسؤولة',
-    description: 'سلامة المراجع واحتياجاته في المقام الأول.',
+    description: 'سلامة المراجع واحتياجاته أولًا.',
     icon:        'ShieldCheck',
   },
   {
@@ -489,7 +489,7 @@ export const WHY_US_POINTS = [
   {
     id:          'our-values',
     title:       'الوضوح والأمانة',
-    description: 'نقدم إرشادات واضحة وتعاملًا قائمًا على الاحترام.',
+    description: 'إرشادات واضحة وتعامل مهني.',
     icon:        'Heart',
   },
 ] as const
