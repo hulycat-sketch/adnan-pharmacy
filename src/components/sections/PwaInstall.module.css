@@ -1,0 +1,101 @@
+.section {
+  padding: 1.5rem 0;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  max-width: 900px;
+  padding: 1.25rem 1.5rem;
+  background-color: var(--color-bg-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--color-secondary-light);
+}
+
+.icon {
+  color: var(--color-secondary);
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  margin: 0 0 0.25rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.description {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.installBtn {
+  flex-shrink: 0;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: var(--color-secondary);
+  transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  white-space: nowrap;
+}
+
+.installBtn:hover {
+  background-color: var(--color-secondary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-hover);
+}
+
+.iosInstructions {
+  flex-shrink: 0;
+  max-width: 240px;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  text-align: center;
+  color: var(--color-primary);
+  background-color: var(--color-bg-section);
+  border-radius: var(--radius-md);
+}
+
+@media (max-width: 640px) {
+  .inner {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem 1.25rem;
+  }
+
+  .content {
+    width: 100%;
+  }
+
+  .installBtn,
+  .iosInstructions {
+    width: 100%;
+    max-width: none;
+  }
+}
