@@ -44,7 +44,7 @@ export const IMAGES = {
   logoFooter: '/images/footer-logo.png',
   hero: '/images/home-hero-pharmacy.webp',
   heroMobile: '/images/heromobilenew.webp',
-  ogImage: '/images/og-image.jpg',
+  ogImage: '/og-image.jpg',
   favicon: '/favicon.ico',
 } as const
 
