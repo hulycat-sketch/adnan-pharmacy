@@ -56,7 +56,7 @@ export default function WhyUs() {
               return (
                 <div key={point.id} className={styles.pointItem}>
                   <span className={styles.pointIcon} aria-hidden="true">
-                    <Icon width={42} height={42} strokeWidth={1.75} />
+                    <Icon width={42} height={42} strokeWidth={1.75} className={styles.pointIconSvg} />
                   </span>
                   <h3 className={styles.pointTitle}>{point.title}</h3>
                   <p className={styles.pointDescription}>{point.description}</p>
