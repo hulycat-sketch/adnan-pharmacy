@@ -54,8 +54,8 @@ export const IMAGES = {
 // TODO: Replace with real contact details before production.
 // -----------------------------------------------------------------------------
 export const CONTACT = {
-  phone:           '+962-2-000-0000',
-  phoneDisplay:    '02 000 0000',
+  phone:           '+962799399751',
+  phoneDisplay:    '0799 399 751',
   whatsapp:        '962799399751',
   whatsappDisplay: '0799 399 751',
   email:           'muhdalmomani@gmail.com',

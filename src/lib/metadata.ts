@@ -170,9 +170,23 @@ export const pharmacySchema = {
   },
   telephone:     CONTACT.phone,
   email:         CONTACT.email,
-  openingHours: [
-    'Sa-Th 08:00-22:00',
-    'Fr 09:00-22:00',
+  // ساعات العمل: تطابق CONTACT.workingHours تمامًا — يوميًا 9:00 صباحًا حتى 3:00 فجرًا، ما عدا الثلاثاء (مغلق).
+  // بصيغة OpeningHoursSpecification (بدل السلسلة النصية البسيطة) لأنها الطريقة الموثّقة من Google لتمثيل
+  // ساعات عمل تتجاوز منتصف الليل (closes أصغر رقميًا من opens يعني أنها تمتد لليوم التالي).
+  openingHoursSpecification: [
+    {
+      '@type':    'OpeningHoursSpecification',
+      dayOfWeek: [
+        'https://schema.org/Sunday',
+        'https://schema.org/Monday',
+        'https://schema.org/Wednesday',
+        'https://schema.org/Thursday',
+        'https://schema.org/Friday',
+        'https://schema.org/Saturday',
+      ],
+      opens:  '09:00',
+      closes: '03:00',
+    },
   ],
   sameAs: [
     SOCIAL.facebook,
