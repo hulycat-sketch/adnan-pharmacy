@@ -33,7 +33,7 @@ export async function generateMetadata({
   }
 
   return generatePageMetadata({
-    title:       article.title,
+    title:       article.seoTitle ?? article.title,
     description: article.excerpt,
     path:        `/blog/${article.slug}`,
     image:       article.image,

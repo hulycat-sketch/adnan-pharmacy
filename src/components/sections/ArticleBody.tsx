@@ -17,15 +17,30 @@ export default function ArticleBody({ blocks }: ArticleBodyProps) {
               <p key={index} className={styles.paragraph}>
                 {typeof block.text === "string"
                   ? block.text
-                  : block.text.map((run, runIndex) =>
-                      typeof run === "string" ? (
-                        run
-                      ) : (
+                  : block.text.map((run, runIndex) => {
+                      if (typeof run === "string") return run;
+
+                      if ("external" in run && run.external) {
+                        return (
+                          <a
+                            key={runIndex}
+                            href={run.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.inlineLink}
+                            aria-label={`${run.text} (يفتح في نافذة جديدة)`}
+                          >
+                            {run.text}
+                          </a>
+                        );
+                      }
+
+                      return (
                         <Link key={runIndex} href={run.href} className={styles.inlineLink}>
                           {run.text}
                         </Link>
-                      )
-                    )}
+                      );
+                    })}
               </p>
             );
 
@@ -112,6 +127,25 @@ export default function ArticleBody({ blocks }: ArticleBodyProps) {
                 <Info width={18} height={18} className={styles.disclaimerIcon} aria-hidden="true" />
                 <p className={styles.disclaimerText}>{block.text}</p>
               </div>
+            );
+
+          case "sourceList":
+            return (
+              <ul key={index} className={styles.list}>
+                {block.items.map((item) => (
+                  <li key={item.href} className={styles.listItem}>
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.inlineLink}
+                      aria-label={`${item.label} (يفتح في نافذة جديدة)`}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             );
 
           default:
