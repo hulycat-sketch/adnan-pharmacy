@@ -1,0 +1,97 @@
+.wrapper {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.25rem;
+  background-color: var(--color-bg);
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  padding: 2.5rem 1.75rem;
+  background-color: var(--color-bg-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 1.5rem;
+}
+
+.title {
+  margin: 0 0 0.75rem;
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.description {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+.action {
+  margin-top: 1.75rem;
+}
+
+.installBtn {
+  display: block;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  border-radius: 0.75rem;
+  padding: 0.9rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: var(--color-secondary);
+  transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.installBtn:hover {
+  background-color: var(--color-secondary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-hover);
+}
+
+.iosInstructions {
+  margin: 0;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--color-primary);
+  background-color: var(--color-bg-section);
+  border-radius: var(--radius-md);
+}
+
+.installedNotice {
+  margin: 0;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-secondary-dark);
+  background-color: var(--color-secondary-light);
+  border-radius: var(--radius-md);
+}
+
+.secondaryLink {
+  display: inline-block;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.secondaryLink:hover {
+  color: var(--color-secondary-dark);
+}
