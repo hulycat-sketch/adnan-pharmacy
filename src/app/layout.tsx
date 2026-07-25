@@ -22,7 +22,9 @@
 import type { ReactNode }               from 'react'
 import type { Metadata }                from 'next'
 import localFont                        from 'next/font/local'
+import { GoogleAnalytics }              from '@next/third-parties/google'
 import { siteMetadata, pharmacySchema } from '@/lib/metadata'
+import { ANALYTICS }                    from '@/lib/constants'
 import './globals.css'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
@@ -98,6 +100,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <OneSignalInit />
 
       </body>
+
+      <GoogleAnalytics gaId={ANALYTICS.googleAnalyticsId} />
+
     </html>
   )
 }
