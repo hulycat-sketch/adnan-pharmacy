@@ -26,6 +26,7 @@ import { siteMetadata, pharmacySchema } from '@/lib/metadata'
 import './globals.css'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
+import OneSignalInit from '../components/OneSignalInit'
 
 // -----------------------------------------------------------------------------
 // 1. الخط — IBM Plex Sans Arabic
@@ -93,6 +94,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </main>
 
         <Footer />
+
+        <OneSignalInit />
 
       </body>
     </html>

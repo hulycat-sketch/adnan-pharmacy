@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Hero from "@/components/sections/Hero";
 import PwaInstall from "@/components/sections/PwaInstall";
+import NotificationOptIn from "@/components/sections/NotificationOptIn";
 import Services from "@/components/sections/Services";
 import WhyUs from "@/components/sections/WhyUs";
 import Insurance from "@/components/sections/Insurance";
@@ -18,6 +19,7 @@ export default function Home() {
       <ScrollToTopOnMount />
       <Hero />
       <PwaInstall />
+      <NotificationOptIn />
       <Services />
     <Insurance />
       <WhyUs />

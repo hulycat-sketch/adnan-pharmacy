@@ -151,9 +151,10 @@ export const NAV_LINKS = [
 // 8ب. روابط سريعة — Footer
 // -----------------------------------------------------------------------------
 export const FOOTER_LINKS = [
-  { label: 'الرئيسية',        href: '/'      },
-  { label: 'عن صيدلية عدنان', href: '/about' },
-  { label: 'المدونة',         href: '/blog'  },
+  { label: 'الرئيسية',        href: '/'               },
+  { label: 'عن صيدلية عدنان', href: '/about'          },
+  { label: 'المدونة',         href: '/blog'           },
+  { label: 'سياسة الخصوصية',  href: '/privacy-policy' },
 ] as const
 
 
