@@ -452,7 +452,7 @@ export const INSURANCE_COMPANIES = [
   { name: "Arab Bank",  logo: "/images/insurance/arab-bank2.png", category: "banks", shape: "wide", visualScale: 1.12 },
   { name: "Al Rajhi Bank",  logo: "/images/insurance/alrajhi-bank1.png", category: "banks", shape: "wide" },
   { name: "Housing Bank", logo: "/images/insurance/housing-bank.png", category: "banks", shape: "wide", scale: 1.2 },
-  { name: "Jordan Islamic Bank",  logo: "/images/insurance/jordan-islamic-bank.png", category: "banks", shape: "wide", scale: 1.25, visualScale: 1.15 },
+  { name: "Jordan Islamic Bank",  logo: "/images/insurance/jordan-islamic-bank.png", category: "banks", shape: "wide", scale: 1.25, visualScale: 0.85 },
   { name: "Cairo Amman Bank",  logo: "/images/insurance/cairo-amman-bank.png", category: "banks", shape: "wide", visualScale: 1.12 },
   { name: "bank aletihad",  logo: "/images/insurance/bank-aletihad.png", category: "banks", shape: "wide", visualScale: 1.1 },
   { name: "safwa bank",  logo: "/images/insurance/safwa1.png", category: "banks", shape: "wide", scale: 1.15, visualScale: 1.08 },
