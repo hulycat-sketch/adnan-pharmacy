@@ -17,10 +17,7 @@ import Link                            from 'next/link'
 import Image                           from 'next/image'
 import { usePathname }                 from 'next/navigation'
 import { NAV_LINKS, PHARMACY, IMAGES } from '@/lib/constants'
-import { ContactMenuDropdown, ContactMenuMobileSection } from './ContactMenu'
 import styles                          from './Header.module.css'
-
-const CONTACT_MENU_HREF = '/contact'
 
 
 export default function Header() {
@@ -60,18 +57,6 @@ height={44}
           <ul className={styles.navList}>
             {NAV_LINKS.map((link) => {
               const isActive = link.href === pathname
-
-              if (link.href === CONTACT_MENU_HREF) {
-                return (
-                  <li key={link.href}>
-                    <ContactMenuDropdown
-                      label={link.label}
-                      triggerClassName={`${styles.navLink} ${isActive ? styles.active : ''}`}
-                    />
-                  </li>
-                )
-              }
-
               return (
                 <li key={link.href}>
                   <Link
@@ -116,15 +101,6 @@ height={44}
           <ul className={`container ${styles.mobileList}`}>
             {NAV_LINKS.map((link) => {
               const isActive = link.href === pathname
-
-              if (link.href === CONTACT_MENU_HREF) {
-                return (
-                  <li key={link.href}>
-                    <ContactMenuMobileSection onNavigate={() => setIsMenuOpen(false)} />
-                  </li>
-                )
-              }
-
               return (
                 <li key={link.href}>
                   <Link

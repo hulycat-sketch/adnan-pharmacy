@@ -1,6 +1,36 @@
-import { MessageCircle, Phone, Mail, MapPin, Clock } from "lucide-react";
-import { CONTACT, SOCIAL, MAP } from "@/lib/constants";
+import { Mail, MapPin, Clock } from "lucide-react";
+import { FaPhoneAlt, FaWhatsapp, FaFacebookMessenger } from "react-icons/fa";
+import { CONTACT, MAP, QUICK_CONTACT } from "@/lib/constants";
 import styles from "./ContactPage.module.css";
+
+// بطاقات "التواصل السريع" الثلاث — أيقونات علامات تجارية حقيقية من
+// react-icons، كل وحدة بلونها الرسمي الخاص (شوفي variant جوا CSS)
+const QUICK_ACTIONS = [
+  {
+    id:       "call",
+    label:    "اتصال",
+    icon:     FaPhoneAlt,
+    href:     `tel:${CONTACT.phone}`,
+    external: false,
+    variant:  "phone",
+  },
+  {
+    id:       "whatsapp",
+    label:    "واتساب",
+    icon:     FaWhatsapp,
+    href:     `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(QUICK_CONTACT.whatsappMessage)}`,
+    external: true,
+    variant:  "whatsapp",
+  },
+  {
+    id:       "messenger",
+    label:    "ماسنجر",
+    icon:     FaFacebookMessenger,
+    href:     QUICK_CONTACT.messengerUrl,
+    external: true,
+    variant:  "messenger",
+  },
+] as const;
 
 export default function ContactPage() {
   return (
@@ -13,30 +43,31 @@ export default function ContactPage() {
           <p className={styles.subtitle}>يسعدنا تواصلكم معنا عبر أي من الطرق التالية.</p>
         </div>
 
+        <div className={styles.quickActions}>
+          {QUICK_ACTIONS.map((action) => {
+            const Icon = action.icon;
+            return (
+              <a
+                key={action.id}
+                href={action.href}
+                target={action.external ? "_blank" : undefined}
+                rel={action.external ? "noopener noreferrer" : undefined}
+                className={styles.quickActionCard}
+              >
+                <span
+                  className={`${styles.quickActionIcon} ${styles[action.variant]}`}
+                  aria-hidden="true"
+                >
+                  <Icon size={36} />
+                </span>
+                <span className={styles.quickActionLabel}>{action.label}</span>
+              </a>
+            );
+          })}
+        </div>
+
         <div className={styles.card}>
-          <a
-            href={SOCIAL.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.whatsappBtn}
-          >
-            <MessageCircle width={20} height={20} aria-hidden="true" />
-            تواصل معنا عبر واتساب
-          </a>
-
           <ul className={styles.list}>
-            <li className={styles.listItem}>
-              <span className={styles.iconWrapper} aria-hidden="true">
-                <Phone width={19} height={19} className={styles.icon} />
-              </span>
-              <div>
-                <p className={styles.itemLabel}>اتصال هاتفي</p>
-                <a href={`tel:${CONTACT.phone}`} className={styles.itemLink}>
-                  <span className={styles.phoneNumber}>{CONTACT.phoneDisplay}</span>
-                </a>
-              </div>
-            </li>
-
             <li className={styles.listItem}>
               <span className={styles.iconWrapper} aria-hidden="true">
                 <Mail width={19} height={19} className={styles.icon} />
