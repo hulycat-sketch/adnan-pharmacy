@@ -69,6 +69,7 @@ export default function Insurance() {
   // تكبيرًا خاصًا بما إنها بتبقى وسط بطاقة واسعة بمساحة فاضية كتير غيرها
   const isSparse = visibleCompanies.length <= 3;
   const isUniversities = activeCategory === "universities";
+  const isBanks = activeCategory === "banks";
 
   // زر "عرض جميع شركات التأمين" حصرًا لفئة شركات التأمين على الموبايل —
   // باقي الفئات (بنوك/جامعات/نقابات) بتظهر كاملة دايمًا بدون هالزر
@@ -157,7 +158,7 @@ export default function Insurance() {
             <div
               className={`${styles.grid} ${isSparse ? styles.sparse : ""} ${
                 isUniversities ? styles.universities : ""
-              }`}
+              } ${isBanks ? styles.banks : ""}`}
             >
               {firstCompanies.map((company) => (
                 <LogoTile key={company.name} company={company} />
