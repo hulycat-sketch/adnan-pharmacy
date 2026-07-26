@@ -8,7 +8,7 @@ import styles from "./ContactPage.module.css";
 const QUICK_ACTIONS = [
   {
     id:       "call",
-    label:    "اتصال",
+    label:    "اتصال مباشر",
     icon:     FaPhoneAlt,
     href:     `tel:${CONTACT.phone}`,
     external: false,
@@ -58,7 +58,7 @@ export default function ContactPage() {
                   className={`${styles.quickActionIcon} ${styles[action.variant]}`}
                   aria-hidden="true"
                 >
-                  <Icon size={36} />
+                  <Icon size={40} />
                 </span>
                 <span className={styles.quickActionLabel}>{action.label}</span>
               </a>
