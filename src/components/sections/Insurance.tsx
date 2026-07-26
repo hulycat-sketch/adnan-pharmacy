@@ -1,70 +1,25 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
-import Image from "next/image";
-import { ChevronDown, ChevronUp } from "lucide-react";
-import {
-  INSURANCE_CATEGORIES,
-  INSURANCE_COMPANIES,
-  INSURANCE_SECTION,
-} from "@/lib/constants";
+import { useEffect, useRef, useState, type ComponentType } from "react";
+import Link from "next/link";
+import { ArrowLeft, GraduationCap, Landmark, Shield, Users } from "lucide-react";
+import { INSURANCE_CATEGORIES, INSURANCE_SECTION } from "@/lib/constants";
 import styles from "./Insurance.module.css";
 
-type CategoryId = (typeof INSURANCE_CATEGORIES)[number]["id"];
-type Company = (typeof INSURANCE_COMPANIES)[number];
-
-// عدد الشعارات الظاهرة افتراضيًا على الموبايل بفئة "شركات التأمين" قبل
-// الضغط على "عرض جميع شركات التأمين" — باقي الفئات (بنوك/جامعات/نقابات)
-// بتظهر كاملة دايمًا، ما إلها علاقة بهاد الرقم
-const MOBILE_COLLAPSED_COUNT = 8;
-
-const SHAPE_CLASS: Record<string, string> = {
-  wide: styles.logoImageWide,
-  medium: styles.logoImageMedium,
-  square: styles.logoImageSquare,
+// خريطة أيقونات الفئات — المفتاح لازم يطابق id داخل INSURANCE_CATEGORIES
+const CATEGORY_ICONS: Record<string, ComponentType<{ width?: number; height?: number; strokeWidth?: number; className?: string }>> = {
+  insurance: Shield,
+  banks: Landmark,
+  universities: GraduationCap,
+  syndicates: Users,
 };
 
-function LogoTile({ company }: { company: Company }) {
-  // بعض الشعارات المصدر فيها هوامش فارغة أكتر من الباقي، فبتبين أصغر
-  // بصريًا رغم نفس صندوق العرض — scale (شامل) وvisualScale (موبايل فقط)
-  // بيعوّضوا عن هيك، وبيتجمعوا مع بعض عبر CSS custom properties تحت
-  const scale = "scale" in company ? company.scale : undefined;
-  const visualScale = "visualScale" in company ? company.visualScale : undefined;
-  const shapeClass = "shape" in company ? SHAPE_CLASS[company.shape] : "";
-
-  const style: CSSProperties = {
-    height: "100%",
-    width: "100%",
-    ...(scale ? { "--scale": scale } : {}),
-    ...(visualScale ? { "--visual-scale": visualScale } : {}),
-  } as CSSProperties;
-
-  return (
-    <div className={styles.logoTile}>
-      <Image
-        src={company.logo}
-        alt={company.name}
-        width={240}
-        height={80}
-        className={`${styles.logoImage} ${shapeClass}`}
-        style={style}
-      />
-    </div>
-  );
-}
-
 export default function Insurance() {
-  const [activeCategory, setActiveCategory] = useState<CategoryId>(
-    INSURANCE_CATEGORIES[0].id
-  );
-  const [isMobileExpanded, setIsMobileExpanded] = useState(false);
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
-  // نفس نظام الحركة المستخدم بقسم "لماذا صيدلية عدنان" — يشتغل مرة وحدة
-  // بس، وموبايل فقط (شوفي Insurance.module.css) — التابلت/الديسكتوب ما
-  // بيتأثروا إطلاقًا
+  // نفس نظام الحركة المستخدم بباقي أقسام الصفحة الرئيسية — يشتغل مرة
+  // وحدة بس، وموبايل وديسكتوب معًا
   useEffect(() => {
     const node = sectionRef.current;
     if (!node) return;
@@ -83,61 +38,11 @@ export default function Insurance() {
     return () => observer.disconnect();
   }, []);
 
-  const visibleCompanies = useMemo(
-    () => INSURANCE_COMPANIES.filter((company) => company.category === activeCategory),
-    [activeCategory]
-  );
-
-  // فئة تحوي عددًا قليلًا من الشعارات (3 فأقل، متل النقابات حاليًا) — بتاخد
-  // تكبيرًا خاصًا بما إنها بتبقى وسط بطاقة واسعة بمساحة فاضية كتير غيرها
-  const isSparse = visibleCompanies.length <= 3;
-  const isUniversities = activeCategory === "universities";
-  const isBanks = activeCategory === "banks";
-
-  // زر "عرض جميع شركات التأمين" حصرًا لفئة شركات التأمين على الموبايل —
-  // باقي الفئات (بنوك/جامعات/نقابات) بتظهر كاملة دايمًا بدون هالزر
-  const hasMobileToggle =
-    activeCategory === "insurance" && visibleCompanies.length > MOBILE_COLLAPSED_COUNT;
-  const firstCompanies = hasMobileToggle
-    ? visibleCompanies.slice(0, MOBILE_COLLAPSED_COUNT)
-    : visibleCompanies;
-  const restCompanies = hasMobileToggle
-    ? visibleCompanies.slice(MOBILE_COLLAPSED_COUNT)
-    : [];
-
-  const switchCategory = (id: CategoryId) => {
-    setActiveCategory(id);
-    setIsMobileExpanded(false);
-  };
-
-  // تنقّل لوحة مفاتيح كامل بين التبويبات (نمط WAI-ARIA Tabs — تفعيل تلقائي):
-  // الأسهم يمين/يسار تنقل التركيز وتفعّل التبويب فورًا، Home/End للطرفين
-  const handleTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
-    let nextIndex: number | null = null;
-
-    if (event.key === "ArrowRight") nextIndex = (index + 1) % INSURANCE_CATEGORIES.length;
-    else if (event.key === "ArrowLeft")
-      nextIndex = (index - 1 + INSURANCE_CATEGORIES.length) % INSURANCE_CATEGORIES.length;
-    else if (event.key === "Home") nextIndex = 0;
-    else if (event.key === "End") nextIndex = INSURANCE_CATEGORIES.length - 1;
-
-    if (nextIndex === null) return;
-
-    event.preventDefault();
-    const nextCategory = INSURANCE_CATEGORIES[nextIndex];
-    switchCategory(nextCategory.id);
-    tabRefs.current[nextIndex]?.focus();
-  };
-
   const sectionClassName = `${styles.insurance} ${isVisible ? styles.visible : ""}`;
 
   return (
-    <section
-      id="insurance"
-      ref={sectionRef}
-      className={sectionClassName}
-      aria-labelledby="insurance-heading"
-    >
+    // id="insurance" محجوز لبطاقة "خدمات التأمين" بقسم خدماتنا (href: "/#insurance") — لا تُحذف
+    <section id="insurance" ref={sectionRef} className={sectionClassName} aria-labelledby="insurance-heading">
       {/* بدون JavaScript ما في IntersectionObserver يشتغل، فهاد الفولباك
           بيفرض ظهور العنوان/الوصف فورًا بدل ما تضل مخفية للأبد */}
       <noscript>
@@ -158,84 +63,23 @@ export default function Insurance() {
           <p className={styles.subtitle}>{INSURANCE_SECTION.subtitle}</p>
         </div>
 
-        <div className={styles.tabs} role="tablist" aria-label="تصنيف الجهات المعتمدة">
-          {INSURANCE_CATEGORIES.map((category, index) => {
-            const isActive = category.id === activeCategory;
-
+        <div className={styles.categoryGrid}>
+          {INSURANCE_CATEGORIES.map((category) => {
+            const Icon = CATEGORY_ICONS[category.id];
             return (
-              <button
-                key={category.id}
-                ref={(node) => {
-                  tabRefs.current[index] = node;
-                }}
-                type="button"
-                role="tab"
-                id={`insurance-tab-${category.id}`}
-                aria-selected={isActive}
-                aria-controls="insurance-panel"
-                tabIndex={isActive ? 0 : -1}
-                className={`${styles.tab} ${isActive ? styles.tabActive : ""}`}
-                onClick={() => switchCategory(category.id)}
-                onKeyDown={(event) => handleTabKeyDown(event, index)}
-              >
-                {category.label}
-              </button>
+              <div key={category.id} className={styles.categoryCard}>
+                <Icon width={44} height={44} strokeWidth={1.5} className={styles.categoryIcon} />
+                <span className={styles.categoryLabel}>{category.label}</span>
+              </div>
             );
           })}
         </div>
 
-        <div
-          key={activeCategory}
-          id="insurance-panel"
-          role="tabpanel"
-          aria-labelledby={`insurance-tab-${activeCategory}`}
-          className={styles.panelWrap}
-        >
-          <div className={styles.card}>
-            <div
-              className={`${styles.grid} ${isSparse ? styles.sparse : ""} ${
-                isUniversities ? styles.universities : ""
-              } ${isBanks ? styles.banks : ""}`}
-            >
-              {firstCompanies.map((company) => (
-                <LogoTile key={company.name} company={company} />
-              ))}
-            </div>
-
-            {hasMobileToggle && (
-              <>
-                <div
-                  id="insurance-mobile-more"
-                  className={`${styles.expandable} ${
-                    isMobileExpanded ? styles.expandableOpen : ""
-                  }`}
-                >
-                  <div className={styles.expandableInner}>
-                    <div className={`${styles.grid} ${styles.expandableGrid}`}>
-                      {restCompanies.map((company) => (
-                        <LogoTile key={company.name} company={company} />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  className={styles.expandBtn}
-                  aria-expanded={isMobileExpanded}
-                  aria-controls="insurance-mobile-more"
-                  onClick={() => setIsMobileExpanded((value) => !value)}
-                >
-                  {isMobileExpanded ? "عرض أقل" : "عرض جميع شركات التأمين"}
-                  {isMobileExpanded ? (
-                    <ChevronUp width={16} height={16} aria-hidden="true" />
-                  ) : (
-                    <ChevronDown width={16} height={16} aria-hidden="true" />
-                  )}
-                </button>
-              </>
-            )}
-          </div>
+        <div className={styles.ctaWrap}>
+          <Link href="/approved-partners" className={styles.ctaBtn}>
+            استعرض جميع الجهات المعتمدة
+            <ArrowLeft width={18} height={18} aria-hidden="true" />
+          </Link>
         </div>
       </div>
     </section>

@@ -25,6 +25,14 @@
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--color-primary);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.insurance.visible .title {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .underline {
@@ -61,22 +69,6 @@
 .subtitle {
   margin-top: 1rem;
   max-width: 640px;
-}
-
-/* ===== حركة دخول هادئة — موبايل وديسكتوب معًا (نفس أسلوب قسم "لماذا
-   صيدلية عدنان")، تشتغل مرة وحدة فقط. العنوان أولًا، ثم الوصف بعده مباشرة ===== */
-.title {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.55s ease, transform 0.55s ease;
-}
-
-.insurance.visible .title {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.subtitle {
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 0.5s ease, transform 0.5s ease;
@@ -88,325 +80,125 @@
   transform: translateY(0);
 }
 
-/* ===== تبويبات التصنيف ===== */
+/* ===== بطاقات الفئات — أربع بطاقات معلوماتية فقط (بدون شعارات وبدون
+   تبويبات) — أيقونة خط بسيطة خضراء + اسم الفئة فقط ===== */
 
-.tabs {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 0.65rem;
-  margin-bottom: 2rem;
+.categoryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
   padding: 0 1.5rem;
 }
 
-.tab {
-  display: inline-flex;
+.categoryCard {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0.6rem 1.25rem;
-  border-radius: 9999px;
+  gap: 0.75rem;
+  padding: 1.75rem 1rem;
   border: 1px solid var(--color-border);
+  border-radius: 20px;
   background-color: var(--color-bg-white);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+/* الرفعة عند hover محصورة بأجهزة فيها ماوس فعليًا — البطاقات معلوماتية
+   بس (بدون رابط)، فبدون هالقيد ممكن اللمس يفعّل حركة "تعليق" غير مقصودة */
+@media (hover: hover) and (pointer: fine) {
+  .categoryCard:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+  }
+}
+
+.categoryIcon {
+  color: var(--color-secondary);
+}
+
+.categoryLabel {
+  font-size: 1rem;
+  font-weight: 600;
   color: var(--color-primary);
+}
+
+/* ===== زر "استعرض جميع الجهات المعتمدة" — نفس ستايل الزر الأخضر
+   الأساسي المستخدم بباقي الموقع (BlogConsultationCta) ===== */
+
+.ctaWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.25rem;
+  padding: 0 1.5rem;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  border-radius: 9999px;
+  background-color: var(--color-secondary);
+  color: #ffffff;
   font-size: 0.9375rem;
   font-weight: 600;
-  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+  text-decoration: none;
+  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.tab:hover {
-  background-color: var(--color-bg-section);
-  border-color: var(--color-border);
-}
-
-.tab:focus-visible {
-  outline: 2px solid var(--color-secondary);
-  outline-offset: 2px;
-}
-
-.tabActive,
-.tabActive:hover {
-  background-color: var(--color-secondary);
-  border-color: var(--color-secondary);
+.ctaBtn:hover {
+  background-color: var(--color-secondary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-hover);
   color: #ffffff;
 }
 
-/* ===== لوحة الشعارات — بطاقة بيضاء واحدة (card) تحوي صفوف Flex (grid) =====
-   .card يحمل الشكل البصري (حدود/ظل/خلفية/padding) و.grid يحمل التوضيب
-   فقط (flex-wrap + gap) — الفصل هاد لازم لأنه على الموبايل ممكن يكون
-   جوا نفس البطاقة أكتر من .grid وحدة (أول 8 شعارات + بقية الشعارات
-   القابلة للطي بفئة شركات التأمين)، بدون ما نكرر شكل البطاقة نفسه. */
-
-.panelWrap {
-  padding: 0 1.5rem;
-}
-
-@keyframes insuranceFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.card {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  background-color: var(--color-bg-white);
-  box-shadow: var(--shadow-card);
-  padding: 1.75rem 1.25rem;
-  animation: insuranceFadeIn 220ms ease;
-}
-
-.grid {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 1.75rem 1.25rem;
-}
-
-.logoTile {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 1 calc(50% - 0.625rem);
-  height: 84px;
-}
-
-.logoImage {
-  object-fit: contain;
-  /* --scale: تصحيح شامل (من جولة سابقة) بيضل شغال بكل الأحجام.
-     --visual-scale: تصحيح إضافي خاص بصندوق الموبايل الجديد بس — ديسكتوب/
-     تابلت بيتجاهلوه بالكامل (شوفي الـmedia queries تحت). */
-  transform: scale(calc(var(--scale, 1) * var(--visual-scale, 1)));
-}
-
-/* ===== أحجام حسب شكل الشعار (موبايل) — كل نوع له نسبة أبعاد مختلفة
-   عمدًا حتى الشعارات المربعة/الدائرية ما تضل صغيرة جوا صندوق مصمّم
-   أصلًا للشعارات المستطيلة العريضة ===== */
-.logoImageWide {
-  max-width: 132px;
-  max-height: 50px;
-}
-
-.logoImageMedium {
-  max-width: 110px;
-  max-height: 58px;
-}
-
-.logoImageSquare {
-  max-width: 68px;
-  max-height: 68px;
-}
-
-/* فئة تحوي 3 شعارات فأقل (متل النقابات) — تكبيرها بما إنها بتاخد صفًا
-   واحدًا فاضي أصلًا، فالتكبير بيملأ المساحة بشكل أنسب بصريًا. مواصفات
-   sparse (خاصيتين) أعلى تحديدًا من أي صندوق شكل، فبتغلبه تلقائيًا */
-.sparse .logoTile {
-  flex-basis: calc(50% - 1.5rem);
-  height: 84px;
-}
-
-.sparse .logoImage {
-  max-width: 190px;
-  max-height: 84px;
-}
-
-/* ===== توازن بصري بين فئات التبويب على الموبايل فقط — شركات التأمين هي
-   المرجع البصري ولا تتغيّر. البنوك والجامعات شعاراتها بتبين أصغر بصريًا
-   من التأمين رغم نفس صندوق الشكل (wide/square)، فبناخد صندوق حجم أكبر
-   خاص بكل فئة بدل ما نلمس صناديق الشكل المشتركة (بتأثر عالتأمين كمان).
-   تابلت/ديسكتوب (769px+) ما إلهم علاقة — القواعد هون كلها قبل أول
-   media query بالملف ===== */
-.banks .logoImageWide {
-  /* +10% تقريبًا عن صندوق wide الأساسي (132×50) */
-  max-width: 145px;
-  max-height: 55px;
-}
-
-.universities .logoImageSquare {
-  /* +18% تقريبًا عن صندوق square الأساسي (68×68) */
-  max-width: 80px;
-  max-height: 80px;
-}
-
-.universities .logoTile {
-  /* تصغير خفيف عن الـ84px الافتراضي بما إنو صندوق الشعار الجديد صار
-     يملأ الصف تقريبًا، فمش محتاج نفس الهامش العمودي الفاضي متل باقي
-     الفئات — align-items:center بـ.logoTile بيضمن التوسيط */
-  height: 80px;
-}
-
-.universities {
-  /* تقليل الفراغ العمودي فقط بين صفوف الجامعات (صفين لـ4 شعارات) —
-     التباعد الأفقي (column-gap) ضل زي ما هو بكل الفئات */
-  row-gap: 1.25rem;
-}
-
-/* ===== "عرض جميع شركات التأمين" — حصرًا فئة شركات التأمين على الموبايل
-   (تختفي بالكامل من 769px فما فوق، شوفي تحت) ===== */
-.expandable {
-  display: grid;
-  grid-template-rows: 0fr;
-  opacity: 0;
-  transition: grid-template-rows 320ms ease, opacity 240ms ease;
-}
-
-.expandableOpen {
-  grid-template-rows: 1fr;
-  opacity: 1;
-  transition: grid-template-rows 320ms ease, opacity 280ms ease 60ms;
-}
-
-.expandableInner {
-  min-height: 0;
-  overflow: hidden;
-}
-
-.expandableGrid {
-  margin-top: 1.75rem;
-}
-
-.expandBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  width: 230px;
-  max-width: calc(100% - 32px);
-  height: 48px;
-  min-height: 48px;
-  margin: 22px auto 0;
-  border: 1px solid var(--color-primary);
-  border-radius: 9999px;
-  background-color: var(--color-bg-white);
-  color: var(--color-primary);
-  font-size: 0.9375rem;
-  font-weight: 600;
-  transition: background-color var(--transition-fast), border-color var(--transition-fast);
-}
-
-.expandBtn svg {
-  flex-shrink: 0;
-  width: 16px;
-  height: 16px;
-}
-
-.expandBtn:hover {
-  background-color: var(--color-bg-section);
-}
-
-.expandBtn:focus-visible {
+.ctaBtn:focus-visible {
   outline: 2px solid var(--color-secondary);
   outline-offset: 2px;
 }
 
-/* ===== Tablet (769px فما فوق) — 3 شعارات بالصف ===== */
+/* ===== Tablet (769px فما فوق) — أربع بطاقات بصف واحد ===== */
 @media (min-width: 769px) {
-  .card {
-    padding: 2.25rem 2rem;
+  .categoryGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.25rem;
   }
 
-  .grid {
-    gap: 2rem 1.5rem;
+  .categoryCard {
+    padding: 2.25rem 1.25rem;
   }
 
-  .logoTile {
-    flex-basis: calc(33.333% - 1rem);
-    height: 64px;
-  }
-
-  .logoImage {
-    max-width: 150px;
-    max-height: 64px;
-    /* ديسكتوب/تابلت بيتجاهلوا visualScale بالكامل — تصميمهم ما بيتغيّر */
-    transform: scale(var(--scale, 1));
-  }
-
-  .sparse .logoTile {
-    flex-basis: calc(33.333% - 2rem);
-    height: 96px;
-  }
-
-  .sparse .logoImage {
-    max-width: 210px;
-    max-height: 96px;
-  }
-
-  /* باقي الفئات أصلًا كاملة دايمًا؛ هيك بس تأكيد إضافي إذا انفتحت الصفحة
-     على تابلت/ديسكتوب مباشرة بحالة "غير موسّعة" */
-  .expandable {
-    grid-template-rows: 1fr;
-    opacity: 1;
-  }
-
-  .expandBtn {
-    display: none;
+  .categoryIcon {
+    width: 48px;
+    height: 48px;
   }
 }
 
-/* ===== Desktop (1024px فما فوق) — 4 شعارات بالصف ===== */
+/* ===== Desktop (1024px فما فوق) ===== */
 @media (min-width: 1024px) {
-  .card {
-    padding: 2.75rem;
+  .container {
+    padding: 3.25rem 0;
   }
 
-  .grid {
-    gap: 2.5rem 2rem;
+  .heading {
+    margin-bottom: 2.5rem;
   }
 
-  .logoTile {
-    flex-basis: calc(25% - 1.5rem);
-    height: 72px;
-  }
-
-  .logoImage {
-    max-width: 160px;
-    max-height: 72px;
-  }
-
-  .sparse .logoTile {
-    flex-basis: calc(33.333% - 2rem);
-    height: 110px;
-  }
-
-  .sparse .logoImage {
-    max-width: 240px;
-    max-height: 110px;
-  }
-
-  /* فئة الجامعات — تكبير خفيف لأن شعاراتها مقصوصة بإحكام أصلًا (بدون هامش
-     زائد)، فبتستحمل تكبيرًا بسيطًا بدون ما تبين فاضية جوا صندوقها */
-  .universities .logoTile {
-    height: 84px;
-  }
-
-  .universities .logoImage {
-    max-width: 190px;
-    max-height: 84px;
+  .title {
+    font-size: 1.875rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tab,
-  .expandBtn {
-    transition: none;
-  }
-
-  .card {
-    animation: none;
-  }
-
-  .expandable,
-  .expandableOpen {
-    transition: none;
-  }
-
   .title,
-  .subtitle {
+  .subtitle,
+  .categoryCard,
+  .ctaBtn {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
