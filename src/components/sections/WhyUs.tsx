@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
   Calendar,
@@ -20,8 +23,46 @@ const ICONS: Record<string, LucideIcon> = {
 };
 
 export default function WhyUs() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // حركات الدخول تشتغل مرة وحدة بس أول ما القسم يبين عالشاشة (نفس نظام
+  // IntersectionObserver المستخدم أصلًا بـServiceSection) — threshold 0.15
+  // يعني الحركة بتبلش لما يبين ~15% من القسم، وبعد أول ظهور منقطع
+  // المراقبة فورًا فما بترجع تشتغل لو المستخدم مرّر لفوق وتحت
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  const sectionClassName = `${styles.whyUs} ${isVisible ? styles.visible : ""}`;
+
   return (
-    <section className={styles.whyUs} aria-labelledby="why-us-heading">
+    <section ref={sectionRef} className={sectionClassName} aria-labelledby="why-us-heading">
+      {/* بدون JavaScript ما في IntersectionObserver يشتغل، فهاد الفولباك
+          بيفرض ظهور العنوان/الصورة/النقاط فورًا بدل ما تضل مخفية للأبد */}
+      <noscript>
+        <style>{`
+          .${styles.title}, .${styles.imageWrapper}, .${styles.pointItem} {
+            opacity: 1 !important;
+            transform: none !important;
+          }
+        `}</style>
+      </noscript>
+
       <div className="container">
         <div className={styles.heading}>
           <h2 id="why-us-heading" className={styles.title}>

@@ -18,6 +18,14 @@
   font-weight: 700;
   color: var(--color-primary);
   margin: 0;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.whyUs.visible .title {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .titleAccent {
@@ -62,6 +70,17 @@
   border-radius: 1.125rem;
   overflow: hidden;
   box-shadow: var(--shadow-card);
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+  /* بتبلش بعد ما حركة العنوان تخلص (0.55s) — دخول متتابع: عنوان، صورة،
+     نقاط، مو كلهم مع بعض */
+  transition-delay: 0.55s;
+}
+
+.whyUs.visible .imageWrapper {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .image {
@@ -82,6 +101,35 @@
   align-items: flex-start;
   text-align: right;
   padding: 1rem 0.75rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.whyUs.visible .pointItem {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* تتابع (stagger) بفاصل 100ms بين كل نقطة والتالية، وبيبلش بعد ما حركة
+   الصورة تخلص (0.55s + 0.65s = 1.2s) — الأيقونة والنص جوا نفس .pointItem
+   فبتتحركوا مع بعض كوحدة واحدة، ما في تحريك منفصل للأيقونة. على
+   الديسكتوب (شبكة 2×2) هاد الترتيب نفسه بيطلع "النقطتان العلويتان
+   (1.2s/1.3s) ثم السفليتان (1.4s/1.5s)" تلقائيًا بدون أي قاعدة إضافية */
+.pointItem:nth-child(1) {
+  transition-delay: 1.2s;
+}
+
+.pointItem:nth-child(2) {
+  transition-delay: 1.3s;
+}
+
+.pointItem:nth-child(3) {
+  transition-delay: 1.4s;
+}
+
+.pointItem:nth-child(4) {
+  transition-delay: 1.5s;
 }
 
 .pointItem:nth-child(-n + 2) {
@@ -254,5 +302,17 @@
   .pointDescription {
     margin-top: 0.45rem;
     font-size: 0.875rem;
+  }
+}
+
+/* ===== تفضيل تقليل الحركة — إظهار كل المحتوى فورًا وبشكل غير مشروط
+   بغض النظر عن حالة IntersectionObserver/JavaScript ===== */
+@media (prefers-reduced-motion: reduce) {
+  .title,
+  .imageWrapper,
+  .pointItem {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
