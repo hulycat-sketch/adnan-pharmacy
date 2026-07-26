@@ -87,7 +87,7 @@ export default function Services() {
           بيفرض ظهور العنوان والبطاقات فورًا بدل ما تضل مخفية للأبد */}
       <noscript>
         <style>{`
-          .${styles.title}, .${styles.cardCompact} {
+          .${styles.title}, .${styles.card}, .${styles.cardCompact} {
             opacity: 1 !important;
             transform: none !important;
           }

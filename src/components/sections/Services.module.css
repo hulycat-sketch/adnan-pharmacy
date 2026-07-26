@@ -18,11 +18,63 @@
   margin-bottom: 3rem;
 }
 
+/* ===== حركة دخول هادئة — موبايل وديسكتوب معًا (نفس أسلوب قسم "لماذا
+   صيدلية عدنان")، تشتغل مرة وحدة فقط. العنوان أولًا، ثم البطاقات الأربع
+   بالتتابع (stagger) بعده مباشرة — .card (تابلت/ديسكتوب) وcardCompact
+   (موبايل) بتاخدوا نفس التوقيت بالضبط بما إنهم نفس الأربع خدمات، بس كل
+   واحدة ظاهرة بعرض مختلف حسب الشاشة ===== */
 .title {
   font-size: 1.75rem;
   font-weight: 600;
   color: var(--color-primary);
   margin: 0;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.services.visible .title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* .card عندها transition شامل خاص فيها أسفل (بيغطي box-shadow/transform
+   الخاصين بالـhover كمان)، فما منكرر transition هون تجنبًا لتعارض الـ
+   shorthand — بس .cardCompact (موبايل، بدون hover) بتاخد transition خاص فيها لحالها */
+.card,
+.cardCompact {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.cardCompact {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.services.visible .card,
+.services.visible .cardCompact {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card:nth-child(1),
+.cardCompact:nth-child(1) {
+  transition-delay: 0.55s;
+}
+
+.card:nth-child(2),
+.cardCompact:nth-child(2) {
+  transition-delay: 0.65s;
+}
+
+.card:nth-child(3),
+.cardCompact:nth-child(3) {
+  transition-delay: 0.75s;
+}
+
+.card:nth-child(4),
+.cardCompact:nth-child(4) {
+  transition-delay: 0.85s;
 }
 
 .underline {
@@ -73,56 +125,6 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 0.875rem;
   }
-
-  /* ===== حركة دخول هادئة — موبايل فقط (نفس أسلوب قسم "لماذا صيدلية
-     عدنان")، تشتغل مرة وحدة فقط. العنوان أولًا، ثم البطاقات الأربع
-     بالتتابع (stagger) بعده مباشرة ===== */
-  .title {
-    opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 0.55s ease, transform 0.55s ease;
-  }
-
-  .services.visible .title {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .cardCompact {
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-
-  .services.visible .cardCompact {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .cardCompact:nth-child(1) {
-    transition-delay: 0.55s;
-  }
-
-  .cardCompact:nth-child(2) {
-    transition-delay: 0.65s;
-  }
-
-  .cardCompact:nth-child(3) {
-    transition-delay: 0.75s;
-  }
-
-  .cardCompact:nth-child(4) {
-    transition-delay: 0.85s;
-  }
-}
-
-@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
-  .title,
-  .cardCompact {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
 }
 
 /* ===== البطاقة ===== */
@@ -138,7 +140,10 @@
   background-color: var(--color-bg-white);
   box-shadow: 0 4px 16px -8px rgba(27, 43, 94, 0.1);
   text-decoration: none;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  /* box-shadow/transform هون لـhover (0.2s) — opacity/transform لحركة
+     الدخول (0.5s)، وtransform مشترك بين الاثنين فبياخد 0.5s بالحالتين
+     (تأثير طفيف كتير على سرعة رفعة الـhover، مش ملحوظ عمليًا) */
+  transition: box-shadow 0.2s ease, transform 0.5s ease, opacity 0.5s ease;
 }
 
 .card:hover {
@@ -184,6 +189,14 @@
 @media (prefers-reduced-motion: reduce) {
   .card {
     transition: none;
+  }
+
+  .title,
+  .card,
+  .cardCompact {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
 

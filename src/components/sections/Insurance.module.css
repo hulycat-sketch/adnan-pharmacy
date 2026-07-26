@@ -63,41 +63,29 @@
   max-width: 640px;
 }
 
-/* ===== حركة دخول هادئة — موبايل فقط (نفس أسلوب قسم "لماذا صيدلية
-   عدنان")، تشتغل مرة وحدة فقط. العنوان أولًا، ثم الوصف بعده مباشرة.
-   التابلت (769px فما فوق) والديسكتوب ما إلهم علاقة إطلاقًا ===== */
-@media (max-width: 768px) {
-  .title {
-    opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 0.55s ease, transform 0.55s ease;
-  }
-
-  .insurance.visible .title {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .subtitle {
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    transition-delay: 0.55s;
-  }
-
-  .insurance.visible .subtitle {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ===== حركة دخول هادئة — موبايل وديسكتوب معًا (نفس أسلوب قسم "لماذا
+   صيدلية عدنان")، تشتغل مرة وحدة فقط. العنوان أولًا، ثم الوصف بعده مباشرة ===== */
+.title {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
 }
 
-@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
-  .title,
-  .subtitle {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
+.insurance.visible .title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.subtitle {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition-delay: 0.55s;
+}
+
+.insurance.visible .subtitle {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ===== تبويبات التصنيف ===== */
@@ -415,5 +403,12 @@
   .expandable,
   .expandableOpen {
     transition: none;
+  }
+
+  .title,
+  .subtitle {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
