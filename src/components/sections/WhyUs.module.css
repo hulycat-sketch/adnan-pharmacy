@@ -124,28 +124,70 @@
   color: var(--color-text-secondary);
 }
 
-/* ===== موبايل/تابلت (أقل من 1024px) فقط ===== */
+/* ===== موبايل/تابلت (أقل من 1024px) فقط — تحويل قائمة المزايا الأربع من
+   شبكة 2×2 إلى قائمة عمودية: صف كامل العرض لكل ميزة، الأيقونة على اليمين
+   والنص بجانبها وفق RTL، بفاصل أفقي خفيف بين الصفوف بدل فواصل الشبكة
+   القديمة. الديسكتوب (1024px فما فوق) بقواعده تحت ما إله علاقة إطلاقًا ===== */
 @media (max-width: 1023px) {
-  /* تصغير طفيف لدائرة الأيقونة وحجم الأيقونة نفسها (~10-12%) */
+  .pointsCol {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pointItem {
+    flex-direction: row;
+    align-items: center;
+    text-align: right;
+    width: 100%;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .pointItem:last-child {
+    border-bottom: none;
+  }
+
+  /* إلغاء الخط العمودي بين العمودين وحشوته الجانبية الخاصين بشبكة 2×2
+     القديمة — كل صف الآن متطابق بعرض كامل بدون تمييز يمين/يسار */
+  .pointItem:nth-child(2n) {
+    border-inline-start: none;
+    padding-inline-start: 0;
+  }
+
+  .pointItem:nth-child(2n + 1) {
+    padding-inline-end: 0;
+  }
+
   .pointIcon {
-    width: 3.6rem;
-    height: 3.6rem;
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    margin-bottom: 0;
   }
 
   .pointIconSvg {
-    width: 37px;
-    height: 37px;
+    width: 29px;
+    height: 29px;
   }
 
-  /* حجز مساحة تتّسع لسطرين دومًا للعنوان والوصف — حتى لو نص بطاقة معينة
-     أقصر واحتاج سطرًا واحدًا بس، بتضل الأربع بطاقات متساوية بالارتفاع
-     تمامًا، بدون ما نمنع التفاف العنوان لسطرين لو احتاج فعليًا */
+  /* عمود النص يتمدد لياخد كل العرض المتبقي بجانب الأيقونة — الوصف ما
+     بينحصر بعرض ضيق أو أسطر قصيرة، وmin-width:0 ضروري حتى الفليكس
+     يسمح للنص يلتف طبيعي بدل ما يفيض */
+  .pointText {
+    flex: 1;
+    min-width: 0;
+  }
+
   .pointTitle {
-    min-height: calc(1.4em * 2);
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.4;
   }
 
   .pointDescription {
-    min-height: calc(1.6em * 2);
+    font-size: 15px;
+    line-height: 1.7;
   }
 }
 
