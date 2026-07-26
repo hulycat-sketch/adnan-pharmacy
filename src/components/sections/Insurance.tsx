@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
 import Image from "next/image";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import {
@@ -59,6 +59,29 @@ export default function Insurance() {
   );
   const [isMobileExpanded, setIsMobileExpanded] = useState(false);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // نفس نظام الحركة المستخدم بقسم "لماذا صيدلية عدنان" — يشتغل مرة وحدة
+  // بس، وموبايل فقط (شوفي Insurance.module.css) — التابلت/الديسكتوب ما
+  // بيتأثروا إطلاقًا
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   const visibleCompanies = useMemo(
     () => INSURANCE_COMPANIES.filter((company) => company.category === activeCategory),
@@ -106,12 +129,26 @@ export default function Insurance() {
     tabRefs.current[nextIndex]?.focus();
   };
 
+  const sectionClassName = `${styles.insurance} ${isVisible ? styles.visible : ""}`;
+
   return (
     <section
       id="insurance"
-      className={styles.insurance}
+      ref={sectionRef}
+      className={sectionClassName}
       aria-labelledby="insurance-heading"
     >
+      {/* بدون JavaScript ما في IntersectionObserver يشتغل، فهاد الفولباك
+          بيفرض ظهور العنوان/الوصف فورًا بدل ما تضل مخفية للأبد */}
+      <noscript>
+        <style>{`
+          .${styles.title}, .${styles.subtitle} {
+            opacity: 1 !important;
+            transform: none !important;
+          }
+        `}</style>
+      </noscript>
+
       <div className={styles.container}>
         <div className={styles.heading}>
           <h2 id="insurance-heading" className={styles.title}>

@@ -58,12 +58,36 @@ export default function TrustedBrandsMarquee({
       ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
       : false
   );
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
     const onChange = () => setReducedMotion(query.matches);
     query.addEventListener("change", onChange);
     return () => query.removeEventListener("change", onChange);
+  }, []);
+
+  // نفس نظام الحركة المستخدم بقسم "لماذا صيدلية عدنان" — يشتغل مرة وحدة
+  // بس، وموبايل فقط (شوفي TrustedBrandsMarquee.module.css) — التابلت/
+  // الديسكتوب ما بيتأثروا إطلاقًا. حركة العنوان/الوصف هاي منفصلة تمامًا
+  // عن reducedMotion فوق (يلي بيتحكم بانزلاق الشريط اللانهائي بس)
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
   }, []);
 
   const pauseAndScheduleResume = useCallback(() => {
@@ -213,8 +237,21 @@ export default function TrustedBrandsMarquee({
   const loopUnit = Array.from({ length: repeatFactor }).flatMap(() => brands);
   const track = [...loopUnit, ...loopUnit];
 
+  const sectionClassName = `${styles.section} ${isVisible ? styles.visible : ""}`;
+
   return (
-    <section className={styles.section} aria-label={title ?? "العلامات التجارية الموثوقة"}>
+    <section ref={sectionRef} className={sectionClassName} aria-label={title ?? "العلامات التجارية الموثوقة"}>
+      {/* بدون JavaScript ما في IntersectionObserver يشتغل، فهاد الفولباك
+          بيفرض ظهور العنوان/الوصف فورًا بدل ما تضل مخفية للأبد */}
+      <noscript>
+        <style>{`
+          .${styles.title}, .${styles.description} {
+            opacity: 1 !important;
+            transform: none !important;
+          }
+        `}</style>
+      </noscript>
+
       <div className="container">
         {title && (
           <div className={styles.heading}>

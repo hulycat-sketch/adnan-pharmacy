@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   Shield,
@@ -52,8 +55,45 @@ function ServiceTitle({ service }: { service: (typeof SERVICES)[number] }) {
 }
 
 export default function Services() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // نفس نظام الحركة المستخدم بقسم "لماذا صيدلية عدنان" — يشتغل مرة وحدة
+  // بس، وموبايل فقط (شوفي Services.module.css) — الديسكتوب/التابلت
+  // (شبكة .grid) ما بيتأثروا إطلاقًا
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  const sectionClassName = `${styles.services} ${isVisible ? styles.visible : ""}`;
+
   return (
-    <section id="services" className={styles.services} aria-labelledby="services-heading">
+    <section id="services" ref={sectionRef} className={sectionClassName} aria-labelledby="services-heading">
+      {/* بدون JavaScript ما في IntersectionObserver يشتغل، فهاد الفولباك
+          بيفرض ظهور العنوان والبطاقات فورًا بدل ما تضل مخفية للأبد */}
+      <noscript>
+        <style>{`
+          .${styles.title}, .${styles.cardCompact} {
+            opacity: 1 !important;
+            transform: none !important;
+          }
+        `}</style>
+      </noscript>
+
       <div className={styles.container}>
         <div className={styles.heading}>
           <h2 id="services-heading" className={styles.title}>

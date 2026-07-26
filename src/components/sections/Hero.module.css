@@ -217,6 +217,40 @@
     font-size: 0.875rem;
     white-space: nowrap;
   }
+
+  /* ===== حركة دخول هادئة — موبايل فقط (نفس أسلوب قسم "لماذا صيدلية
+     عدنان")، تظهر مرة وحدة فقط. العنوان أولًا، ثم الوصف بعده مباشرة ===== */
+  .title {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+
+  .hero.visible .title {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .description {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition-delay: 0.55s;
+  }
+
+  .hero.visible .description {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+  .title,
+  .description {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 /* ===== Tablet (769px فما فوق) — عمودين: صورة 52% / محتوى 48% ===== */
