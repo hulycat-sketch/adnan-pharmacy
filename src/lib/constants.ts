@@ -444,8 +444,8 @@ export const INSURANCE_CATEGORIES = [
 ] as const;
 
 export const INSURANCE_COMPANIES = [
-  { name: "GIG Jordan", logo: "/images/insurance/gign.png", category: "insurance", shape: "medium", scale: 1.4, visualScale: 0.95 },
-  { name: "MedService", logo: "/images/insurance/medservicen.png", category: "insurance", shape: "medium", scale: 1.2, visualScale: 0.95 },
+  { name: "GIG Jordan", logo: "/images/insurance/gign.png", category: "insurance", shape: "medium", scale: 1.4, visualScale: 0.8 },
+  { name: "MedService", logo: "/images/insurance/medservicen.png", category: "insurance", shape: "medium", scale: 1.2, visualScale: 0.93 },
   { name: "MedNet", logo: "/images/insurance/mednet3.png", category: "insurance", shape: "medium", visualScale: 1.08 },
   { name: "GlobeMed", logo: "/images/insurance/globemed3.png", category: "insurance", shape: "wide", scale: 1.1 },
   { name: "Solidarity", logo: "/images/insurance/solidarity4.png", category: "insurance", shape: "wide", scale: 1.13 },
@@ -460,7 +460,7 @@ export const INSURANCE_COMPANIES = [
   { name: "Arab Potash", logo: "/images/insurance/arab-potash.png", category: "insurance", shape: "square", scale: 1.18 },
   { name: "Jordan Phosphate Mines", logo: "/images/insurance/phosphate-mines.png", category: "insurance", shape: "square", scale: 1.18 },
   { name: "Royalty Insurance", logo: "/images/insurance/royalty-insurance.png", category: "insurance", shape: "wide", scale: 1.17 },
-  { name: "Arab Assurers Insurance", logo: "/images/insurance/arab-assurers-insurance.png", category: "insurance", shape: "medium", scale: 1.17 },
+  { name: "Arab Assurers Insurance", logo: "/images/insurance/arab-assurers-insurance.png", category: "insurance", shape: "medium", scale: 1.17, visualScale: 1.12 },
   { name: "Arab Bank",  logo: "/images/insurance/arab-bank2.png", category: "banks", shape: "wide", visualScale: 1.12 },
   { name: "Al Rajhi Bank",  logo: "/images/insurance/alrajhi-bank1.png", category: "banks", shape: "wide" },
   { name: "Housing Bank", logo: "/images/insurance/housing-bank.png", category: "banks", shape: "wide", scale: 1.2 },

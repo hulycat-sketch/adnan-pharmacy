@@ -140,6 +140,83 @@
   }
 }
 
+/* ترتيب شركات التأمين بالموبايل بس — ترتيب مخصص بالكامل حسب طلب العميل
+   (8 صفوف من صفين + Royalty لحاله بالصف الأخير وسط الشاشة). الترتيب
+   بالـconstants.ts وبالتابلت/الديسكتوب ما تغيّر إطلاقًا.
+   ترتيب الصفوف النهائي: [Medexa,Newton] [MedNet,GlobeMed]
+   [GIG Jordan,MedService] [Omnicare,EuroArab] [Solidarity,NatHealth]
+   [Hakeem,Al Nisr Al Arabi] [Arab Potash,Jordan Phosphate Mines]
+   [Al Manara,Arab Assurers] [Royalty — لحاله] */
+@media (max-width: 768px) {
+  .insurance .logoTile:nth-child(1) { /* GIG Jordan */
+    order: 5;
+  }
+
+  .insurance .logoTile:nth-child(2) { /* MedService */
+    order: 6;
+  }
+
+  .insurance .logoTile:nth-child(3) { /* MedNet */
+    order: 3;
+  }
+
+  .insurance .logoTile:nth-child(4) { /* GlobeMed */
+    order: 4;
+  }
+
+  .insurance .logoTile:nth-child(5) { /* Solidarity */
+    order: 9;
+  }
+
+  .insurance .logoTile:nth-child(6) { /* Hakeem */
+    order: 11;
+  }
+
+  .insurance .logoTile:nth-child(7) { /* EuroArab */
+    order: 8;
+  }
+
+  .insurance .logoTile:nth-child(8) { /* NatHealth */
+    order: 10;
+  }
+
+  .insurance .logoTile:nth-child(9) { /* Newton */
+    order: 2;
+  }
+
+  .insurance .logoTile:nth-child(10) { /* Medexa */
+    order: 1;
+  }
+
+  .insurance .logoTile:nth-child(11) { /* Omnicare */
+    order: 7;
+  }
+
+  .insurance .logoTile:nth-child(12) { /* Al Nisr Al Arabi Insurance */
+    order: 12;
+  }
+
+  .insurance .logoTile:nth-child(13) { /* Al Manara Islamic Insurance */
+    order: 15;
+  }
+
+  .insurance .logoTile:nth-child(14) { /* Arab Potash */
+    order: 13;
+  }
+
+  .insurance .logoTile:nth-child(15) { /* Jordan Phosphate Mines */
+    order: 14;
+  }
+
+  .insurance .logoTile:nth-child(16) { /* Royalty Insurance */
+    order: 17;
+  }
+
+  .insurance .logoTile:nth-child(17) { /* Arab Assurers Insurance */
+    order: 16;
+  }
+}
+
 /* فئة الجامعات — تكبير ~18% + تصغير طفيف لارتفاع الخانة وتقليل الفراغ
    العمودي بينها، خاص بالموبايل */
 .universities .logoImageSquare {
