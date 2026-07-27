@@ -1,7 +1,6 @@
 import { type CSSProperties } from "react";
 import Image from "next/image";
-import { APPROVED_PARTNERS_PAGE, INSURANCE_CATEGORIES, INSURANCE_COMPANIES } from "@/lib/constants";
-import LeafDivider from "./LeafDivider";
+import { INSURANCE_CATEGORIES, INSURANCE_COMPANIES } from "@/lib/constants";
 import styles from "./ApprovedPartnersPage.module.css";
 
 type Company = (typeof INSURANCE_COMPANIES)[number];
@@ -42,15 +41,8 @@ function LogoTile({ company }: { company: Company }) {
 
 export default function ApprovedPartnersPage() {
   return (
-    <section className={styles.page} aria-labelledby="approved-partners-heading">
+    <section className={styles.page}>
       <div className="container">
-        <div className={styles.header}>
-          <h1 id="approved-partners-heading" className={styles.title}>
-            {APPROVED_PARTNERS_PAGE.title}
-          </h1>
-          <LeafDivider />
-        </div>
-
         {INSURANCE_CATEGORIES.map((category, index) => {
           const companies = INSURANCE_COMPANIES.filter((company) => company.category === category.id);
           const isSparse = companies.length <= 3;

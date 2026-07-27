@@ -3,29 +3,6 @@
   background: linear-gradient(180deg, #ffffff 0%, #fbfcff 100%);
 }
 
-/* ===== عنوان الصفحة — نفس أسلوب Hero المستخدم بصفحتي "نبذة عنا" والمدونة
-   (AboutHero/BlogHero): عنوان كبير بلون العلامة الأخضر + LeafDivider،
-   بدون أي وصف تحته ===== */
-
-.header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 0 1.5rem;
-  margin-bottom: 2.5rem;
-}
-
-.title {
-  margin: 0;
-  /* كانت 2rem — قلّلناها أكتر خاص بالموبايل حتى تخف وطأة الالتفاف لسطرين
-     (التابلت والديسكتوب عندهم override خاص فيهم تحت، ما تأثروا) */
-  font-size: 1.75rem;
-  font-weight: 700;
-  line-height: 1.2;
-  color: var(--color-secondary);
-}
-
 /* ===== قسم كل فئة — عنوان نصي فقط (بدون أيقونة) ثم شبكة شعاراتها الكاملة ===== */
 
 .categorySection {
@@ -259,11 +236,6 @@
 
 /* ===== Tablet (769px فما فوق) — 3 شعارات بالصف ===== */
 @media (min-width: 769px) {
-  .title {
-    /* كانت 2.75rem — قلّلناها ~14% */
-    font-size: 2.375rem;
-  }
-
   .categoryHeading {
     /* كانت 1.75rem — قللناها ~10px بنفس منطق الموبايل */
     margin-bottom: 1.125rem;
@@ -315,11 +287,6 @@
    أكتر فئة شعارات)، البنوك والجامعات (٤ أعمدة)، النقابات (عمودين، فئة
    قليلة العدد بتحتاج مساحة أوسع لكل شعار) */
 @media (min-width: 1024px) {
-  .title {
-    /* كانت 3rem — قلّلناها 12.5% */
-    font-size: 2.625rem;
-  }
-
   .logoGrid {
     gap: 2.5rem 2rem;
   }
