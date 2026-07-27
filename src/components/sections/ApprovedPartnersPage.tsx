@@ -1,6 +1,7 @@
 import { type CSSProperties } from "react";
 import Image from "next/image";
-import { INSURANCE_CATEGORIES, INSURANCE_COMPANIES, INSURANCE_SECTION } from "@/lib/constants";
+import { APPROVED_PARTNERS_PAGE, INSURANCE_CATEGORIES, INSURANCE_COMPANIES } from "@/lib/constants";
+import LeafDivider from "./LeafDivider";
 import styles from "./ApprovedPartnersPage.module.css";
 
 type Company = (typeof INSURANCE_COMPANIES)[number];
@@ -45,9 +46,9 @@ export default function ApprovedPartnersPage() {
       <div className="container">
         <div className={styles.header}>
           <h1 id="approved-partners-heading" className={styles.title}>
-            {INSURANCE_SECTION.title}
+            {APPROVED_PARTNERS_PAGE.title}
           </h1>
-          <p className={styles.subtitle}>{INSURANCE_SECTION.subtitle}</p>
+          <LeafDivider />
         </div>
 
         {INSURANCE_CATEGORIES.map((category, index) => {

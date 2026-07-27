@@ -3,27 +3,25 @@
   background: linear-gradient(180deg, #ffffff 0%, #fbfcff 100%);
 }
 
-/* ===== عنوان الصفحة ===== */
+/* ===== عنوان الصفحة — نفس أسلوب Hero المستخدم بصفحتي "نبذة عنا" والمدونة
+   (AboutHero/BlogHero): عنوان كبير بلون العلامة الأخضر + LeafDivider،
+   بدون أي وصف تحته ===== */
 
 .header {
-  max-width: 640px;
-  margin: 0 auto 2.5rem;
-  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+  padding: 0 1.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .title {
   margin: 0;
-  font-size: 1.75rem;
+  font-size: 2.25rem;
   font-weight: 700;
-  color: var(--color-primary);
-}
-
-.subtitle {
-  margin: 0.75rem 0 0;
-  font-size: 1rem;
-  line-height: 1.7;
-  color: var(--color-text-secondary);
+  line-height: 1.2;
+  color: var(--color-secondary);
 }
 
 /* ===== قسم كل فئة — عنوان نصي فقط (بدون أيقونة) ثم شبكة شعاراتها الكاملة ===== */
@@ -145,6 +143,10 @@
 
 /* ===== Tablet (769px فما فوق) — 3 شعارات بالصف ===== */
 @media (min-width: 769px) {
+  .title {
+    font-size: 2.75rem;
+  }
+
   .categoryHeading {
     /* كانت 1.75rem — قللناها ~10px بنفس منطق الموبايل */
     margin-bottom: 1.125rem;
@@ -180,7 +182,7 @@
 /* ===== Desktop (1024px فما فوق) — 4 شعارات بالصف ===== */
 @media (min-width: 1024px) {
   .title {
-    font-size: 2rem;
+    font-size: 3rem;
   }
 
   .logoGrid {

@@ -98,7 +98,8 @@
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  padding: 1.75rem 1rem;
+  /* كانت 1.75rem (28px) — قللناها ~10px بالارتفاع، الأيقونة والخط ما تغيّروا */
+  padding: 23px 1rem;
   border: 1px solid var(--color-border);
   border-radius: 20px;
   background-color: var(--color-bg-white);
@@ -170,7 +171,9 @@
   }
 
   .categoryCard {
-    padding: 2.25rem 1.25rem;
+    /* كانت 2.25rem (36px) لكل جهة — قللنا 5px من كل جهة (أعلى/أسفل) حتى
+       يكون إجمالي تقليل الارتفاع 10px بالضبط */
+    padding: 31px 1.25rem;
   }
 
   .categoryIcon {
