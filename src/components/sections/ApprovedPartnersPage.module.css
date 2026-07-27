@@ -126,6 +126,20 @@
   max-height: 57px;
 }
 
+/* ترتيب البنوك بالموبايل بس — Safwa بجانب Cairo Amman (بدل ما تكون
+   لحالها بالصف الأخير)، و Bank al Etihad يصير هو آخر شعار. الترتيب
+   بالـconstants.ts وبالتابلت/الديسكتوب ما تغيّر (order بيتصفّر تلقائيًا
+   فوق 768px لأنه محصور جوا هالـmedia query) */
+@media (max-width: 768px) {
+  .banks .logoTile:nth-child(6) {
+    order: 7;
+  }
+
+  .banks .logoTile:nth-child(7) {
+    order: 6;
+  }
+}
+
 /* فئة الجامعات — تكبير ~18% + تصغير طفيف لارتفاع الخانة وتقليل الفراغ
    العمودي بينها، خاص بالموبايل */
 .universities .logoImageSquare {
