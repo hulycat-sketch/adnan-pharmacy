@@ -18,7 +18,8 @@
 
 .title {
   margin: 0;
-  font-size: 2.25rem;
+  /* كانت 2.25rem — قلّلناها ~11% (وزن الخط واللون والمسافات ما تغيّروا) */
+  font-size: 2rem;
   font-weight: 700;
   line-height: 1.2;
   color: var(--color-secondary);
@@ -144,7 +145,8 @@
 /* ===== Tablet (769px فما فوق) — 3 شعارات بالصف ===== */
 @media (min-width: 769px) {
   .title {
-    font-size: 2.75rem;
+    /* كانت 2.75rem — قلّلناها ~14% */
+    font-size: 2.375rem;
   }
 
   .categoryHeading {
@@ -182,7 +184,8 @@
 /* ===== Desktop (1024px فما فوق) — 4 شعارات بالصف ===== */
 @media (min-width: 1024px) {
   .title {
-    font-size: 3rem;
+    /* كانت 3rem — قلّلناها 12.5% */
+    font-size: 2.625rem;
   }
 
   .logoGrid {
