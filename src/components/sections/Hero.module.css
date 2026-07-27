@@ -199,31 +199,6 @@
   box-shadow: var(--shadow-hover);
 }
 
-/* ===== حركة دخول هادئة — موبايل وديسكتوب معًا (نفس أسلوب قسم "لماذا
-   صيدلية عدنان")، تظهر مرة وحدة فقط. العنوان أولًا، ثم الوصف بعده مباشرة ===== */
-.title {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.55s ease, transform 0.55s ease;
-}
-
-.hero.visible .title {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.description {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  transition-delay: 0.55s;
-}
-
-.hero.visible .description {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 /* ===== الموبايل فقط — الزرّان جنبًا لجنب دايمًا، بنفس الارتفاع وGap متوازن =====
    عرض طبيعي (auto) لكل زر بدل فرض عرض متساوٍ، مع padding/font-size
    مضبوطين عشان النص ما ينكسر لسطرين حتى على أضيق الشاشات (320px). */
@@ -329,12 +304,5 @@
   .ctaPrimary,
   .ctaSecondary {
     transition: none;
-  }
-
-  .title,
-  .description {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
   }
 }
