@@ -181,7 +181,11 @@
   }
 }
 
-/* ===== Desktop (1024px فما فوق) — 4 شعارات بالصف ===== */
+/* ===== Desktop (1024px فما فوق) — عدد أعمدة مستقل لكل فئة =====
+   ما منغيّر أي حجم شعار أو visualScale هون — بس عرض عمود الشبكة (flex-basis)
+   حتى كل فئة تاخد مساحة بصرية تناسب عدد شعاراتها: شركات التأمين (٥ أعمدة،
+   أكتر فئة شعارات)، البنوك والجامعات (٤ أعمدة)، النقابات (عمودين، فئة
+   قليلة العدد بتحتاج مساحة أوسع لكل شعار) */
 @media (min-width: 1024px) {
   .title {
     /* كانت 3rem — قلّلناها 12.5% */
@@ -202,17 +206,19 @@
     max-height: 72px;
   }
 
-  .sparse .logoTile {
-    flex-basis: calc(33.333% - 2rem);
-    height: 110px;
+  /* شركات التأمين — 5 أعمدة */
+  .insurance .logoTile {
+    flex-basis: calc(20% - 1.6rem);
   }
 
-  .sparse .logoImage {
-    max-width: 240px;
-    max-height: 110px;
+  /* البنوك — 4 أعمدة (نفس قيمة .logoTile الافتراضية، مكتوبة صراحة للوضوح) */
+  .banks .logoTile {
+    flex-basis: calc(25% - 1.5rem);
   }
 
+  /* الجامعات — 4 أعمدة — ارتفاع الخانة وصندوق الشعار زي ما هم بدون تغيير */
   .universities .logoTile {
+    flex-basis: calc(25% - 1.5rem);
     height: 84px;
   }
 
@@ -220,15 +226,16 @@
     max-width: 190px;
     max-height: 84px;
   }
-}
 
-/* ===== شاشات عريضة جدًا (1280px فما فوق) — 5 شعارات بالصف ===== */
-@media (min-width: 1280px) {
-  .logoTile {
-    flex-basis: calc(20% - 1.6rem);
+  /* النقابات — عمودين — ارتفاع الخانة وصندوق الشعار زي ما هم بدون تغيير،
+     بس عرض العمود صار أوسع (كانت 3 أعمدة) */
+  .sparse .logoTile {
+    flex-basis: calc(50% - 1rem);
+    height: 110px;
   }
 
-  .sparse .logoTile {
-    flex-basis: calc(33.333% - 2rem);
+  .sparse .logoImage {
+    max-width: 240px;
+    max-height: 110px;
   }
 }

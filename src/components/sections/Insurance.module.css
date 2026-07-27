@@ -97,9 +97,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  /* كانت 1.75rem (28px) — قللناها ~10px بالارتفاع، الأيقونة والخط ما تغيّروا */
-  padding: 23px 1rem;
+  /* كانت 0.75rem — قللناها موبايل بس (الديسكتوب معاد تثبيتها بـ769px) */
+  gap: 0.5rem;
+  /* كانت 23px — قللناها موبايل بس ~18px إجمالي بين الـpadding والـgap،
+     الأيقونة وحجم الخط ما تغيّروا */
+  padding: 16px 1rem;
   border: 1px solid var(--color-border);
   border-radius: 20px;
   background-color: var(--color-bg-white);
@@ -174,6 +176,9 @@
     /* كانت 2.25rem (36px) لكل جهة — قللنا 5px من كل جهة (أعلى/أسفل) حتى
        يكون إجمالي تقليل الارتفاع 10px بالضبط */
     padding: 31px 1.25rem;
+    /* تثبيت صريح لقيمة الـgap الأصلية — التعديل الأخير غيّرها بالموبايل
+       بس، فلازم نعيدها هون حتى الديسكتوب يضل مطابق تمامًا للسابق */
+    gap: 0.75rem;
   }
 
   .categoryIcon {

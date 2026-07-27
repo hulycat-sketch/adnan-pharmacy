@@ -56,6 +56,7 @@ export default function ApprovedPartnersPage() {
           const isSparse = companies.length <= 3;
           const isUniversities = category.id === "universities";
           const isBanks = category.id === "banks";
+          const isInsurance = category.id === "insurance";
           const isLast = index === INSURANCE_CATEGORIES.length - 1;
 
           return (
@@ -74,7 +75,7 @@ export default function ApprovedPartnersPage() {
               <div
                 className={`${styles.logoGrid} ${isSparse ? styles.sparse : ""} ${
                   isUniversities ? styles.universities : ""
-                } ${isBanks ? styles.banks : ""}`}
+                } ${isBanks ? styles.banks : ""} ${isInsurance ? styles.insurance : ""}`}
               >
                 {companies.map((company) => (
                   <LogoTile key={company.name} company={company} />
