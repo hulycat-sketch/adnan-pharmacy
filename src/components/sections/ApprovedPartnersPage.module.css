@@ -117,26 +117,39 @@
   max-height: 62px;
 }
 
-/* Housing Bank و Jordan Islamic Bank بيطلعوا بنفس الصف (ترتيب البيانات
-   ثابت) وبينهم مسافة أفقية ضيقة جدًا بعرض الموبايل — صندوق أصغر وأكثر
-   حذرًا خاص فيهم حتى ما يصير تلامس/تراكب بينهم */
-.banks .logoImageWide[alt="Housing Bank"],
-.banks .logoImageWide[alt="Jordan Islamic Bank"] {
-  max-width: 150px;
-  max-height: 57px;
-}
-
-/* ترتيب البنوك بالموبايل بس — Safwa بجانب Cairo Amman (بدل ما تكون
-   لحالها بالصف الأخير)، و Bank al Etihad يصير هو آخر شعار. الترتيب
-   بالـconstants.ts وبالتابلت/الديسكتوب ما تغيّر (order بيتصفّر تلقائيًا
-   فوق 768px لأنه محصور جوا هالـmedia query) */
+/* ترتيب البنوك بالموبايل بس — طلب تعديل جديد للترتيب:
+   [Safwa,Jordan Islamic] [Arab Bank,Al Rajhi] [bank aletihad,Housing]
+   [Cairo Amman لحاله]. الترتيب بالـconstants.ts وبالتابلت/الديسكتوب
+   ما تغيّر (order بيتصفّر تلقائيًا فوق 768px لأنه محصور جوا هالـmedia
+   query) — لازم كل شعار ياخد order صريح حتى يلي بدون تغيير مكان
+   (ما إلوش) لأن القيمة الافتراضية 0 بتخليه يقفز لأول الترتيب */
 @media (max-width: 768px) {
-  .banks .logoTile:nth-child(6) {
+  .banks .logoTile:nth-child(1) { /* Arab Bank */
+    order: 3;
+  }
+
+  .banks .logoTile:nth-child(2) { /* Al Rajhi Bank */
+    order: 4;
+  }
+
+  .banks .logoTile:nth-child(3) { /* Housing Bank */
+    order: 6;
+  }
+
+  .banks .logoTile:nth-child(4) { /* Jordan Islamic Bank */
+    order: 2;
+  }
+
+  .banks .logoTile:nth-child(5) { /* Cairo Amman Bank */
     order: 7;
   }
 
-  .banks .logoTile:nth-child(7) {
-    order: 6;
+  .banks .logoTile:nth-child(6) { /* bank aletihad */
+    order: 5;
+  }
+
+  .banks .logoTile:nth-child(7) { /* safwa bank */
+    order: 1;
   }
 }
 
