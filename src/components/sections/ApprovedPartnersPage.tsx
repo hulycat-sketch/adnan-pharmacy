@@ -1,18 +1,9 @@
-import { type ComponentType, type CSSProperties } from "react";
+import { type CSSProperties } from "react";
 import Image from "next/image";
-import { GraduationCap, Landmark, Shield, Users } from "lucide-react";
 import { INSURANCE_CATEGORIES, INSURANCE_COMPANIES, INSURANCE_SECTION } from "@/lib/constants";
 import styles from "./ApprovedPartnersPage.module.css";
 
 type Company = (typeof INSURANCE_COMPANIES)[number];
-
-// نفس خريطة أيقونات الفئات المستخدمة بملخص الصفحة الرئيسية (Insurance.tsx)
-const CATEGORY_ICONS: Record<string, ComponentType<{ width?: number; height?: number; strokeWidth?: number; className?: string }>> = {
-  insurance: Shield,
-  banks: Landmark,
-  universities: GraduationCap,
-  syndicates: Users,
-};
 
 const SHAPE_CLASS: Record<string, string> = {
   wide: styles.logoImageWide,
@@ -60,7 +51,6 @@ export default function ApprovedPartnersPage() {
         </div>
 
         {INSURANCE_CATEGORIES.map((category, index) => {
-          const Icon = CATEGORY_ICONS[category.id];
           const companies = INSURANCE_COMPANIES.filter((company) => company.category === category.id);
           const isSparse = companies.length <= 3;
           const isUniversities = category.id === "universities";
@@ -74,10 +64,10 @@ export default function ApprovedPartnersPage() {
               aria-labelledby={`category-${category.id}-heading`}
             >
               <div className={styles.categoryHeading}>
-                <Icon width={24} height={24} strokeWidth={1.75} className={styles.categoryIcon} aria-hidden="true" />
                 <h2 id={`category-${category.id}-heading`} className={styles.categoryTitle}>
                   {category.label}
                 </h2>
+                <span className={styles.categoryUnderline} aria-hidden="true" />
               </div>
 
               <div

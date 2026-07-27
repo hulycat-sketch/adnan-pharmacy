@@ -26,7 +26,7 @@
   color: var(--color-text-secondary);
 }
 
-/* ===== قسم كل فئة — عنوان (أيقونة + اسم) ثم شبكة شعاراتها الكاملة ===== */
+/* ===== قسم كل فئة — عنوان نصي فقط (بدون أيقونة) ثم شبكة شعاراتها الكاملة ===== */
 
 .categorySection {
   padding: 0 1.5rem;
@@ -34,15 +34,10 @@
 
 .categoryHeading {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  margin-bottom: 1.5rem;
-}
-
-.categoryIcon {
-  flex-shrink: 0;
-  color: var(--color-secondary);
+  /* كانت 1.5rem — قللناها ~10px لتقريب العنوان من أول صف شعارات */
+  margin-bottom: 0.875rem;
 }
 
 .categoryTitle {
@@ -50,6 +45,17 @@
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--color-primary);
+}
+
+/* خط أخضر قصير جدًا تحت عنوان كل فئة — نفس أسلوب .underline تحت العنوان
+   الرئيسي بس أصغر وأخف بكتير */
+.categoryUnderline {
+  display: block;
+  width: 32px;
+  height: 3px;
+  margin-top: 0.6rem;
+  border-radius: 9999px;
+  background-color: var(--color-secondary);
 }
 
 .divider {
@@ -140,7 +146,8 @@
 /* ===== Tablet (769px فما فوق) — 3 شعارات بالصف ===== */
 @media (min-width: 769px) {
   .categoryHeading {
-    margin-bottom: 1.75rem;
+    /* كانت 1.75rem — قللناها ~10px بنفس منطق الموبايل */
+    margin-bottom: 1.125rem;
   }
 
   .logoGrid {
