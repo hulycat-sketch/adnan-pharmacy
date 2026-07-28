@@ -84,7 +84,7 @@ export const MAP = {
   lat:      32.5568,
   lng:      35.8469,
   zoom:     15,
-  embedUrl: 'https://www.google.com/maps/embed?pb=...',
+  embedUrl: 'https://www.google.com/maps?q=32.5568,35.8469&z=15&output=embed',
   shareUrl: 'https://maps.app.goo.gl/ncFKLBf5Txh9aAyd7',
 } as const
 

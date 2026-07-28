@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
-import { PHARMACY, IMAGES, CONTACT, SOCIAL, FOOTER_LINKS } from "@/lib/constants";
+import { PHARMACY, IMAGES, CONTACT, SOCIAL, MAP, FOOTER_LINKS } from "@/lib/constants";
 import styles from "./Footer.module.css";
 
 function FacebookIcon({ className }: { className?: string }) {
@@ -53,11 +53,17 @@ export default function Footer() {
           <ul className={styles.contactList}>
             <li>
               <MapPin className={styles.contactIcon} width={20} height={20} aria-hidden="true" />
-              <span className={styles.contactText}>
+              <a
+                href={MAP.shareUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="فتح موقع صيدلية عدنان على الخريطة"
+                className={styles.contactLink}
+              >
                 {CONTACT.address}
                 <br />
                 {CONTACT.addressLandmark}
-              </span>
+              </a>
             </li>
 
             <li>
