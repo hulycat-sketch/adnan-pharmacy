@@ -81,10 +81,10 @@ export const CONTACT = {
 // TODO: Replace with exact pharmacy location coordinates before production.
 // -----------------------------------------------------------------------------
 export const MAP = {
-  lat:      32.5568,
-  lng:      35.8469,
-  zoom:     15,
-  embedUrl: 'https://www.google.com/maps?q=32.5568,35.8469&z=15&output=embed',
+  lat:      32.5413528,
+  lng:      35.8509307,
+  zoom:     18,
+  embedUrl: 'https://www.google.com/maps?q=32.5413528,35.8509307&z=18&output=embed',
   shareUrl: 'https://maps.app.goo.gl/ncFKLBf5Txh9aAyd7',
 } as const
 
