@@ -20,6 +20,13 @@ type Brand = {
   scale?: number;
   /** تصحيح إضافي خاص بالموبايل فقط، فوق scale لو موجود */
   visualScale?: number;
+  /** true لشعارات الفئات الأصغر عددًا (متل الجامعات/النقابات بشريط الجهات
+     المعتمدة) — الخانة بتاخد عرضها من محتواها فعليًا (auto) بدل الصندوق
+     الموحّد الأعرض، فما تضل مسافة فاضية كبيرة حوالين شعار مربّع أو ضيّق.
+     ما بيأثر على حجم الشعار نفسه إطلاقًا (الحدود القصوى للصورة ما تغيّرت)،
+     فقط عرض الخانة المحيطة فيه. اختياري، الشريط الأصلي (العلامات
+     التجارية) ما بيستخدمه إطلاقًا */
+  compact?: boolean;
 };
 
 type TrustedBrandsMarqueeProps = {
@@ -289,7 +296,7 @@ export default function TrustedBrandsMarquee({
             {track.map((brand, index) => (
               <li
                 key={`${brand.name}-${index}`}
-                className={styles.tile}
+                className={`${styles.tile} ${brand.compact ? styles.tileCompact : ""}`}
                 aria-hidden={index >= loopUnit.length}
               >
                 <Image

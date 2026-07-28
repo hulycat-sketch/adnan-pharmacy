@@ -477,15 +477,25 @@ export const INSURANCE_COMPANIES = [
 
 // مصدر شريط الشعارات المتحرك بقسم "الجهات المعتمدة لدينا" بالصفحة
 // الرئيسية — مشتق من INSURANCE_COMPANIES نفسها (نفس مصدر /approved-partners
-// بالضبط)، بدون أي قائمة شعارات ثانية يتم صيانتها يدويًا. shape/category ما
-// إلهم داعي هون (شريط TrustedBrandsMarquee بياخد صندوق حجم واحد موحّد
-// لكل الشعارات، متل شريط العلامات التجارية بالضبط) — بس name/logo/scale/
-// visualScale.
+// بالضبط)، بدون أي قائمة شعارات ثانية يتم صيانتها يدويًا. بس name/logo/
+// scale/visualScale/compact.
+//
+// compact = true بس لما الشعار "مربّع" (shape: "square") ومن فئة
+// الجامعات/النقابات — الشعارات المربعة داخل صندوق الخانة الأصلي (أعرض
+// بكتير من ارتفاعه) محكومة بارتفاع الخانة مش عرضها، يعني فاضل عرض كبير
+// فاضي حواليها فعليًا. أما شعارات النقابات الغير مربعة (متل Dental
+// Association - shape: "wide") فمحكومة أصلًا بعرض الخانة (ما في عندها
+// مساحة فاضية زايدة)، فتضييق خانتها كان رح يقصّها/يصغّرها فعليًا — لهيك
+// استثنيناها. shape نفسها ما بتنبعت للمكوّن (شريط TrustedBrandsMarquee
+// بياخد صندوق حجم واحد موحّد أصلًا) — بس compact المشتق منها.
 export const APPROVED_PARTNERS_MARQUEE_LOGOS = INSURANCE_COMPANIES.map((company) => ({
   name: company.name,
   logo: company.logo,
   scale: "scale" in company ? company.scale : undefined,
   visualScale: "visualScale" in company ? company.visualScale : undefined,
+  compact:
+    (company.category === "universities" || company.category === "syndicates") &&
+    company.shape === "square",
 }));
 
 
