@@ -451,8 +451,8 @@ export const INSURANCE_COMPANIES = [
   { name: "Hakeem", logo: "/images/insurance/hakeem.png", category: "insurance", shape: "medium", scale: 1.15 },
   { name: "EuroArab", logo: "/images/insurance/euroarabn.png", category: "insurance", shape: "medium" },
   { name: "NatHealth", logo: "/images/insurance/nathealth3.png", category: "insurance", shape: "wide", scale: 1.1 },
-  { name: "Newton", logo: "/images/insurance/newtonn.png", category: "insurance", shape: "wide", scale: 0.92 },
-  { name: "Medexa", logo: "/images/insurance/medexa1.png", category: "insurance", shape: "wide", scale: 0.92 },
+  { name: "Newton", logo: "/images/insurance/newtonn.png", category: "insurance", shape: "wide", scale: 0.92, marqueeScale: 0.92 },
+  { name: "Medexa", logo: "/images/insurance/medexa1.png", category: "insurance", shape: "wide", scale: 0.92, marqueeScale: 0.92 },
   { name: "Omnicare", logo: "/images/insurance/omnicare3.png", category: "insurance", shape: "wide", scale: 1.11 },
   { name: "Al Nisr Al Arabi Insurance", logo: "/images/insurance/al-nisir-alarabi-insurance.png", category: "insurance", shape: "medium", scale: 1.3 },
   { name: "Al Manara Islamic Insurance", logo: "/images/insurance/almanara-islamic-insurance.png", category: "insurance", shape: "square", scale: 1.15, visualScale: 1.12 },
@@ -478,21 +478,22 @@ export const INSURANCE_COMPANIES = [
 // مصدر شريط الشعارات المتحرك بقسم "الجهات المعتمدة لدينا" بالصفحة
 // الرئيسية — مشتق من INSURANCE_COMPANIES نفسها (نفس مصدر /approved-partners
 // بالضبط)، بدون أي قائمة شعارات ثانية يتم صيانتها يدويًا. بس name/logo/
-// scale/visualScale/compact.
+// marqueeScale/compact.
 //
-// compact = true بس لما الشعار "مربّع" (shape: "square") ومن فئة
-// الجامعات/النقابات — الشعارات المربعة داخل صندوق الخانة الأصلي (أعرض
-// بكتير من ارتفاعه) محكومة بارتفاع الخانة مش عرضها، يعني فاضل عرض كبير
-// فاضي حواليها فعليًا. أما شعارات النقابات الغير مربعة (متل Dental
-// Association - shape: "wide") فمحكومة أصلًا بعرض الخانة (ما في عندها
-// مساحة فاضية زايدة)، فتضييق خانتها كان رح يقصّها/يصغّرها فعليًا — لهيك
-// استثنيناها. shape نفسها ما بتنبعت للمكوّن (شريط TrustedBrandsMarquee
-// بياخد صندوق حجم واحد موحّد أصلًا) — بس compact المشتق منها.
+// ملاحظة مهمة: scale/visualScale (المضبوطين أصلًا لصندوق صفحة
+// /approved-partners الكامل، الأكبر بكتير من صندوق الشريط) ما بينبعتوش
+// للشريط إطلاقًا — لأنه لما استُخدموا هون بجولة سابقة، طلع تفاوت حجم كبير
+// وغير متّسق بين الشعارات (لأنهم مضبوطين لسياق تاني تمامًا). بدالهم في
+// marqueeScale: حقل مستقل تمامًا، مخصص لسياق الشريط بس (نفس القيمة
+// بالموبايل والديسكتوب معًا)، إحدى قيمة "معايرة بصرية" ضيقة (0.92–1.10)
+// لتصحيحات طفيفة بس. ما بيتضرب بـscale/visualScale إطلاقًا — لو مو محدَّد
+// بترجع القيمة الافتراضية 1 (شوفي TrustedBrandsMarquee.tsx). صفحة
+// /approved-partners نفسها ما بتقرأ marqueeScale إطلاقًا، فقيمها الأصلية
+// (scale/visualScale/shape) ضلّت زي ما هي بدون أي تغيير.
 export const APPROVED_PARTNERS_MARQUEE_LOGOS = INSURANCE_COMPANIES.map((company) => ({
   name: company.name,
   logo: company.logo,
-  scale: "scale" in company ? company.scale : undefined,
-  visualScale: "visualScale" in company ? company.visualScale : undefined,
+  marqueeScale: "marqueeScale" in company ? company.marqueeScale : undefined,
   compact:
     (company.category === "universities" || company.category === "syndicates") &&
     company.shape === "square",

@@ -20,6 +20,14 @@ type Brand = {
   scale?: number;
   /** تصحيح إضافي خاص بالموبايل فقط، فوق scale لو موجود */
   visualScale?: number;
+  /** تصحيح بصري خاص بسياق الشريط المتحرك فقط (نفس القيمة بالموبايل
+     والديسكتوب معًا) — منفصل تمامًا عن scale/visualScale يلي انضبطوا
+     أصلًا لصندوق صفحة "/approved-partners" الكامل (أكبر بكتير من صندوق
+     الشريط). لو محدَّدة، بتحل محل scale/visualScale بالكامل لهالشعار
+     (بدون أي ضرب فيهم) — القيمة الافتراضية 1 لو مو محدَّدة. الشريط
+     الأصلي (العلامات التجارية) ما بيستخدمها إطلاقًا فبيضل يعتمد على
+     scale/visualScale متل ما كان تمامًا. */
+  marqueeScale?: number;
   /** true لشعارات الفئات الأصغر عددًا (متل الجامعات/النقابات بشريط الجهات
      المعتمدة) — الخانة بتاخد عرضها من محتواها فعليًا (auto) بدل الصندوق
      الموحّد الأعرض، فما تضل مسافة فاضية كبيرة حوالين شعار مربّع أو ضيّق.
@@ -307,10 +315,12 @@ export default function TrustedBrandsMarquee({
                   draggable={false}
                   className={styles.logo}
                   style={
-                    {
-                      ...(brand.scale ? { "--scale": brand.scale } : {}),
-                      ...(brand.visualScale ? { "--visual-scale": brand.visualScale } : {}),
-                    } as CSSProperties
+                    (brand.marqueeScale !== undefined
+                      ? { "--scale": brand.marqueeScale }
+                      : {
+                          ...(brand.scale ? { "--scale": brand.scale } : {}),
+                          ...(brand.visualScale ? { "--visual-scale": brand.visualScale } : {}),
+                        }) as CSSProperties
                   }
                 />
               </li>
