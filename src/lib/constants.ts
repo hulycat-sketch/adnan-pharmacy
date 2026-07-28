@@ -60,7 +60,7 @@ export const IMAGES = {
 // -----------------------------------------------------------------------------
 export const CONTACT = {
   phone:           '+962799399751',
-  phoneDisplay:    '0799 399 751',
+  phoneDisplay:    '+962 799 399 751',
   whatsapp:        '962799399751',
   whatsappDisplay: '0799 399 751',
   email:           'muhdalmomani@gmail.com',
