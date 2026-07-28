@@ -475,6 +475,19 @@ export const INSURANCE_COMPANIES = [
   { name: "Dental Association",  logo: "/images/insurance/dental-association.png", category: "syndicates", shape: "wide" },
 ] as const;
 
+// مصدر شريط الشعارات المتحرك بقسم "الجهات المعتمدة لدينا" بالصفحة
+// الرئيسية — مشتق من INSURANCE_COMPANIES نفسها (نفس مصدر /approved-partners
+// بالضبط)، بدون أي قائمة شعارات ثانية يتم صيانتها يدويًا. shape/category ما
+// إلهم داعي هون (شريط TrustedBrandsMarquee بياخد صندوق حجم واحد موحّد
+// لكل الشعارات، متل شريط العلامات التجارية بالضبط) — بس name/logo/scale/
+// visualScale.
+export const APPROVED_PARTNERS_MARQUEE_LOGOS = INSURANCE_COMPANIES.map((company) => ({
+  name: company.name,
+  logo: company.logo,
+  scale: "scale" in company ? company.scale : undefined,
+  visualScale: "visualScale" in company ? company.visualScale : undefined,
+}));
+
 
 // -----------------------------------------------------------------------------
 // 13. نصوص قسم الجهات المعتمدة

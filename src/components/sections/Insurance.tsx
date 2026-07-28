@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState, type ComponentType } from "react";
 import Link from "next/link";
 import { ArrowLeft, GraduationCap, Landmark, Shield, Users } from "lucide-react";
-import { INSURANCE_CATEGORIES, INSURANCE_SECTION } from "@/lib/constants";
+import { INSURANCE_CATEGORIES, INSURANCE_SECTION, APPROVED_PARTNERS_MARQUEE_LOGOS } from "@/lib/constants";
+import TrustedBrandsMarquee from "./TrustedBrandsMarquee";
 import styles from "./Insurance.module.css";
 
 // خريطة أيقونات الفئات — المفتاح لازم يطابق id داخل INSURANCE_CATEGORIES
@@ -73,6 +74,14 @@ export default function Insurance() {
               </div>
             );
           })}
+        </div>
+
+        <div className={styles.marqueeWrap}>
+          <TrustedBrandsMarquee
+            brands={APPROVED_PARTNERS_MARQUEE_LOGOS}
+            ariaLabel="شعارات الجهات المعتمدة"
+            standalone={false}
+          />
         </div>
 
         <div className={styles.ctaWrap}>

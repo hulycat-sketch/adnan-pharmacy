@@ -129,13 +129,21 @@
   color: var(--color-primary);
 }
 
+/* ===== شريط شعارات الجهات المعتمدة المتحرك — نفس مكوّن TrustedBrandsMarquee
+   المستخدم بقسم "العلامات التجارية الموثوقة"، بدون عنوان وبدون خلفية/padding
+   خاصين فيه (standalone={false}) — إحنا هون بنتحكم بالمسافة حواليه فقط ===== */
+.marqueeWrap {
+  margin-top: 2.25rem;
+}
+
 /* ===== زر "استعرض جميع الجهات المعتمدة" — نفس ستايل الزر الأخضر
    الأساسي المستخدم بباقي الموقع (BlogConsultationCta) ===== */
 
 .ctaWrap {
   display: flex;
   justify-content: center;
-  margin-top: 2.25rem;
+  /* أصغر شوي من المسافة فوق الشريط (كانت 2.25rem قبل إضافة الشريط) */
+  margin-top: 1.75rem;
   padding: 0 1.5rem;
 }
 

@@ -29,6 +29,13 @@ type TrustedBrandsMarqueeProps = {
   brands: readonly Brand[];
   /** بكسل/ثانية — سرعة الانزلاق المستمر */
   speed?: number;
+  /** aria-label للقسم/الشريط لو ما في title مرئي (افتراضيًا بيرجع لنفس نص
+     "العلامات التجارية الموثوقة" القديم لو ما تحدد شي — القسم الأصلي ما تأثر) */
+  ariaLabel?: string;
+  /** false = القسم مدمج جوا قسم ثاني (بدون خلفية/padding خاصين فيه، الأب
+     هو يلي بيتحكم بالمسافة حواليه). الافتراضي true بيحافظ على القسم
+     الأصلي (العلامات التجارية) بدون أي تغيير بصري */
+  standalone?: boolean;
 };
 
 const MIN_TILES_PER_LOOP = 14;
@@ -40,6 +47,8 @@ export default function TrustedBrandsMarquee({
   description,
   brands,
   speed = 40,
+  ariaLabel,
+  standalone = true,
 }: TrustedBrandsMarqueeProps) {
   const trackRef = useRef<HTMLUListElement>(null);
   const rafRef = useRef<number | null>(null);
@@ -237,10 +246,11 @@ export default function TrustedBrandsMarquee({
   const loopUnit = Array.from({ length: repeatFactor }).flatMap(() => brands);
   const track = [...loopUnit, ...loopUnit];
 
-  const sectionClassName = `${styles.section} ${isVisible ? styles.visible : ""}`;
+  const resolvedAriaLabel = ariaLabel ?? title ?? "العلامات التجارية الموثوقة";
+  const sectionClassName = `${styles.section} ${standalone ? "" : styles.embedded} ${isVisible ? styles.visible : ""}`;
 
   return (
-    <section ref={sectionRef} className={sectionClassName} aria-label={title ?? "العلامات التجارية الموثوقة"}>
+    <section ref={sectionRef} className={sectionClassName} aria-label={resolvedAriaLabel}>
       {/* بدون JavaScript ما في IntersectionObserver يشتغل، فهاد الفولباك
           بيفرض ظهور العنوان/الوصف فورًا بدل ما تضل مخفية للأبد */}
       <noscript>
@@ -264,7 +274,7 @@ export default function TrustedBrandsMarquee({
         <div
           className={styles.viewport}
           role="region"
-          aria-label={title ?? "العلامات التجارية الموثوقة"}
+          aria-label={resolvedAriaLabel}
           tabIndex={0}
           onMouseEnter={pauseAndScheduleResume}
           onPointerDown={handlePointerDown}
