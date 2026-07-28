@@ -102,10 +102,9 @@ export const SOCIAL = {
 
 // -----------------------------------------------------------------------------
 // 6. إعدادات الموقع
-// TODO: Replace SITE.url with the real domain before production.
 // -----------------------------------------------------------------------------
 export const SITE = {
-  url:      'https://adnanpharmacy.com',
+  url:      'https://www.adnanpharmacy.com',
   locale:   'ar_JO',
   language: 'ar',
   dir:      'rtl',
