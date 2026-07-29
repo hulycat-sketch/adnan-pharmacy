@@ -1,6 +1,9 @@
 .whyUs {
   background-color: #ffffff;
-  padding-block: 1.875rem;
+  padding-top: 1.25rem;
+  /* أصغر شوي من الأعلى — تحسين الانسيابية بالمسافة مع نهاية شريط الجهات
+     المعتمدة قبل هالقسم مباشرة، بدون ما يأثر على المسافة تحت هالقسم */
+  padding-bottom: 1.875rem;
 }
 
 /* ===== عنوان القسم ===== */
@@ -242,7 +245,8 @@
 /* ===== Desktop (1024px فما فوق) — عمودين جنبًا لجنب، الصورة يمين ===== */
 @media (min-width: 1024px) {
   .whyUs {
-    padding-block: 3.25rem;
+    padding-top: 2.75rem;
+    padding-bottom: 3.25rem;
   }
 
   .heading {
