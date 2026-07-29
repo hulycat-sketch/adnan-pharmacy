@@ -455,9 +455,9 @@ export const INSURANCE_COMPANIES = [
   { name: "Medexa", logo: "/images/insurance/medexa1.png", category: "insurance", shape: "wide", scale: 0.92, marqueeScale: 0.92 },
   { name: "Omnicare", logo: "/images/insurance/omnicare3.png", category: "insurance", shape: "wide", scale: 1.11 },
   { name: "Al Nisr Al Arabi Insurance", logo: "/images/insurance/al-nisir-alarabi-insurance.png", category: "insurance", shape: "medium", scale: 1.3, marqueeLogo: "/images/insurance-marquee/al-nisir-alarabi-insurance.png" },
-  { name: "Al Manara Islamic Insurance", logo: "/images/insurance/almanara-islamic-insurance.png", category: "insurance", shape: "square", scale: 1.15, visualScale: 1.12, marqueeLogo: "/images/insurance-marquee/almanara-islamic-insurance.png" },
-  { name: "Arab Potash", logo: "/images/insurance/arab-potash.png", category: "insurance", shape: "square", scale: 1.18, marqueeLogo: "/images/insurance-marquee/arab-potash.png" },
-  { name: "Jordan Phosphate Mines", logo: "/images/insurance/phosphate-mines.png", category: "insurance", shape: "square", scale: 1.18, marqueeLogo: "/images/insurance-marquee/phosphate-mines.png" },
+  { name: "Al Manara Islamic Insurance", logo: "/images/insurance/almanara-islamic-insurance.png", category: "insurance", shape: "square", scale: 1.15, visualScale: 1.12, marqueeLogo: "/images/insurance-marquee/almanara-islamic-insurance.png", marqueeScale: 1.3 },
+  { name: "Arab Potash", logo: "/images/insurance/arab-potash.png", category: "insurance", shape: "square", scale: 1.18, marqueeLogo: "/images/insurance-marquee/arab-potash.png", marqueeScale: 1.2 },
+  { name: "Jordan Phosphate Mines", logo: "/images/insurance/phosphate-mines.png", category: "insurance", shape: "square", scale: 1.18, marqueeLogo: "/images/insurance-marquee/phosphate-mines.png", marqueeScale: 1.2 },
   { name: "Royalty Insurance", logo: "/images/insurance/royalty-insurance.png", category: "insurance", shape: "wide", scale: 1.17, marqueeLogo: "/images/insurance-marquee/royalty-insurance.png" },
   { name: "Arab Assurers Insurance", logo: "/images/insurance/arab-assurers-insurance.png", category: "insurance", shape: "medium", scale: 1.17, visualScale: 1.12, marqueeLogo: "/images/insurance-marquee/arab-assurers-insurance.png" },
   { name: "Arab Bank",  logo: "/images/insurance/arab-bank2.png", category: "banks", shape: "wide", visualScale: 1.12, marqueeLogo: "/images/insurance-marquee/arab-bank2.png" },
@@ -471,7 +471,7 @@ export const INSURANCE_COMPANIES = [
   { name: "jadara university",  logo: "/images/insurance/jadara-university.png", category: "universities", shape: "square", scale: 1.15, marqueeLogo: "/images/insurance-marquee/jadara-university.png", marqueeScale: 1.1 },
   { name: "philadelphia university",  logo: "/images/insurance/philadelphia-university.png", category: "universities", shape: "square", marqueeLogo: "/images/insurance-marquee/philadelphia-university.png", marqueeScale: 1.1 },
   { name: "irbid national university",  logo: "/images/insurance/irbid-national-university.png", category: "universities", shape: "square", marqueeLogo: "/images/insurance-marquee/irbid-national-university.png", marqueeScale: 1.1 },
-  { name: "Lawyers Association",  logo: "/images/insurance/lawyers-association.png", category: "syndicates", shape: "medium", marqueeLogo: "/images/insurance-marquee/lawyers-association.png" },
+  { name: "Lawyers Association",  logo: "/images/insurance/lawyers-association.png", category: "syndicates", shape: "medium", marqueeLogo: "/images/insurance-marquee/lawyers-association.png", marqueeScale: 1.15 },
   { name: "Dental Association",  logo: "/images/insurance/dental-association.png", category: "syndicates", shape: "wide", marqueeLogo: "/images/insurance-marquee/dental-association.png" },
 ] as const;
 
