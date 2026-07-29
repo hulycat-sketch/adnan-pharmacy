@@ -460,13 +460,13 @@ export const INSURANCE_COMPANIES = [
   { name: "Jordan Phosphate Mines", logo: "/images/insurance/phosphate-mines.png", category: "insurance", shape: "square", scale: 1.18 },
   { name: "Royalty Insurance", logo: "/images/insurance/royalty-insurance.png", category: "insurance", shape: "wide", scale: 1.17 },
   { name: "Arab Assurers Insurance", logo: "/images/insurance/arab-assurers-insurance.png", category: "insurance", shape: "medium", scale: 1.17, visualScale: 1.12 },
-  { name: "Arab Bank",  logo: "/images/insurance/arab-bank2.png", category: "banks", shape: "wide", visualScale: 1.12 },
-  { name: "Al Rajhi Bank",  logo: "/images/insurance/alrajhi-bank1.png", category: "banks", shape: "wide" },
-  { name: "Housing Bank", logo: "/images/insurance/housing-bank-insurance.png", category: "banks", shape: "wide" },
-  { name: "Jordan Islamic Bank",  logo: "/images/insurance/jordan-islamic-bank-insurance.png", category: "banks", shape: "wide", visualScale: 1.12 },
-  { name: "Cairo Amman Bank",  logo: "/images/insurance/cairo-amman-bank.png", category: "banks", shape: "wide", visualScale: 1.12 },
-  { name: "bank aletihad",  logo: "/images/insurance/bank-aletihad.png", category: "banks", shape: "wide", visualScale: 1.1 },
-  { name: "safwa bank",  logo: "/images/insurance/safwa-bank.png", category: "banks", shape: "wide", visualScale: 1.12 },
+  { name: "Arab Bank",  logo: "/images/insurance/arab-bank2.png", category: "banks", shape: "wide", visualScale: 1.12, marqueeLogo: "/images/insurance-marquee/arab-bank2.png" },
+  { name: "Al Rajhi Bank",  logo: "/images/insurance/alrajhi-bank1.png", category: "banks", shape: "wide", marqueeLogo: "/images/insurance-marquee/alrajhi-bank1.png" },
+  { name: "Housing Bank", logo: "/images/insurance/housing-bank-insurance.png", category: "banks", shape: "wide", marqueeLogo: "/images/insurance-marquee/housing-bank-insurance.png" },
+  { name: "Jordan Islamic Bank",  logo: "/images/insurance/jordan-islamic-bank-insurance.png", category: "banks", shape: "wide", visualScale: 1.12, marqueeLogo: "/images/insurance-marquee/jordan-islamic-bank-insurance.png" },
+  { name: "Cairo Amman Bank",  logo: "/images/insurance/cairo-amman-bank.png", category: "banks", shape: "wide", visualScale: 1.12, marqueeLogo: "/images/insurance-marquee/cairo-amman-bank.png" },
+  { name: "bank aletihad",  logo: "/images/insurance/bank-aletihad.png", category: "banks", shape: "wide", visualScale: 1.1, marqueeLogo: "/images/insurance-marquee/bank-aletihad.png" },
+  { name: "safwa bank",  logo: "/images/insurance/safwa-bank.png", category: "banks", shape: "wide", visualScale: 1.12, marqueeLogo: "/images/insurance-marquee/safwa-bank.png" },
   { name: "yarmouk university",  logo: "/images/insurance/yarmouk-university.png", category: "universities", shape: "square" },
   { name: "jadara university",  logo: "/images/insurance/jadara-university.png", category: "universities", shape: "square", scale: 1.15 },
   { name: "philadelphia university",  logo: "/images/insurance/philadelphia-university.png", category: "universities", shape: "square" },
@@ -490,9 +490,15 @@ export const INSURANCE_COMPANIES = [
 // بترجع القيمة الافتراضية 1 (شوفي TrustedBrandsMarquee.tsx). صفحة
 // /approved-partners نفسها ما بتقرأ marqueeScale إطلاقًا، فقيمها الأصلية
 // (scale/visualScale/shape) ضلّت زي ما هي بدون أي تغيير.
+//
+// marqueeLogo (اختياري): مسار ملف بديل من public/images/insurance-marquee/
+// — نسخة مُجهَّزة خصيصًا لصندوق الشريط (قصّ أعرض، تملي الخانة بشكل أطبع
+// بدل ما تعتمد على scale). لو موجودة بتحل محل logo الأصلي *بس بالشريط*،
+// وإلا بيرجع logo العادي. /approved-partners ما بتقرأ marqueeLogo إطلاقًا
+// فملفاتها الأصلية بـ/images/insurance/ ضلّت هي المصدر هناك بدون أي تغيير.
 export const APPROVED_PARTNERS_MARQUEE_LOGOS = INSURANCE_COMPANIES.map((company) => ({
   name: company.name,
-  logo: company.logo,
+  logo: "marqueeLogo" in company && company.marqueeLogo ? company.marqueeLogo : company.logo,
   marqueeScale: "marqueeScale" in company ? company.marqueeScale : undefined,
   compact:
     (company.category === "universities" || company.category === "syndicates") &&
