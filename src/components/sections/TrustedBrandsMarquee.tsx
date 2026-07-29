@@ -301,10 +301,16 @@ export default function TrustedBrandsMarquee({
           onKeyDown={handleKeyDown}
         >
           <ul ref={trackRef} className={styles.track}>
-            {track.map((brand, index) => (
+            {track.map((brand, index) => {
+              // خانتين "مضغوطتين" ورا بعض (متل شعارات الجامعات الأربعة) —
+              // بيسحبوا لبعض شوي (margin سالب) لتخفيف الفراغ بينهم تحديدًا،
+              // بدون ما يأثر على الفجوة العادية مع الجيران غير المضغوطين
+              // (بنك قبلهم أو نقابة بعدهم)
+              const isCompactAdjacent = brand.compact && index > 0 && track[index - 1]?.compact;
+              return (
               <li
                 key={`${brand.name}-${index}`}
-                className={`${styles.tile} ${brand.compact ? styles.tileCompact : ""}`}
+                className={`${styles.tile} ${brand.compact ? styles.tileCompact : ""} ${isCompactAdjacent ? styles.tileCompactAdjacent : ""}`}
                 aria-hidden={index >= loopUnit.length}
               >
                 <Image
@@ -324,7 +330,8 @@ export default function TrustedBrandsMarquee({
                   }
                 />
               </li>
-            ))}
+              );
+            })}
           </ul>
         </div>
       </div>
