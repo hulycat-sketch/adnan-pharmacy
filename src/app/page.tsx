@@ -18,10 +18,10 @@ export default function Home() {
     <>
       <ScrollToTopOnMount />
       <Hero />
-      <PwaInstall />
       <NotificationOptIn />
       <Services />
-    <Insurance />
+      <PwaInstall />
+      <Insurance />
       <WhyUs />
       <TrustedBrandsMarquee
         title="العلامات التجارية الموثوقة"

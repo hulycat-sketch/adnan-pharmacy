@@ -1,17 +1,31 @@
 .section {
-  padding: 1.5rem 0;
+  padding: 0.75rem 0;
 }
 
+/* شريط مضغوط (مش بطاقة كبيرة) — خلفية كحلية مطابقة تمامًا للفوتر
+   (--footer-bg نفسه = --color-primary-dark)، نصوص بيضاء، حواف دائرية
+   18px. بالموبايل: صفّين (أيقونة+نص فوق بـmainRow، زر التثبيت تحت
+   بصفّه الخاص) حتى ما يضيق عمود النص. بالديسكتوب: صفّ واحد أفقي مضغوط. */
 .inner {
+  position: relative;
   display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  max-width: 900px;
-  padding: 1.25rem 1.5rem;
-  background-color: var(--color-bg-white);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-block: 14px;
+  padding-inline-start: 16px;
+  padding-inline-end: 44px;
+  background-color: var(--color-primary-dark);
+  border-radius: 18px;
+  color: #ffffff;
+}
+
+/* صفّ الأيقونة+النص — أيقونة محاذية لأعلى العنوان (flex-start) بدل التوسيط
+   العمودي، حتى ما تبين "عايمة" لما الوصف يلتف لسطرين */
+.mainRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  min-width: 0;
 }
 
 .iconWrapper {
@@ -19,83 +33,128 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 3rem;
-  height: 3rem;
+  width: 2.25rem;
+  height: 2.25rem;
   border-radius: 50%;
-  background-color: var(--color-secondary-light);
+  background-color: rgba(255, 255, 255, 0.14);
 }
 
 .icon {
-  color: var(--color-secondary);
+  color: #ffffff;
 }
 
 .content {
-  flex: 1;
+  flex: 1 1 auto;
   min-width: 0;
 }
 
 .title {
-  margin: 0 0 0.25rem;
-  font-size: 1.0625rem;
+  margin: 0;
+  font-size: 0.9375rem;
   font-weight: 700;
-  color: var(--color-primary);
+  line-height: 1.35;
+  color: #ffffff;
 }
 
 .description {
-  margin: 0;
-  font-size: 0.875rem;
-  line-height: 1.6;
-  color: var(--color-text-secondary);
+  margin: 0.2rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* صفّ مستقل بحد ذاته (بما إنه .inner عمودي بالموبايل) — زر التثبيت تحت
+   صفّ الأيقونة/النص، مش جنبه، حتى ما يضيّق عمود النص على شاشة ضيقة */
+.actionArea {
+  display: flex;
+  justify-content: flex-start;
 }
 
 .installBtn {
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 42px;
   border: none;
   cursor: pointer;
   font-family: inherit;
-  border-radius: 0.75rem;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.9375rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
   font-weight: 600;
-  color: #ffffff;
-  background-color: var(--color-secondary);
-  transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  color: var(--color-primary-dark);
+  background-color: #ffffff;
+  transition: background-color 0.25s ease, transform 0.25s ease;
   white-space: nowrap;
 }
 
 .installBtn:hover {
-  background-color: var(--color-secondary-dark);
+  background-color: var(--color-bg);
   transform: translateY(-1px);
-  box-shadow: var(--shadow-hover);
+}
+
+.dismissBtn {
+  position: absolute;
+  top: 10px;
+  inset-inline-end: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.75);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dismissBtn:hover {
+  background-color: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
 }
 
 .iosInstructions {
-  flex-shrink: 0;
-  max-width: 240px;
   margin: 0;
-  padding: 0.75rem 1rem;
-  font-size: 0.8125rem;
-  line-height: 1.6;
-  text-align: center;
-  color: var(--color-primary);
-  background-color: var(--color-bg-section);
-  border-radius: var(--radius-md);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
 }
 
-@media (max-width: 640px) {
+/* ===== Desktop (769px فما فوق) — صفّ واحد أفقي مضغوط، بدون زر بعرض كامل ===== */
+@media (min-width: 769px) {
   .inner {
-    flex-direction: column;
-    text-align: center;
-    padding: 1.5rem 1.25rem;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    padding-block: 1.35rem;
+    padding-inline-start: 1.5rem;
+    padding-inline-end: 3rem;
   }
 
-  .content {
-    width: 100%;
+  .mainRow {
+    flex: 1 1 auto;
+    align-items: center;
+    min-width: 0;
   }
 
-  .installBtn,
+  .title {
+    font-size: 1rem;
+  }
+
+  .description {
+    font-size: 0.875rem;
+  }
+
+  .installBtn {
+    width: 116px;
+    height: 44px;
+  }
+
   .iosInstructions {
-    width: 100%;
-    max-width: none;
+    max-width: 220px;
   }
 }
