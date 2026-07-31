@@ -76,19 +76,19 @@ export default function Insurance() {
           })}
         </div>
 
-        <div className={styles.ctaWrap}>
-          <Link href="/approved-partners" className={styles.ctaBtn}>
-            عرض جميع الجهات المعتمدة
-            <ArrowLeft width={18} height={18} aria-hidden="true" />
-          </Link>
-        </div>
-
         <div className={styles.marqueeWrap}>
           <TrustedBrandsMarquee
             brands={APPROVED_PARTNERS_MARQUEE_LOGOS}
             ariaLabel="شعارات الجهات المعتمدة"
             standalone={false}
           />
+        </div>
+
+        <div className={styles.ctaWrap}>
+          <Link href="/approved-partners" className={styles.ctaBtn}>
+            عرض جميع الجهات المعتمدة
+            <ArrowLeft width={18} height={18} aria-hidden="true" />
+          </Link>
         </div>
       </div>
     </section>

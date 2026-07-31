@@ -10,7 +10,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.35rem;
   padding-block: 14px;
   padding-inline-start: 16px;
   padding-inline-end: 44px;
@@ -50,17 +50,22 @@
 
 .title {
   margin: 0;
-  font-size: 0.9375rem;
-  font-weight: 700;
-  line-height: 1.35;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
   color: #ffffff;
 }
 
 .description {
-  margin: 0.2rem 0 0;
+  margin: 0.1rem 0 0;
   font-size: 0.8125rem;
-  line-height: 1.5;
+  line-height: 1.3;
   color: rgba(255, 255, 255, 0.82);
+  /* سطرين بحد أقصى — أي نص زايد بينقصّ بـ"…" بدل ما يطوّل البطاقة */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* صفّ مستقل بحد ذاته (بما إنه .inner عمودي بالموبايل) — زر التثبيت تحت
@@ -75,8 +80,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 100px;
-  height: 42px;
+  width: 96px;
+  height: 40px;
   border: none;
   cursor: pointer;
   font-family: inherit;
@@ -146,7 +151,9 @@
   }
 
   .description {
+    margin: 0.15rem 0 0;
     font-size: 0.875rem;
+    line-height: 1.4;
   }
 
   .installBtn {

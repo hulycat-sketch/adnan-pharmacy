@@ -118,9 +118,9 @@ export default function PwaInstall() {
 
             <div className={styles.content}>
               <h2 id="pwa-install-heading" className={styles.title}>
-                احتفظ بصيدلية عدنان على هاتفك
+                ثبّت صيدلية عدنان على هاتفك
               </h2>
-              <p className={styles.description}>وصول أسرع إلى خدماتنا ومعلومات التواصل.</p>
+              <p className={styles.description}>وصول أسرع إلى خدماتنا من شاشتك الرئيسية.</p>
             </div>
           </div>
 
