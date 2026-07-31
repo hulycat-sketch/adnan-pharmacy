@@ -492,14 +492,29 @@ export const INSURANCE_COMPANIES = [
 // على الترتيب)، وبتحدد صندوق max-width/max-height المناسب له بالشريط
 // (شوفي TrustedBrandsMarquee.module.css) بدل صندوق موحّد واحد.
 //
-// visualScale (اختياري): نفس آلية visualScale الموجودة أصلًا بالأعلى
-// (تصحيح بصري إضافي خاص بالموبايل فقط) — لمعالجة أي اختلاف وزن بصري أو
-// فراغ داخلي بين شعار وآخر بعد المراجعة البصرية.
+// scale/visualScale (اختياري): نفس آلية scale/visualScale الموجودة أصلًا
+// بالأعلى — scale بيكبّر بالموبايل والتابلت والديسكتوب سوا. استُخدم
+// لـDental Association (هامش شفاف داخلي فوق/تحت المحتوى الفعلي، ~54%
+// بس من ارتفاع الملف الحقيقي مُستخدَم).
+//
+// arab-bank2-trimmed.png / safwa-bank-trimmed.png /
+// jordan-islamic-bank-insurance-trimmed.png: نُسخ جديدة (بموافقة صريحة
+// من المستخدم لكسر قيد "ما تنشئ نسخ جديدة" لهالحالة تحديدًا) بعد ما
+// تبيّن إن الملفات الأصلية عندها هامش شفاف داخلي ضخم فوق/تحت المحتوى
+// (37–45% بس من الارتفاع مُستخدَم فعليًا)، فبانت "رفيعة" جنب باقي شعارات
+// wide. القصّ أزال الهامش الميت، بس ما بيسمح بأي scale إضافي فوقه —
+// شعارات الـwordmark هاي عريضة/مسطّحة جدًا بطبيعتها (نسبة أبعاد
+// 3.8:1–5.2:1 بعد القصّ)، فمحتواها الفعلي أصلًا بيملي عرض خانته
+// (90px بالموبايل) بالكامل حتى بلا أي scale — أي تكبير إضافي بيخلي
+// الشعار يتجاوز حدود خانته أفقيًا (يخالف "لا تجعل أي شعار يتجاوز حدود
+// خانته")، وهذا سقف هندسي حقيقي بما إن التصميم يمنع تمديد/تشويه النسب
+// وبيفرض خانات متساوية العرض — القصّ لسا بيحسّن الارتفاع الظاهر شوي
+// (~5%) لأنه بيلغي الهامش الميت اللي كان يُحسب أصلًا ضمن أبعاد الصورة.
 //
 // الترتيب: متعمَّد وثابت (deterministic) — تناوب بالأشكال (wide/vertical/
 // compact/circular) بحيث ما تتكرر نفس الفئة 3 مرات متتالية، مش أبجدي.
 export const APPROVED_PARTNERS_MARQUEE_LOGOS = [
-  { name: "Arab Bank", logo: "/images/insurance-marquee/arab-bank2.png", type: "wide" },
+  { name: "Arab Bank", logo: "/images/insurance-marquee/arab-bank2-trimmed.png", type: "wide" },
   { name: "GIG Jordan", logo: "/images/insurance-marquee/gign.png", type: "compact" },
   { name: "GlobeMed", logo: "/images/insurance-marquee/globemed3.png", type: "wide" },
   { name: "Arab Potash", logo: "/images/insurance-marquee/arab-potash.png", type: "circular" },
@@ -512,14 +527,14 @@ export const APPROVED_PARTNERS_MARQUEE_LOGOS = [
   { name: "Solidarity", logo: "/images/insurance-marquee/solidarity4.png", type: "wide" },
   { name: "Philadelphia University", logo: "/images/insurance-marquee/philadelphia-university.png", type: "circular" },
   { name: "Cairo Amman Bank", logo: "/images/insurance-marquee/cairo-amman-bank.png", type: "wide" },
-  { name: "Dental Association", logo: "/images/insurance-marquee/dental-association.png", type: "compact" },
+  { name: "Dental Association", logo: "/images/insurance-marquee/dental-association.png", type: "compact", scale: 1.2 },
   { name: "MedNet", logo: "/images/insurance-marquee/mednet3.png", type: "wide" },
   { name: "Jordan Phosphate Mines", logo: "/images/insurance-marquee/phosphate-mines.png", type: "circular" },
-  { name: "Safwa Bank", logo: "/images/insurance-marquee/safwa-bank.png", type: "wide" },
+  { name: "Safwa Bank", logo: "/images/insurance-marquee/safwa-bank-trimmed.png", type: "wide" },
   { name: "EuroArab", logo: "/images/insurance-marquee/euroarabn.png", type: "compact" },
   { name: "Omnicare", logo: "/images/insurance-marquee/omnicare3.png", type: "wide" },
   { name: "Yarmouk University", logo: "/images/insurance-marquee/yarmouk-university.png", type: "vertical" },
-  { name: "Jordan Islamic Bank", logo: "/images/insurance-marquee/jordan-islamic-bank-insurance.png", type: "wide" },
+  { name: "Jordan Islamic Bank", logo: "/images/insurance-marquee/jordan-islamic-bank-insurance-trimmed.png", type: "wide" },
   { name: "Hakeem", logo: "/images/insurance-marquee/hakeem.png", type: "compact" },
   { name: "Newton", logo: "/images/insurance-marquee/newtonn.png", type: "wide" },
   { name: "Irbid National University", logo: "/images/insurance-marquee/irbid-national-university.png", type: "circular" },
