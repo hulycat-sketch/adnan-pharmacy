@@ -20,29 +20,20 @@ type Brand = {
   scale?: number;
   /** تصحيح إضافي خاص بالموبايل فقط، فوق scale لو موجود */
   visualScale?: number;
-  /** تصحيح بصري خاص بسياق الشريط المتحرك فقط (نفس القيمة بالموبايل
-     والديسكتوب معًا) — منفصل تمامًا عن scale/visualScale يلي انضبطوا
-     أصلًا لصندوق صفحة "/approved-partners" الكامل (أكبر بكتير من صندوق
-     الشريط). لو محدَّدة، بتحل محل scale/visualScale بالكامل لهالشعار
-     (بدون أي ضرب فيهم) — القيمة الافتراضية 1 لو مو محدَّدة. الشريط
-     الأصلي (العلامات التجارية) ما بيستخدمها إطلاقًا فبيضل يعتمد على
-     scale/visualScale متل ما كان تمامًا. */
-  marqueeScale?: number;
-  /** true لشعارات الفئات الأصغر عددًا (متل الجامعات/النقابات بشريط الجهات
-     المعتمدة) — الخانة بتاخد عرضها من محتواها فعليًا (auto) بدل الصندوق
-     الموحّد الأعرض، فما تضل مسافة فاضية كبيرة حوالين شعار مربّع أو ضيّق.
-     ما بيأثر على حجم الشعار نفسه إطلاقًا (الحدود القصوى للصورة ما تغيّرت)،
-     فقط عرض الخانة المحيطة فيه. اختياري، الشريط الأصلي (العلامات
-     التجارية) ما بيستخدمه إطلاقًا */
-  compact?: boolean;
-  /** true بس للمجموعات يلي المفروض تتقارب من بعضها بصريًا كـ"عنقود" واحد
-     (متل شعارات الجامعات الأربعة) — بيفعّل هامش سالب إضافي بس بين خانتين
-     متتاليتين من نفس المجموعة، فوق تضييق .compact العادي. الشعارات
-     المضغوطة (compact) الجديدة يلي مش جزء من عنقود مقصود (متل بعض شعارات
-     شركات التأمين يلي بس بتاخد صندوق أضيق حتى تملي خانتها بشكل أفضل)
-     ما بتفعّل هالهامش الإضافي، فبتضل عالفجوة العادية الموحّدة بس بصندوق
-     أضيق — هيك الفجوة البصرية بينها وبين جارتها بتطابق باقي الشريط. */
-  tightCluster?: boolean;
+  /** فئة شكل الشعار (شريط الجهات المعتمدة فقط) — بتحدد صندوق max-width/
+     max-height المناسب لكل شعار (شوفي .logoWide/.logoCompact/.logoVertical/
+     .logoCircular بـTrustedBrandsMarquee.module.css) بدل صندوق موحّد واحد
+     بيشوّه التوازن البصري بين شعار عريض وآخر مربّع أو رأسي. اختياري —
+     الشريط الأصلي (العلامات التجارية) ما بيستخدمه إطلاقًا فبيضل يعتمد على
+     صندوق .logo الافتراضي متل ما كان تمامًا. */
+  type?: "wide" | "compact" | "vertical" | "circular";
+};
+
+const LOGO_TYPE_CLASS: Record<NonNullable<Brand["type"]>, string> = {
+  wide: styles.logoWide,
+  compact: styles.logoCompact,
+  vertical: styles.logoVertical,
+  circular: styles.logoCircular,
 };
 
 type TrustedBrandsMarqueeProps = {
@@ -310,16 +301,11 @@ export default function TrustedBrandsMarquee({
         >
           <ul ref={trackRef} className={styles.track}>
             {track.map((brand, index) => {
-              // خانتين "عنقود" ورا بعض (متل شعارات الجامعات الأربعة) —
-              // بيسحبوا لبعض شوي (margin سالب) لتخفيف الفراغ بينهم تحديدًا،
-              // بدون ما يأثر على الفجوة العادية مع الجيران (بنك قبلهم أو
-              // نقابة بعدهم). محصور بـtightCluster فقط — الخانات المضغوطة
-              // الجديدة يلي مش عنقود مقصود ما بتفعّله، فتضل عالفجوة الموحّدة
-              const isCompactAdjacent = brand.tightCluster && index > 0 && track[index - 1]?.tightCluster;
+              const typeClassName = brand.type ? LOGO_TYPE_CLASS[brand.type] : "";
               return (
               <li
                 key={`${brand.name}-${index}`}
-                className={`${styles.tile} ${brand.compact ? styles.tileCompact : ""} ${isCompactAdjacent ? styles.tileCompactAdjacent : ""}`}
+                className={styles.tile}
                 aria-hidden={index >= loopUnit.length}
               >
                 <Image
@@ -328,14 +314,12 @@ export default function TrustedBrandsMarquee({
                   width={220}
                   height={90}
                   draggable={false}
-                  className={styles.logo}
+                  className={`${styles.logo} ${typeClassName}`}
                   style={
-                    (brand.marqueeScale !== undefined
-                      ? { "--scale": brand.marqueeScale }
-                      : {
-                          ...(brand.scale ? { "--scale": brand.scale } : {}),
-                          ...(brand.visualScale ? { "--visual-scale": brand.visualScale } : {}),
-                        }) as CSSProperties
+                    {
+                      ...(brand.scale ? { "--scale": brand.scale } : {}),
+                      ...(brand.visualScale ? { "--visual-scale": brand.visualScale } : {}),
+                    } as CSSProperties
                   }
                 />
               </li>

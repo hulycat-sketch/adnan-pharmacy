@@ -434,6 +434,11 @@ export const WHY_US = [
 //   من الباقي — موجود من جولة سابقة، ما تغيّر.
 // - visualScale: تصحيح إضافي خاص بالموبايل فقط (فوق الـshape الجديد)،
 //   لنفس سبب scale بالضبط بس مضبوط لصندوق الموبايل الجديد تحديدًا.
+// - ملاحظة: الحقول marqueeLogo/marqueeScale/marqueeCompact/featured يلي
+//   بعض الجهات تحتها ما عادت تُقرأ من أي مكان — شريط الجهات المعتمدة
+//   الرئيسي صار له مصدر بيانات مستقل تمامًا (APPROVED_PARTNERS_MARQUEE_LOGOS
+//   تحت)، ما عاد مشتقًا من هالقائمة. تُركت كما هي بدون حذف لتقليل نطاق
+//   التعديل، وما تأثر عليها ولا على /approved-partners إطلاقًا.
 // -----------------------------------------------------------------------------
 export const INSURANCE_CATEGORIES = [
   { id: "insurance",    label: "شركات التأمين" },
@@ -476,52 +481,51 @@ export const INSURANCE_COMPANIES = [
 ] as const;
 
 // مصدر شريط الشعارات المتحرك بقسم "الجهات المعتمدة لدينا" بالصفحة
-// الرئيسية — مشتق من INSURANCE_COMPANIES نفسها (نفس مصدر /approved-partners
-// بالضبط)، بدون أي قائمة شعارات ثانية يتم صيانتها يدويًا. بس name/logo/
-// marqueeScale/compact.
+// الرئيسية — قائمة مستقلة تمامًا عن INSURANCE_COMPANIES (بخلاف الجولة
+// السابقة)، مبنية مباشرة من الـ26 ملف المُعتمَدة يدويًا داخل
+// public/images/insurance-marquee/. الشريط ما بيعرض إلا هالقائمة بالضبط،
+// وما بيتأثر أبدًا بإضافة/حذف جهات من INSURANCE_COMPANIES أو صفحة
+// /approved-partners (يلي ضلّت تقرأ منها هي مباشرة بدون أي تغيير).
 //
-// ملاحظة مهمة: scale/visualScale (المضبوطين أصلًا لصندوق صفحة
-// /approved-partners الكامل، الأكبر بكتير من صندوق الشريط) ما بينبعتوش
-// للشريط إطلاقًا — لأنه لما استُخدموا هون بجولة سابقة، طلع تفاوت حجم كبير
-// وغير متّسق بين الشعارات (لأنهم مضبوطين لسياق تاني تمامًا). بدالهم في
-// marqueeScale: حقل مستقل تمامًا، مخصص لسياق الشريط بس (نفس القيمة
-// بالموبايل والديسكتوب معًا)، إحدى قيمة "معايرة بصرية" ضيقة (0.92–1.10)
-// لتصحيحات طفيفة بس. ما بيتضرب بـscale/visualScale إطلاقًا — لو مو محدَّد
-// بترجع القيمة الافتراضية 1 (شوفي TrustedBrandsMarquee.tsx). صفحة
-// /approved-partners نفسها ما بتقرأ marqueeScale إطلاقًا، فقيمها الأصلية
-// (scale/visualScale/shape) ضلّت زي ما هي بدون أي تغيير.
+// type: فئة شكل الشعار (wide/compact/vertical/circular) — محددة يدويًا
+// حسب أبعاد ملف كل شعار الفعلية (600×300 / 400×300 / 300×360 / 300×300
+// على الترتيب)، وبتحدد صندوق max-width/max-height المناسب له بالشريط
+// (شوفي TrustedBrandsMarquee.module.css) بدل صندوق موحّد واحد.
 //
-// marqueeLogo (اختياري): مسار ملف بديل من public/images/insurance-marquee/
-// — نسخة مُجهَّزة خصيصًا لصندوق الشريط (قصّ أعرض، تملي الخانة بشكل أطبع
-// بدل ما تعتمد على scale). لو موجودة بتحل محل logo الأصلي *بس بالشريط*،
-// وإلا بيرجع logo العادي. /approved-partners ما بتقرأ marqueeLogo إطلاقًا
-// فملفاتها الأصلية بـ/images/insurance/ ضلّت هي المصدر هناك بدون أي تغيير.
+// visualScale (اختياري): نفس آلية visualScale الموجودة أصلًا بالأعلى
+// (تصحيح بصري إضافي خاص بالموبايل فقط) — لمعالجة أي اختلاف وزن بصري أو
+// فراغ داخلي بين شعار وآخر بعد المراجعة البصرية.
 //
-// marqueeCompact (اختياري): true للشعارات يلي نسبة أبعادها الحقيقية أضيق
-// من صندوق الخانة العادي (185×72 بالديسكتوب مثلًا) — يعني بتضل تحتل نسبة
-// قليلة من عرض الخانة حتى بدون أي scale، فيبين فراغ جانبي واضح حواليها
-// (خصوصًا مقارنة بشعارات عريضة زي البنوك يلي بتملي الخانة كاملة). صندوق
-// أضيق (نفس آلية .tileCompact المستخدمة أصلًا للجامعات) بيلغي هالفراغ
-// الزايد بدون أي تغيير بحجم الشعار نفسه (scale/marqueeScale) — فبتضل
-// الفجوة البصرية بينها وبين جيرانها مطابقة لباقي الشريط (نفس الفجوة
-// الموحّدة، بس بصندوق أضيق يحيط بمحتوى الشعار عن قرب).
-export const APPROVED_PARTNERS_MARQUEE_LOGOS = INSURANCE_COMPANIES.filter(
-  (company) => "featured" in company && company.featured === true
-).map((company) => {
-  const isUniversityOrSyndicateSeal =
-    (company.category === "universities" || company.category === "syndicates") &&
-    company.shape === "square";
-  return {
-    name: company.name,
-    logo: "marqueeLogo" in company && company.marqueeLogo ? company.marqueeLogo : company.logo,
-    marqueeScale: "marqueeScale" in company ? company.marqueeScale : undefined,
-    compact: isUniversityOrSyndicateSeal || ("marqueeCompact" in company && company.marqueeCompact === true),
-    // العنقود المتقارب (هامش سالب إضافي بين الخانات) محصور بمجموعة
-    // الجامعات الأصلية بس — الشعارات المضغوطة الجديدة (marqueeCompact)
-    // بتاخد صندوق أضيق بس بدون التقارب الإضافي، فتضل عالفجوة الموحّدة.
-    tightCluster: isUniversityOrSyndicateSeal,
-  };
-});
+// الترتيب: متعمَّد وثابت (deterministic) — تناوب بالأشكال (wide/vertical/
+// compact/circular) بحيث ما تتكرر نفس الفئة 3 مرات متتالية، مش أبجدي.
+export const APPROVED_PARTNERS_MARQUEE_LOGOS = [
+  { name: "Arab Bank", logo: "/images/insurance-marquee/arab-bank2.png", type: "wide" },
+  { name: "GIG Jordan", logo: "/images/insurance-marquee/gign.png", type: "compact" },
+  { name: "GlobeMed", logo: "/images/insurance-marquee/globemed3.png", type: "wide" },
+  { name: "Arab Potash", logo: "/images/insurance-marquee/arab-potash.png", type: "circular" },
+  { name: "Al Rajhi Bank", logo: "/images/insurance-marquee/alrajhi-bank1.png", type: "wide" },
+  { name: "Lawyers Association", logo: "/images/insurance-marquee/lawyers-association.png", type: "compact" },
+  { name: "NatHealth", logo: "/images/insurance-marquee/nathealth3.png", type: "wide" },
+  { name: "Jadara University", logo: "/images/insurance-marquee/jadara-university.png", type: "vertical" },
+  { name: "Housing Bank", logo: "/images/insurance-marquee/housing-bank-insurance.png", type: "wide" },
+  { name: "MedService", logo: "/images/insurance-marquee/medservicen.png", type: "compact" },
+  { name: "Solidarity", logo: "/images/insurance-marquee/solidarity4.png", type: "wide" },
+  { name: "Philadelphia University", logo: "/images/insurance-marquee/philadelphia-university.png", type: "circular" },
+  { name: "Cairo Amman Bank", logo: "/images/insurance-marquee/cairo-amman-bank.png", type: "wide" },
+  { name: "Dental Association", logo: "/images/insurance-marquee/dental-association.png", type: "compact" },
+  { name: "MedNet", logo: "/images/insurance-marquee/mednet3.png", type: "wide" },
+  { name: "Jordan Phosphate Mines", logo: "/images/insurance-marquee/phosphate-mines.png", type: "circular" },
+  { name: "Safwa Bank", logo: "/images/insurance-marquee/safwa-bank.png", type: "wide" },
+  { name: "EuroArab", logo: "/images/insurance-marquee/euroarabn.png", type: "compact" },
+  { name: "Omnicare", logo: "/images/insurance-marquee/omnicare3.png", type: "wide" },
+  { name: "Yarmouk University", logo: "/images/insurance-marquee/yarmouk-university.png", type: "vertical" },
+  { name: "Jordan Islamic Bank", logo: "/images/insurance-marquee/jordan-islamic-bank-insurance.png", type: "wide" },
+  { name: "Hakeem", logo: "/images/insurance-marquee/hakeem.png", type: "compact" },
+  { name: "Newton", logo: "/images/insurance-marquee/newtonn.png", type: "wide" },
+  { name: "Irbid National University", logo: "/images/insurance-marquee/irbid-national-university.png", type: "circular" },
+  { name: "Bank al Etihad", logo: "/images/insurance-marquee/bank-aletihad.png", type: "wide" },
+  { name: "Medexa", logo: "/images/insurance-marquee/medexa1.png", type: "wide" },
+] as const;
 
 
 // -----------------------------------------------------------------------------
