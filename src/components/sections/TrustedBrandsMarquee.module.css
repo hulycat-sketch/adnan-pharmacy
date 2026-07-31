@@ -153,7 +153,8 @@
    .logoCircular تحت)، مش الخانة. الشريط الأصلي (العلامات التجارية) ما
    بيستخدم هالكلاس إطلاقًا فبيضل بعرضه الأصلي (vw-based فوق). */
 .embedded .tile {
-  width: 90px;
+  width: 104px;
+  height: 94px;
 }
 
 .logo {
@@ -182,23 +183,23 @@
    تشوّه (object-fit: contain على .logo already). محصور بـ.embedded
    فقط — الشريط الأصلي (العلامات التجارية) ما بيستخدم هالكلاسات إطلاقًا. */
 .logoWide {
-  max-width: min(92px, 100%);
-  max-height: 48px;
+  max-width: min(106px, 100%);
+  max-height: 55px;
 }
 
 .logoCompact {
-  max-width: min(78px, 100%);
-  max-height: 58px;
+  max-width: min(90px, 100%);
+  max-height: 67px;
 }
 
 .logoVertical {
-  max-width: min(58px, 100%);
-  max-height: 68px;
+  max-width: min(67px, 100%);
+  max-height: 78px;
 }
 
 .logoCircular {
-  max-width: min(64px, 100%);
-  max-height: 64px;
+  max-width: min(74px, 100%);
+  max-height: 74px;
 }
 
 /* تحت 360px الخانة السابقة بتصير ضيقة كتير لثلاث شعارات واضحة، فبيرجع
@@ -209,7 +210,7 @@
   }
 
   .embedded .tile {
-    width: 82px;
+    width: 94px;
   }
 }
 
@@ -264,28 +265,28 @@
      لأنه .embedded .tile أعلى تخصيصًا (specificity) من .tile العادية
      فبيكمّل يتغلّب عليها حتى بعد نقطة التوقف لو ما انصرّح إعادة تعيينه. */
   .embedded .tile {
-    width: 158px;
-    height: 98px;
+    width: 182px;
+    height: 113px;
   }
 
   .logoWide {
-    max-width: min(110px, 100%);
-    max-height: 58px;
+    max-width: min(127px, 100%);
+    max-height: 67px;
   }
 
   .logoCompact {
-    max-width: min(94px, 100%);
-    max-height: 70px;
+    max-width: min(108px, 100%);
+    max-height: 81px;
   }
 
   .logoVertical {
-    max-width: min(70px, 100%);
-    max-height: 82px;
+    max-width: min(81px, 100%);
+    max-height: 94px;
   }
 
   .logoCircular {
-    max-width: min(77px, 100%);
-    max-height: 77px;
+    max-width: min(89px, 100%);
+    max-height: 89px;
   }
 }
 
@@ -331,8 +332,8 @@
      العرض لازم يُعاد تثبيته صراحةً هون (185px، نفس شريط العلامات
      التجارية) لنفس سبب التابلت فوق بالضبط. */
   .embedded .tile {
-    width: 185px;
-    height: 116px;
+    width: 213px;
+    height: 133px;
   }
 
   /* max-height هون قريب عمدًا من سقف شريط العلامات التجارية الأصلي (72px)
@@ -340,22 +341,22 @@
      فئة على حدة (مش صندوق واحد 100%/72px موحّد) حتى الشعارات الرأسية/
      الدائرية ما تبين أكبر من العريضة لمجرد إنها بتملي ارتفاع الخانة. */
   .logoWide {
-    max-width: min(138px, 100%);
-    max-height: 72px;
+    max-width: min(159px, 100%);
+    max-height: 83px;
   }
 
   .logoCompact {
-    max-width: min(117px, 100%);
-    max-height: 87px;
+    max-width: min(135px, 100%);
+    max-height: 100px;
   }
 
   .logoVertical {
-    max-width: min(87px, 100%);
-    max-height: 102px;
+    max-width: min(100px, 100%);
+    max-height: 117px;
   }
 
   .logoCircular {
-    max-width: min(96px, 100%);
-    max-height: 96px;
+    max-width: min(110px, 100%);
+    max-height: 110px;
   }
 }
