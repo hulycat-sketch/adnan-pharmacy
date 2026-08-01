@@ -111,19 +111,55 @@
   background-color: var(--color-bg-white);
   box-shadow: var(--shadow-card);
   text-align: center;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    transform 200ms ease-out,
+    box-shadow 200ms ease-out,
+    border-color 200ms ease-out;
 }
 
-/* الرفعة عند hover محصورة بأجهزة فيها ماوس فعليًا — البطاقات معلوماتية
-   بس (بدون رابط)، فبدون هالقيد ممكن اللمس يفعّل حركة "تعليق" غير مقصودة */
+/* الرفعة والتكبير محصورين بأجهزة فيها ماوس فعليًا — البطاقات معلوماتية
+   بس (بدون رابط)، فبدون هالقيد ممكن اللمس يفعّل حركة "تعليق" غير مقصودة.
+   :focus-within هون بالأساس سياج أمان (ما في عنصر قابل للتركيز جوا
+   البطاقة حاليًا)، بس محفوظ لو انضاف رابط/زر مستقبلًا */
 @media (hover: hover) and (pointer: fine) {
-  .categoryCard:hover {
+  .categoryCard:hover,
+  .categoryCard:focus-within {
     box-shadow: var(--shadow-hover);
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    border-color: #cbe9c8;
+  }
+
+  .categoryCard:hover .categoryIconWrapper::before,
+  .categoryCard:focus-within .categoryIconWrapper::before {
+    transform: scale(1.08);
   }
 }
 
+/* دائرة فاتحة زخرفية جديدة (::before) ورا الأيقونة — ما كانت موجودة أصلًا
+   بهالبطاقات (بخلاف بطاقات "خدماتنا")، أضفناها خصيصًا حتى تنفّس بشكل
+   مستقل عن الـSVG نفسه (يلي بيضل ثابت تمامًا بحجمه وموضعه) */
+.categoryIconWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+}
+
+.categoryIconWrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: var(--color-secondary-light);
+  transition: transform 200ms ease-out;
+  transform-origin: center;
+}
+
 .categoryIcon {
+  position: relative;
+  z-index: 1;
   color: var(--color-secondary);
 }
 
@@ -197,6 +233,11 @@
     width: 48px;
     height: 48px;
   }
+
+  .categoryIconWrapper {
+    width: 78px;
+    height: 78px;
+  }
 }
 
 /* ===== Desktop (1024px فما فوق) ===== */
@@ -216,11 +257,23 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* .categoryCard عمدًا بدون transition:none هون (بخلاف .ctaBtn تحت،
+     يلي برّا نطاق هالمهمة وتركناه بسلوكه الأصلي بدون أي تغيير) — تغيّر
+     لون الحدّ والظل عند hover يضل سلس (200ms)، بس الرفعة (transform)
+     متوقفة كليًا، نفس منطق شريط الخدمات بالضبط */
   .title,
   .subtitle,
   .categoryCard,
   .ctaBtn {
     opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .ctaBtn {
+    transition: none !important;
+  }
+
+  .categoryIconWrapper::before {
     transform: none !important;
     transition: none !important;
   }

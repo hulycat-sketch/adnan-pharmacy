@@ -63,7 +63,19 @@ export default function WhyUs() {
         `}</style>
       </noscript>
 
-      <div className="container">
+      {/* علامة مائية زخرفية بحتة — رمز الحبة الدائري بس (بدون الاسم/الشعار
+          الكامل)، بشفافية خفيفة جدًا. aria-hidden وpointer-events:none
+          حتى ما تتدخل بالمحتوى أو تُقرأ من قارئات الشاشة إطلاقًا */}
+      <Image
+        src="/images/footer-logo.png"
+        alt=""
+        aria-hidden="true"
+        width={800}
+        height={800}
+        className={styles.watermark}
+      />
+
+      <div className={`container ${styles.contentLayer}`}>
         <div className={styles.heading}>
           <h2 id="why-us-heading" className={styles.title}>
             لماذا صيدلية <span className={styles.titleAccent}>عدنان</span>؟

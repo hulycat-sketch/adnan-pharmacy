@@ -69,7 +69,9 @@ export default function Insurance() {
             const Icon = CATEGORY_ICONS[category.id];
             return (
               <div key={category.id} className={styles.categoryCard}>
-                <Icon width={44} height={44} strokeWidth={1.5} className={styles.categoryIcon} />
+                <span className={styles.categoryIconWrapper}>
+                  <Icon width={44} height={44} strokeWidth={1.5} className={styles.categoryIcon} />
+                </span>
                 <span className={styles.categoryLabel}>{category.label}</span>
               </div>
             );

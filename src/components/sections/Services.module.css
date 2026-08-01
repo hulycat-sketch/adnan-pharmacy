@@ -38,43 +38,57 @@
   transform: translateY(0);
 }
 
-/* .card عندها transition شامل خاص فيها أسفل (بيغطي box-shadow/transform
-   الخاصين بالـhover كمان)، فما منكرر transition هون تجنبًا لتعارض الـ
-   shorthand — بس .cardCompact (موبايل، بدون hover) بتاخد transition خاص فيها لحالها */
+/* حركة الدخول (fade+slide مرة وحدة) بتستخدم transform (مش translate) —
+   جرّبت فصلهم لخاصيتين منفصلتين (translate للدخول، transform للـhover)
+   بجولة أولى، بس طلع فيها خلل حقيقي بالمتصفح (transform تبع الـhover ما
+   كان يطبَّق إطلاقًا لما translate موجود بنفس الوقت على نفس العنصر —
+   تأكدت منه بفحص CSS.getMatchedStylesForNode). فرجّعت لنفس transform
+   الواحد للدخول وللـhover سوا (200ms، بدل الـ500ms الأصلية لحركة الدخول
+   تحديدًا) — فرق بسيط جدًا وغير ملحوظ عمليًا بسرعة الانزلاق الأولي، بس
+   أضمن وشغّال 100%. */
 .card,
 .cardCompact {
   opacity: 0;
   transform: translateY(16px);
 }
 
-.cardCompact {
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.services.visible .card,
-.services.visible .cardCompact {
+/* .visible لحالها (بدون .services) عمدًا — CSS Modules أصلًا بتحوّل
+   .visible لاسم فريد بالملف (hash)، فما في داعي نضمّها مع .services
+   لتفادي تصادم أسماء؛ وهيك خصوصية هالقاعدة (0,2,0) تضل مساوية لـ
+   .card:hover (0,2,0) بدل ما تتخطاها (كانت 0,3,0 قبل)، وهذا بالضبط سبب
+   خلل حقيقي اكتشفته: transform تبع hover ما كان يطبَّق إطلاقًا لأنه
+   .services.visible .card كانت أعلى تخصيصًا منه دايمًا، بغض النظر عن
+   حالة الـhover */
+.visible .card,
+.visible .cardCompact {
   opacity: 1;
   transform: translateY(0);
 }
 
+/* مهم: transition-delay هون قائمة بـ4 قيم مطابقة لترتيب transition-property
+   بـ.card/.cardCompact (opacity, transform, box-shadow, border-color) —
+   التأخير الابتدائي (stagger) محصور بـopacity بس (حركة الدخول). لو تركناها
+   قيمة وحدة بس (زي ما كانت)، كانت بتنطبق على الأربع خصائص كلهم بالتساوي —
+   يعني رفعة/ظل/حدّ الـhover كانوا رح ياخدوا نفس تأخير 0.55-0.85s حتى بعد
+   ما تخلص حركة الدخول بزمن طويل، فيصير الـhover بطيء وغير مستجيب. */
 .card:nth-child(1),
 .cardCompact:nth-child(1) {
-  transition-delay: 0.55s;
+  transition-delay: 0.55s, 0s, 0s, 0s;
 }
 
 .card:nth-child(2),
 .cardCompact:nth-child(2) {
-  transition-delay: 0.65s;
+  transition-delay: 0.65s, 0s, 0s, 0s;
 }
 
 .card:nth-child(3),
 .cardCompact:nth-child(3) {
-  transition-delay: 0.75s;
+  transition-delay: 0.75s, 0s, 0s, 0s;
 }
 
 .card:nth-child(4),
 .cardCompact:nth-child(4) {
-  transition-delay: 0.85s;
+  transition-delay: 0.85s, 0s, 0s, 0s;
 }
 
 .underline {
@@ -138,31 +152,66 @@
   border: 1px solid var(--color-border);
   border-radius: 1rem;
   background-color: var(--color-bg-white);
-  box-shadow: 0 4px 16px -8px rgba(27, 43, 94, 0.1);
+  box-shadow: var(--shadow-card);
   text-decoration: none;
-  /* box-shadow/transform هون لـhover (0.2s) — opacity/transform لحركة
-     الدخول (0.5s)، وtransform مشترك بين الاثنين فبياخد 0.5s بالحالتين
-     (تأثير طفيف كتير على سرعة رفعة الـhover، مش ملحوظ عمليًا) */
-  transition: box-shadow 0.2s ease, transform 0.5s ease, opacity 0.5s ease;
+  /* opacity لحركة الدخول (0.5s، مرة وحدة). transform مشترك بين حركة
+     الدخول ورفعة الـhover (200ms) — القيمة الوحيدة يلي بتشتغل صح؛ شوفي
+     الملاحظة فوق عند .card,.cardCompact لسبب عدم فصلهم لخاصيتين. */
+  transition:
+    opacity 0.5s ease,
+    transform 200ms ease-out,
+    box-shadow 200ms ease-out,
+    border-color 200ms ease-out;
 }
 
-.card:hover {
-  box-shadow: 0 12px 28px -10px rgba(27, 43, 94, 0.18);
-  transform: translateY(-2px);
+/* الرفعة والتكبير محصورين بأجهزة فيها ماوس فعليًا (hover:hover) حتى
+   اللمس العادي على الموبايل ما يفعّل حركة "تعليق" غير مقصودة.
+   :focus-within بيضمن نفس المظهر المصقول لمستخدمي لوحة المفاتيح بغض
+   النظر عن قدرة الجهاز على الـhover */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover,
+  .card:focus-within,
+  .cardCompact:hover,
+  .cardCompact:focus-within {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: #cbe9c8;
+  }
+
+  .card:hover .iconWrapper::before,
+  .card:focus-within .iconWrapper::before,
+  .cardCompact:hover .iconWrapperCompact::before,
+  .cardCompact:focus-within .iconWrapperCompact::before {
+    transform: scale(1.08);
+  }
 }
 
+/* .iconWrapper بس إطار موضعي (position:relative) — الدائرة الفاتحة صارت
+   طبقة زخرفية مستقلة (::before) ورا الأيقونة، حتى نكبّرها لحالها (تنفّس)
+   بدون ما نأثر على حجم/موضع الـSVG نفسه إطلاقًا */
 .iconWrapper {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 3.375rem;
   height: 3.375rem;
   margin-bottom: 1.1rem;
+}
+
+.iconWrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   border-radius: 50%;
   background-color: var(--color-secondary-light);
+  transition: transform 200ms ease-out;
+  transform-origin: center;
 }
 
 .icon {
+  position: relative;
+  z-index: 1;
   color: var(--color-secondary);
 }
 
@@ -187,14 +236,18 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card {
-    transition: none;
-  }
-
+  /* حركة الدخول (fade+slide) توقف فورًا وتبين البطاقة كاملة. رفعة الـhover
+     (transform) وتنفّس خلفية الأيقونة (::before) بيتوقفوا كليًا؛ تغيّر
+     لون الحدّ والظل عند hover بيضل شغّال (تغيّر حالة بسيط، مش حركة) */
   .title,
   .card,
   .cardCompact {
     opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .iconWrapper::before,
+  .iconWrapperCompact::before {
     transform: none !important;
     transition: none !important;
   }
@@ -212,19 +265,33 @@
   border: 1px solid var(--color-border);
   border-radius: 0.875rem;
   background-color: var(--color-bg-white);
-  box-shadow: 0 4px 16px -8px rgba(27, 43, 94, 0.1);
+  box-shadow: var(--shadow-card);
   text-decoration: none;
+  transition:
+    opacity 0.5s ease,
+    transform 200ms ease-out,
+    box-shadow 200ms ease-out,
+    border-color 200ms ease-out;
 }
 
 .iconWrapperCompact {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 2.75rem;
   height: 2.75rem;
   margin-bottom: 0.5rem;
+}
+
+.iconWrapperCompact::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   border-radius: 50%;
   background-color: var(--color-secondary-light);
+  transition: transform 200ms ease-out;
+  transform-origin: center;
 }
 
 .cardTitleCompact {

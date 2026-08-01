@@ -1,9 +1,42 @@
 .whyUs {
+  position: relative;
+  overflow: hidden;
   background-color: #ffffff;
   padding-top: 1.25rem;
   /* أصغر شوي من الأعلى — تحسين الانسيابية بالمسافة مع نهاية شريط الجهات
      المعتمدة قبل هالقسم مباشرة، بدون ما يأثر على المسافة تحت هالقسم */
   padding-bottom: 1.875rem;
+}
+
+/* طبقة المحتوى الفعلي — فوق العلامة المائية دايمًا (z-index:1)، بدون أي
+   تأثير على أي تخطيط داخلي (container العام ضل زي ما هو، بس بإطار
+   موضعي جديد) */
+.contentLayer {
+  position: relative;
+  z-index: 1;
+}
+
+/* علامة مائية زخرفية بحتة — رمز الحبة الدائري (شفاف)، ثابتة تمامًا،
+   بدون أي hover أو حركة، ما بتأثر على تباين النص أو تتداخل مع أي محتوى
+   (z-index:0 تحت .contentLayer، pointer-events:none) */
+.watermark {
+  position: absolute;
+  inset-inline-start: -140px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 520px;
+  height: auto;
+  opacity: 0.03;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+@media (max-width: 767px) {
+  .watermark {
+    width: 320px;
+    inset-inline-start: -90px;
+  }
 }
 
 /* ===== عنوان القسم ===== */
