@@ -18,6 +18,9 @@ export default function Hero() {
   return (
     <section className={styles.hero} aria-labelledby="hero-heading">
       <div className={styles.heroCard}>
+        {/* صورة الموبايل (مربّعة) — بدون أي تغيير، نفس الأصل الأصلي. مخفية
+            بالكامل عند 768px فما فوق، وsizes بترجع قيمة ضئيلة (1px) هناك
+            حتى لو انطلب تحميلها (eager) ما تاخد إلا أصغر نسخة ممكنة */}
         <div className={styles.imageCol}>
           <div className={styles.imageWrapper}>
             <Image
@@ -25,7 +28,25 @@ export default function Hero() {
               alt={heroAlt}
               fill
               quality={75}
-              sizes="(max-width: 767px) calc(100vw - 20px), (max-width: 1023px) calc((100vw - 48px) * 0.55), (max-width: 1487px) calc((100vw - 48px) * 0.6), 864px"
+              sizes="(max-width: 767px) calc(100vw - 20px), 1px"
+              loading="eager"
+              fetchPriority="high"
+              className={styles.image}
+            />
+          </div>
+        </div>
+
+        {/* صورة الديسكتوب (أفقية، واجهة الشارع) — عنصر صورة منفصل مخفي
+            بالكامل تحت 768px، وsizes بترجع قيمة ضئيلة (1px) هناك بنفس
+            المنطق. أصل حقيقي جديد أضافه المستخدم، بدون أي تعديل عليه */}
+        <div className={styles.imageColDesktop}>
+          <div className={styles.imageWrapper}>
+            <Image
+              src="/images/Adnan_Pharmacy_storefront_building.jpeg"
+              alt={heroAlt}
+              fill
+              quality={75}
+              sizes="(max-width: 767px) 1px, (max-width: 1023px) calc((100vw - 48px) * 0.55), (max-width: 1487px) calc((100vw - 48px) * 0.6), 864px"
               loading="eager"
               fetchPriority="high"
               className={styles.image}
