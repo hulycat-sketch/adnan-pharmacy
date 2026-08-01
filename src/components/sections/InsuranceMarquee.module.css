@@ -1,0 +1,202 @@
+/* شريط شعارات الجهات المعتمدة — مكوّن وأنماط مستقلة تمامًا عن
+   TrustedBrandsMarquee.module.css (شريط العلامات التجارية الأصلي).
+   أي تعديل هون ما بيأثر على الشريط الأصلي إطلاقًا، والعكس صحيح. */
+
+.viewport {
+  overflow: hidden;
+  direction: ltr;
+  padding-inline: 20px;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-mask-image: linear-gradient(
+    to left,
+    transparent 0,
+    black 20px,
+    black calc(100% - 20px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to left,
+    transparent 0,
+    black 20px,
+    black calc(100% - 20px),
+    transparent 100%
+  );
+}
+
+.viewport:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: -2px;
+}
+
+.viewport:active {
+  cursor: grabbing;
+}
+
+.track {
+  display: flex;
+  direction: ltr;
+  align-items: center;
+  gap: 36px;
+  width: max-content;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  will-change: transform;
+}
+
+/* خانة الشعار — الارتفاع مقفل حرفيًا (94px موبايل) ولا يتغيّر بأي حال؛
+   العرض وحده Responsive (clamp) حتى يظهر عدد الشعارات المطلوب بكل عرض */
+.tile {
+  flex-shrink: 0;
+  width: clamp(130px, 38vw, 155px);
+  height: 94px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: auto;
+  height: auto;
+  -webkit-user-drag: none;
+  object-fit: contain;
+  /* سقف عرض عام سخي — الارتفاع (max-height حسب الفئة تحت) هو يلي بيحدد
+     الحجم الفعلي لمعظم الشعارات (طالما نسبة أبعادها معقولة)، فما في داعي
+     لسقف عرض مختلف لكل فئة زي الشريط الأصلي */
+  max-width: min(140px, 100%);
+  transform: scale(calc(var(--scale, 1) * var(--visual-scale, 1)));
+}
+
+/* الحدّ الأقصى لارتفاع كل فئة — قيم مقفلة، ما تتغيّر بأي breakpoint */
+.logoWide {
+  max-height: 55px;
+}
+
+.logoCompact {
+  max-height: 67px;
+}
+
+.logoVertical {
+  max-height: 78px;
+}
+
+.logoCircular {
+  max-height: 74px;
+}
+
+/* شاشات أضيق من 360px — تصغير بسيط بالعرض/الفجوة فقط، الارتفاع وmax-height
+   ثابتين بدون أي تغيير */
+@media (max-width: 359px) {
+  .track {
+    gap: 28px;
+  }
+
+  .tile {
+    width: 120px;
+  }
+}
+
+/* ===== Tablet (769px فما فوق) ===== */
+@media (min-width: 769px) {
+  .viewport {
+    padding-inline: 28px;
+    -webkit-mask-image: linear-gradient(
+      to left,
+      transparent 0,
+      black 28px,
+      black calc(100% - 28px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to left,
+      transparent 0,
+      black 28px,
+      black calc(100% - 28px),
+      transparent 100%
+    );
+  }
+
+  .track {
+    gap: 44px;
+  }
+
+  .tile {
+    width: clamp(160px, 20vw, 200px);
+    height: 113px;
+  }
+
+  .logo {
+    max-width: min(160px, 100%);
+    /* بيتجاهل visualScale (خاص بالموبايل)، بس بيحترم scale الشامل لو موجود */
+    transform: scale(var(--scale, 1));
+  }
+
+  .logoWide {
+    max-height: 67px;
+  }
+
+  .logoCompact {
+    max-height: 81px;
+  }
+
+  .logoVertical {
+    max-height: 94px;
+  }
+
+  .logoCircular {
+    max-height: 89px;
+  }
+}
+
+/* ===== Desktop (1024px فما فوق) ===== */
+@media (min-width: 1024px) {
+  .viewport {
+    padding-inline: 36px;
+    -webkit-mask-image: linear-gradient(
+      to left,
+      transparent 0,
+      black 36px,
+      black calc(100% - 36px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to left,
+      transparent 0,
+      black 36px,
+      black calc(100% - 36px),
+      transparent 100%
+    );
+  }
+
+  .track {
+    gap: clamp(48px, 4vw, 64px);
+  }
+
+  .tile {
+    width: clamp(150px, 11vw, 165px);
+    height: 133px;
+  }
+
+  .logo {
+    max-width: min(200px, 100%);
+  }
+
+  .logoWide {
+    max-height: 83px;
+  }
+
+  .logoCompact {
+    max-height: 100px;
+  }
+
+  .logoVertical {
+    max-height: 117px;
+  }
+
+  .logoCircular {
+    max-height: 110px;
+  }
+}

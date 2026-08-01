@@ -527,7 +527,7 @@ export const APPROVED_PARTNERS_MARQUEE_LOGOS = [
   { name: "Solidarity", logo: "/images/insurance-marquee/solidarity4.png", type: "wide" },
   { name: "Philadelphia University", logo: "/images/insurance-marquee/philadelphia-university.png", type: "circular" },
   { name: "Cairo Amman Bank", logo: "/images/insurance-marquee/cairo-amman-bank.png", type: "wide" },
-  { name: "Dental Association", logo: "/images/insurance-marquee/dental-association.png", type: "compact", scale: 1.2 },
+  { name: "Dental Association", logo: "/images/insurance-marquee/dental-association.png", type: "compact", scale: 1.1 },
   { name: "MedNet", logo: "/images/insurance-marquee/mednet3.png", type: "wide" },
   { name: "Jordan Phosphate Mines", logo: "/images/insurance-marquee/phosphate-mines.png", type: "circular" },
   { name: "Safwa Bank", logo: "/images/insurance-marquee/safwa-bank-trimmed.png", type: "wide" },
