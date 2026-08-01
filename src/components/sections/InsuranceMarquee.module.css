@@ -39,7 +39,7 @@
   display: flex;
   direction: ltr;
   align-items: center;
-  gap: 36px;
+  gap: 24px;
   width: max-content;
   list-style: none;
   margin: 0;
@@ -91,7 +91,7 @@
    ثابتين بدون أي تغيير */
 @media (max-width: 359px) {
   .track {
-    gap: 28px;
+    gap: 18px;
   }
 
   .tile {
