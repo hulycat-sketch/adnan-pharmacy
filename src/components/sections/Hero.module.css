@@ -199,6 +199,17 @@
   box-shadow: var(--shadow-hover);
 }
 
+/* ===== تجربة الـFull-Bleed Hero — عناصر جديدة (تدرّج + شريط معلومات)،
+   ديسكتوب فقط (768px فما فوق). مخفية بالكامل بالموبايل — لا صور جوّاها،
+   فما في أي خطر تحميل مكرر للصورة. ===== */
+.gradientOverlay {
+  display: none;
+}
+
+.infoStrip {
+  display: none;
+}
+
 /* ===== الموبايل فقط — الزرّان جنبًا لجنب دايمًا، بنفس الارتفاع وGap متوازن =====
    عرض طبيعي (auto) لكل زر بدل فرض عرض متساوٍ، مع padding/font-size
    مضبوطين عشان النص ما ينكسر لسطرين حتى على أضيق الشاشات (320px). */
@@ -219,32 +230,105 @@
   }
 }
 
-/* ===== Tablet (769px فما فوق) — عمودين: صورة 52% / محتوى 48% ===== */
-@media (min-width: 769px) {
+/* =========================================================================
+   Full-Bleed Hero — تجربة الديسكتوب/التابلت (768px فما فوق) فقط.
+   الموبايل (أقل من 768px) بيضل يستخدم تخطيط البطاقة العادي فوق بدون أي
+   تغيير. من هون وطلوع: صورة full-bleed خلف كل القسم، تدرّج أبيض خفيف من
+   جهة النص، بانل شفاف عائم لليمين (RTL)، وشريط معلومات عائم بالأسفل.
+   ========================================================================= */
+@media (min-width: 768px) {
   .heroCard {
-    flex-direction: row-reverse;
-    align-items: stretch;
-    margin-top: 2rem;
+    display: block;
+    position: relative;
+    width: 100%;
+    max-width: none;
+    min-height: 680px;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: var(--color-bg-section);
+    overflow: hidden;
   }
 
+  /* ------------------------------------------------------------------ */
+  /* طبقة الصورة — full-bleed، تملأ القسم بالكامل */
+  /* ------------------------------------------------------------------ */
   .imageCol {
-    width: 42%;
-    padding: 12px;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    display: block;
   }
 
+  .imageWrapper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    border-radius: 0;
+  }
+
+  .image {
+    object-fit: cover;
+    /* الصورة المصدر مربعة (1254×1254)؛ باحتواء full-bleed بعرض القسم
+       الكامل ما في أي قصّ أفقي إطلاقًا (العرض المعروض = عرض القسم دايمًا).
+       القصّ كله عمودي، فمحاذاة "أعلى" هون هي يلي بتضمن ظهور اللافتة
+       الزرقاء كاملة (مقاسة فعليًا: تمتد من 1% لـ44.7% من ارتفاع الصورة) —
+       تفاصيل القياس والمنطق الكامل بالتقرير النهائي */
+    object-position: center top;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* تدرّج القراءة — أبيض خفيف جدًا من جهة النص (يمين RTL)، بدون أي
+     تعتيم أزرق/داكن على الصورة. شفاف تقريبًا فوق المنطقة البؤرية
+     لليسار (اللافتة/المدخل)، وبيتكثّف تدريجيًا نحو جهة البانل يمين */
+  /* ------------------------------------------------------------------ */
+  .gradientOverlay {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.86) 0%,
+      rgba(255, 255, 255, 0.5) 30%,
+      rgba(255, 255, 255, 0.14) 54%,
+      rgba(255, 255, 255, 0) 74%
+    );
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* البانل الشفاف — عائم يمين، RTL، بعرض 500-560px تقريبًا */
+  /* ------------------------------------------------------------------ */
   .contentCol {
-    width: 58%;
-    display: flex;
-    align-items: center;
-    padding: 1.75rem 2rem;
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    inset-inline-start: 6%;
+    transform: translateY(-50%);
+    width: clamp(500px, 38vw, 560px);
+    max-width: calc(100% - 40px);
+    padding: 2.25rem 2rem;
+    display: block;
+    direction: rtl;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
   }
 
   .content {
     align-items: flex-start;
     text-align: right;
-    margin-left: auto;
-    margin-right: 0;
-    transform: translateY(-24px);
+    margin: 0;
+    transform: none;
   }
 
   .description {
@@ -252,29 +336,91 @@
   }
 
   .title {
-    font-size: 2.2rem;
+    font-size: 2.1rem;
     line-height: 1.25;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* شريط المعلومات العائم — أسفل القسم، ثلاث عناصر متساوية */
+  /* ------------------------------------------------------------------ */
+  .infoStrip {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    inset-inline: 6%;
+    bottom: 22px;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 0.9rem 0.5rem;
+  }
+
+  .infoList {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    list-style: none;
+  }
+
+  .infoItem {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 0 1rem;
+  }
+
+  .infoItem + .infoItem {
+    border-inline-start: 1px solid var(--color-border);
+  }
+
+  .infoIconWrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background-color: var(--color-secondary-light);
+  }
+
+  .infoIcon {
+    color: var(--color-secondary);
+  }
+
+  .infoText {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .infoValue {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .infoLabel {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
-/* ===== Desktop (1024px فما فوق) ===== */
+/* ===== Desktop أوسع (1024px فما فوق) — تحسينات دقيقة فقط على المقاسات ===== */
 @media (min-width: 1024px) {
   .heroCard {
-    width: calc(100% - 72px);
-    max-width: 1180px;
-    margin-top: 2rem;
-    margin-bottom: 1.25rem;
-    border-radius: 22px;
-  }
-
-  .imageCol {
-    width: 42%;
-    padding: 16px;
-  }
-
-  .contentCol {
-    width: 58%;
-    padding: 1.75rem 2.5rem;
+    min-height: 700px;
   }
 
   .badge {
@@ -288,7 +434,7 @@
   }
 
   .description {
-    max-width: 430px;
+    max-width: 400px;
     font-size: 0.95rem;
     line-height: 1.9;
   }
@@ -297,6 +443,29 @@
   .ctaSecondary {
     padding: 0.7rem 1.5rem;
     font-size: 0.9rem;
+  }
+
+  .infoStrip {
+    padding: 1.1rem 0.75rem;
+  }
+
+  .infoValue {
+    font-size: 0.95rem;
+  }
+
+  .infoLabel {
+    font-size: 0.79rem;
+  }
+}
+
+/* ===== Desktop واسع جدًا (1440px فما فوق) — سقف أقصى لعرض البانل وحشوة الشريط ===== */
+@media (min-width: 1440px) {
+  .contentCol {
+    padding: 2.5rem 2.25rem;
+  }
+
+  .infoStrip {
+    padding: 1.25rem 1rem;
   }
 }
 

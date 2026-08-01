@@ -1,7 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PHARMACY, HERO_SECTION, IMAGES, MAP } from "@/lib/constants";
+import { Calendar, Clock, MapPin, type LucideIcon } from "lucide-react";
+import { PHARMACY, HERO_SECTION, IMAGES, MAP, ABOUT_LEGACY } from "@/lib/constants";
 import styles from "./Hero.module.css";
+
+const ICONS: Record<string, LucideIcon> = {
+  Calendar,
+  Clock,
+  MapPin,
+};
 
 export default function Hero() {
   const description = HERO_SECTION.description;
@@ -18,13 +25,18 @@ export default function Hero() {
               alt={heroAlt}
               fill
               quality={75}
-              sizes="(max-width: 768px) calc(100vw - 20px), (max-width: 1023px) calc(42vw - 24px), (max-width: 1251px) calc(42vw - 62px), 464px"
+              sizes="(max-width: 767px) calc(100vw - 20px), 100vw"
               loading="eager"
               fetchPriority="high"
               className={styles.image}
             />
           </div>
         </div>
+
+        {/* تحسين قابلية القراءة على الديسكتوب فقط (768px فما فوق) — تدرّج
+            أبيض خفيف من جهة النص (يمين RTL) بدون أي تعتيم أزرق/داكن على
+            الصورة نفسها. لا يحتوي أي صورة، فما في خطر تحميل مكرر */}
+        <div className={styles.gradientOverlay} aria-hidden="true" />
 
         <div className={styles.contentCol}>
           <div className={styles.content}>
@@ -56,6 +68,29 @@ export default function Hero() {
               </a>
             </div>
           </div>
+        </div>
+
+        {/* شريط معلومات عائم — ديسكتوب فقط (768px فما فوق). البيانات الثلاث
+            هون معاد استخدامها حرفيًا من ABOUT_LEGACY.facts (نفس المصدر
+            المستخدم بصفحة "نبذة عنا")، مش نص مُخترَع أو حالة "مفتوح الآن"
+            حيّة غير موثّقة بالمشروع */}
+        <div className={styles.infoStrip}>
+          <ul className={styles.infoList}>
+            {ABOUT_LEGACY.facts.map((fact) => {
+              const Icon = ICONS[fact.icon];
+              return (
+                <li key={fact.label} className={styles.infoItem}>
+                  <span className={styles.infoIconWrap} aria-hidden="true">
+                    <Icon width={18} height={18} strokeWidth={2} className={styles.infoIcon} />
+                  </span>
+                  <span className={styles.infoText}>
+                    <span className={styles.infoValue}>{fact.value}</span>
+                    <span className={styles.infoLabel}>{fact.label}</span>
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </div>
     </section>
