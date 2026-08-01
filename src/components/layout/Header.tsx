@@ -16,7 +16,7 @@ import { useState }                    from 'react'
 import Link                            from 'next/link'
 import Image                           from 'next/image'
 import { usePathname }                 from 'next/navigation'
-import { NAV_LINKS, PHARMACY, IMAGES } from '@/lib/constants'
+import { NAV_LINKS, PHARMACY }         from '@/lib/constants'
 import styles                          from './Header.module.css'
 
 
@@ -37,7 +37,7 @@ export default function Header() {
           aria-label={`${PHARMACY.name} - الصفحة الرئيسية`}
         >
           <Image
-            src={IMAGES.logo}
+            src="/images/logo-symbol-flat.png"
             alt={`شعار ${PHARMACY.name}`}
 width={44}
 height={44}
