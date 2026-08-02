@@ -368,18 +368,21 @@
   }
 
   /* ------------------------------------------------------------------ */
-  /* شريط المعلومات العائم — أسفل القسم، ثلاث عناصر متساوية */
+  /* شريط المعلومات العائم — بطاقة عائمة بعرض ~89% من الحاوية (مش شريط
+     ممتد)، بهوامش متساوية يمين/يسار عبر inset-inline. نصف قطر وظل
+     مطابقين للبانل (radius-xl / shadow-lg) عشان يحسّوا كوحدة بصرية
+     واحدة متناسقة، أخف من الشريط الممتد السابق */
   /* ------------------------------------------------------------------ */
   .infoStrip {
     display: block;
     position: absolute;
     z-index: 2;
-    inset-inline: 6%;
+    inset-inline: 5.5%;
     bottom: 20px;
     background: rgba(255, 255, 255, 0.94);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-card);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
     padding: 0.85rem 0.5rem;
   }
 
