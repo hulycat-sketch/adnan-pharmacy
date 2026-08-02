@@ -212,6 +212,10 @@
   display: none;
 }
 
+.gradientOverlay {
+  display: none;
+}
+
 /* ===== الموبايل فقط — الزرّان جنبًا لجنب دايمًا، بنفس الارتفاع وGap متوازن =====
    عرض طبيعي (auto) لكل زر بدل فرض عرض متساوٍ، مع padding/font-size
    مضبوطين عشان النص ما ينكسر لسطرين حتى على أضيق الشاشات (320px). */
@@ -233,41 +237,111 @@
 }
 
 /* =========================================================================
-   Hero — تركيبة منقسمة عريضة، ديسكتوب/تابلت فقط (768px فما فوق). الموبايل
-   (أقل من 768px) بيضل يستخدم تخطيط البطاقة العادي فوق بدون أي تغيير.
-   حاوية واحدة بعرض محدود (مش full-bleed)، Grid بعمودين: محتوى يمين RTL
-   (40%) وصورة يسار (60%)، وشريط معلومات كصف سفلي داخل نفس الحاوية —
-   مافي أي بانل شفاف عائم فوق الصورة ولا تدرّج تعتيم عليها. */
+   Hero — Full-Bleed حقيقي بالصورة الأفقية الجديدة، ديسكتوب/تابلت فقط
+   (768px فما فوق). الموبايل (أقل من 768px) بيضل يستخدم تخطيط البطاقة
+   العادي + الصورة المربعة القديمة بدون أي تغيير. الصورة تملأ القسم بعرض
+   الشاشة الكامل، فوقها تدرّج أبيض خفيف من جهة النص، بانل شفاف عائم يمين
+   RTL، وشريط معلومات عائم بالأسفل. ========================================================================= */
 @media (min-width: 768px) {
   .heroCard {
-    display: grid;
-    grid-template-columns: 45% 55%;
-    grid-template-rows: 1fr auto;
+    display: block;
     position: relative;
     z-index: 1;
-    width: calc(100% - 48px);
-    max-width: 1440px;
-    min-height: 640px;
-    margin: 2rem auto;
-    border-radius: 20px;
-    border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-card);
-    background: #ffffff;
+    width: 100%;
+    max-width: none;
+    height: clamp(620px, 48vw, 720px);
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: var(--color-bg-section);
     overflow: hidden;
   }
 
+  /* صورة الموبايل المربّعة — مخفية بالكامل هون، عمود صورة الديسكتوب
+     (imageColDesktop) هو يلي بيبين بدالها */
+  .imageCol {
+    display: none;
+  }
+
   /* ------------------------------------------------------------------ */
-  /* عمود المحتوى — يمين RTL، جزء من التخطيط نفسه (مش بانل عائم فوق صورة) */
+  /* طبقة الصورة — full-bleed، تملأ القسم بالكامل */
   /* ------------------------------------------------------------------ */
-  .contentCol {
-    grid-column: 1;
-    grid-row: 1;
+  .imageColDesktop {
+    position: absolute;
+    inset: 0;
     width: 100%;
-    display: flex;
-    align-items: center;
-    padding: 2rem 2.25rem;
-    background: linear-gradient(155deg, #ffffff 0%, var(--color-bg-section) 100%);
-    border-inline-end: 1px solid var(--color-border);
+    height: 100%;
+    padding: 0;
+    display: block;
+  }
+
+  .imageWrapper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    border-radius: 0;
+  }
+
+  .image {
+    object-fit: cover;
+    /* الصورة الجديدة أفقية (2752×1536، نسبة 1.79:1). بارتفاع الـHero
+       الحالي (clamp 620-720px) القصّ بيتغيّر نوعه حسب العرض: عند
+       768-1024px تقريبًا القصّ أفقي بس (الارتفاع بيبين كامل)، وفوق هيك
+       (1280px+) القصّ عمودي بس (العرض بيبين كامل). اللافتة + المدخل
+       ("صيدلية عدنان") موجودين تقريبًا بـx:3.6%-25%, y:9.8%-61.8% من
+       الصورة الأصلية — محاذاة "يسار-أعلى" (left top) هي يلي بتضمن بقاء
+       المنطقة هاي كاملة جوا الإطار المرئي بكل الأحجام المختبرة (حتى
+       بأضيق حالة قصّ عمودي عند 1920px، لسا في هامش أمان ~5.4 نقطة مئوية)
+       — تفاصيل الحساب والمراجعة البصرية الكاملة بالتقرير النهائي */
+    object-position: left top;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* تدرّج القراءة — أبيض خفيف من جهة النص (يمين RTL)، بدون أي تعتيم
+     أزرق/داكن على الصورة نفسها */
+  /* ------------------------------------------------------------------ */
+  .gradientOverlay {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.84) 0%,
+      rgba(255, 255, 255, 0.46) 28%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0) 68%
+    );
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* البانل الشفاف — عائم يمين RTL، أخف وأضيق من التجربة السابقة بما إنه
+     الصورة الجديدة بتبين سياق أكتر. عرض أضيق هون (768-1023px) بالذات —
+     راجعت فعليًا واللافتة عند 768px بالضبط بتوصل حافتها اليمين لـ~274px،
+     فعرض 460px (حد أدنى الحدّ الأقصى المقترح) كان بيلمس طرفها (~12px
+     تراكب) — 380-440px هون بيضمن هامش أمان واضح؛ 1024px فما فوق بيرجع
+     للمدى الأصلي المقترح (460-540px) لأنه في مسافة كافية هناك */
+  .contentCol {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    inset-inline-start: 6%;
+    transform: translateY(-50%);
+    width: clamp(380px, 42vw, 440px);
+    max-width: calc(100% - 40px);
+    padding: 2rem 1.75rem;
+    display: block;
+    direction: rtl;
+    background: rgba(255, 255, 255, 0.84);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.68);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
   }
 
   .content {
@@ -286,58 +360,20 @@
     line-height: 1.25;
   }
 
-  /* صورة الموبايل المربّعة — مخفية بالكامل هون، عمود صورة الديسكتوب
-     (imageColDesktop) هو يلي بيبين بدالها */
-  .imageCol {
-    display: none;
-  }
-
   /* ------------------------------------------------------------------ */
-  /* عمود الصورة — يسار، يملأ ارتفاع الحاوية بالكامل */
-  /* ------------------------------------------------------------------ */
-  .imageColDesktop {
-    grid-column: 2;
-    grid-row: 1;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-    padding: 0;
-    display: block;
-    background: #ffffff;
-  }
-
-  .imageWrapper {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    aspect-ratio: auto;
-    border-radius: 0;
-  }
-
-  .image {
-    object-fit: cover;
-    /* صورة الديسكتوب الجديدة أفقية (2752×1536، نسبة 1.79:1) — أعرض من
-       عمود الصورة بكل الأحجام المختبرة، فالقصّ كله أفقي (0% عمودي، الطول
-       بيبين كامل دايمًا). اللافتة الزرقاء "صيدلية عدنان" موجودة بالربع
-       الأول من عرض الصورة الأصلية (تقريبًا 3.6%-25%)، فمحاذاة "يسار"
-       بتضمن ظهورها كاملة مع هامش أمان بكل الأحجام (حتى بأضيق نافذة
-       عرض مرئية ~34.5% بعرض 768px) — بدل ما توضّح لو حطينا "توسيط" كان
-       رح يقصّ جزء كبير من الاسم. راجعت النتيجة فعليًا بلقطات شاشة 768-1600 */
-    object-position: left top;
-  }
-
-  /* ------------------------------------------------------------------ */
-  /* شريط المعلومات — صف سفلي مدمج داخل نفس الحاوية، يمتد عبر العمودين */
+  /* شريط المعلومات العائم — أسفل القسم، ثلاث عناصر متساوية */
   /* ------------------------------------------------------------------ */
   .infoStrip {
     display: block;
-    grid-column: 1 / -1;
-    grid-row: 2;
-    background: var(--color-bg-white);
-    border-top: 1px solid var(--color-border);
-    padding: 0.85rem 1rem;
+    position: absolute;
+    z-index: 2;
+    inset-inline: 6%;
+    bottom: 20px;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 0.85rem 0.5rem;
   }
 
   .infoList {
@@ -401,12 +437,12 @@
   }
 }
 
-/* ===== Desktop (1024px فما فوق) — نسبة أعمدة 40/60 بدل 45/55، وتحسينات
-   دقيقة على المقاسات ===== */
+/* ===== Desktop (1024px فما فوق) — تحسينات دقيقة فقط على المقاسات ===== */
 @media (min-width: 1024px) {
-  .heroCard {
-    grid-template-columns: 40% 60%;
-    min-height: 650px;
+  /* رجوع للمدى الأصلي الأعرض (460-540px) — تحققت إنه في مسافة كافية بين
+     حافة البانل واللافتة بكل الأحجام 1024px فما فوق (هامش 200px+ دايمًا) */
+  .contentCol {
+    width: clamp(460px, 36vw, 540px);
   }
 
   .badge {
@@ -432,11 +468,11 @@
   }
 
   .contentCol {
-    padding: 2.5rem 2.75rem;
+    padding: 2.25rem 2rem;
   }
 
   .infoStrip {
-    padding: 1.1rem 1.25rem;
+    padding: 1.1rem 1rem;
   }
 
   .infoValue {
@@ -450,16 +486,12 @@
 
 /* ===== Desktop واسع جدًا (1440px فما فوق) ===== */
 @media (min-width: 1440px) {
-  .heroCard {
-    min-height: 660px;
-  }
-
   .contentCol {
-    padding: 2.75rem 3rem;
+    padding: 2.5rem 2.25rem;
   }
 
   .infoStrip {
-    padding: 1.25rem 1.5rem;
+    padding: 1.2rem 1.25rem;
   }
 }
 

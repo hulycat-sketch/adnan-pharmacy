@@ -36,9 +36,10 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* صورة الديسكتوب (أفقية، واجهة الشارع) — عنصر صورة منفصل مخفي
-            بالكامل تحت 768px، وsizes بترجع قيمة ضئيلة (1px) هناك بنفس
-            المنطق. أصل حقيقي جديد أضافه المستخدم، بدون أي تعديل عليه */}
+        {/* صورة الديسكتوب (أفقية، واجهة الشارع) — full-bleed بعرض الشاشة
+            الكامل هلق، عنصر صورة منفصل مخفي بالكامل تحت 768px، وsizes
+            بترجع قيمة ضئيلة (1px) هناك بنفس المنطق. أصل حقيقي جديد أضافه
+            المستخدم، بدون أي تعديل عليه */}
         <div className={styles.imageColDesktop}>
           <div className={styles.imageWrapper}>
             <Image
@@ -46,13 +47,18 @@ export default function Hero() {
               alt={heroAlt}
               fill
               quality={75}
-              sizes="(max-width: 767px) 1px, (max-width: 1023px) calc((100vw - 48px) * 0.55), (max-width: 1487px) calc((100vw - 48px) * 0.6), 864px"
+              sizes="(min-width: 768px) calc(100vw - 0px), 1px"
               loading="eager"
               fetchPriority="high"
               className={styles.image}
             />
           </div>
         </div>
+
+        {/* تحسين قابلية القراءة على الديسكتوب فقط (768px فما فوق) — تدرّج
+            أبيض خفيف من جهة النص (يمين RTL) بدون أي تعتيم أزرق/داكن على
+            الصورة نفسها. لا يحتوي أي صورة، فما في خطر تحميل مكرر */}
+        <div className={styles.gradientOverlay} aria-hidden="true" />
 
         <div className={styles.contentCol}>
           <div className={styles.content}>
@@ -86,10 +92,10 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* شريط معلومات — صف سفلي مدمج داخل الحاوية، ديسكتوب فقط (768px فما
-            فوق). البيانات الثلاث هون معاد استخدامها حرفيًا من
-            ABOUT_LEGACY.facts (نفس المصدر المستخدم بصفحة "نبذة عنا")، مش
-            نص مُخترَع أو حالة "مفتوح الآن" حيّة غير موثّقة بالمشروع */}
+        {/* شريط معلومات عائم — ديسكتوب فقط (768px فما فوق). البيانات الثلاث
+            هون معاد استخدامها حرفيًا من ABOUT_LEGACY.facts (نفس المصدر
+            المستخدم بصفحة "نبذة عنا")، مش نص مُخترَع أو حالة "مفتوح الآن"
+            حيّة غير موثّقة بالمشروع */}
         <div className={styles.infoStrip}>
           <ul className={styles.infoList}>
             {ABOUT_LEGACY.facts.map((fact) => {
