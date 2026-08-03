@@ -123,7 +123,7 @@ export default function Hero() {
               </span>
               <span className={styles.infoText}>
                 <span className={styles.infoValue}>{LOCATION_FACT.value}</span>
-                <span className={styles.infoLabel}>{LOCATION_FACT.label}</span>
+                <span className={styles.infoLabel}>بالقرب من البوابة الشمالية لجامعة اليرموك</span>
               </span>
             </li>
           </ul>
