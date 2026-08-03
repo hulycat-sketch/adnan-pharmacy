@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Clock, MapPin } from "lucide-react";
-import { PHARMACY, HERO_SECTION, IMAGES, MAP, ABOUT_LEGACY } from "@/lib/constants";
+import { PHARMACY, HERO_SECTION, MAP, ABOUT_LEGACY } from "@/lib/constants";
 import PharmacyStatusItem from "./PharmacyStatusItem";
 import styles from "./Hero.module.css";
 
@@ -16,17 +16,21 @@ export default function Hero() {
     <>
       <section className={styles.hero} aria-labelledby="hero-heading">
         <div className={styles.heroCard}>
-          {/* صورة الموبايل (مربّعة) — بدون أي تغيير، نفس الأصل الأصلي. مخفية
-              بالكامل عند 768px فما فوق، وsizes بترجع قيمة ضئيلة (1px) هناك
-              حتى لو انطلب تحميلها (eager) ما تاخد إلا أصغر نسخة ممكنة */}
+          {/* صورة الموبايل — نفس صورة الديسكتوب الجديدة (أفقية، واجهة الشارع)
+              بقصّة عريضة مختلفة عبر CSS فقط (aspect-ratio + object-position
+              مختلفين بالقاعدة الأساسية غير المشروطة بـmedia query). عنصر
+              صورة منفصل عن صورة الديسكتوب — نفس الملف، بس sizes مختلف لكل
+              وحدة حتى ما يصير أي تحميل حقيقي مكرر: هاي بترجع قيمة ضئيلة
+              (1px) عند 768px فما فوق، وصورة الديسكتوب برجع نفس الشي تحت
+              768px */}
           <div className={styles.imageCol}>
             <div className={styles.imageWrapper}>
               <Image
-                src={IMAGES.hero}
+                src="/images/Adnan_Pharmacy_storefront_building_final.png"
                 alt={heroAlt}
                 fill
                 quality={75}
-                sizes="(max-width: 767px) calc(100vw - 20px), 1px"
+                sizes="(max-width: 767px) calc(100vw - 0px), 1px"
                 loading="eager"
                 fetchPriority="high"
                 className={styles.image}

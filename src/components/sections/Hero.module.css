@@ -52,64 +52,64 @@
   transform: rotate(-15deg);
 }
 
-/* ===== Hero Card — Split Layout (تجربة بصرية) =====
-   بطاقة واحدة بعمودين: عمود الصورة وعمود المحتوى. بالموبايل تتحول
-   لعمود واحد (الصورة فوق، المحتوى تحت) عبر flex-direction:column. */
+/* ===== Hero موبايل (أقل من 768px) — صورة full-bleed أفقية أعلى القسم،
+   بطاقة محتوى بيضاء منفصلة تحتها بتراكب خفيف على حافة الصورة السفلية،
+   وبطاقة معلومات مكدّسة تحت هيك. كل هالتصميم يخص الموبايل بس — قسم
+   الديسكتوب (768px فما فوق) بيعيد تعريف كل هاي الخصائص بشكل شامل جوا
+   media query، فما في أي تسريب. ===== */
 .heroCard {
   position: relative;
   z-index: 1;
-  display: flex;
-  flex-direction: column;
-  max-width: 1200px;
-  margin: 2rem auto 1.5rem;
-  border-radius: 22px;
-  overflow: hidden;
-  background: #ffffff;
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-card);
 }
 
 /* ------------------------------------------------------------------ */
-/* عمود الصورة */
+/* صورة الـHero — full-bleed بعرض الشاشة الكامل، أول عنصر بالقسم */
 /* ------------------------------------------------------------------ */
 .imageCol {
   width: 100%;
-  background: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
+  padding: 0;
 }
 
 .imageWrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 14px;
-  background-color: #ffffff;
-  /* overflow:hidden هون بس عشان تدوير زوايا الصورة — الصورة أصلًا مربعة
-     بنفس نسبة الحاوية، فبتظهر كاملة بدون أي قصّ أو تكبير. */
+  aspect-ratio: 4 / 3;
+  border-radius: 0;
   overflow: hidden;
 }
 
 .image {
-  object-fit: contain;
-  object-position: center;
+  object-fit: cover;
+  /* راجعنا فعليًا بلقطات شاشة 360-430px — بما إنه نسبة 4:3 أضيق من
+     نسبة الصورة الأصلية (1.777:1)، القصّ كله أفقي (0% قصّ عمودي، الطول
+     كامل يبين دايمًا)، فمحاذاة Y هون ما إلها أي تأثير. محاذاة "يسار"
+     أفقيًا بتخلي اللافتة (x:4.9%-37.2% من الصورة الأصلية) جوا الإطار
+     المرئي (~75% من العرض) بهامش أمان كبير */
+  object-position: left center;
 }
 
 /* ------------------------------------------------------------------ */
-/* عمود المحتوى */
+/* بطاقة المحتوى — بطاقة بيضاء منفصلة تحت الصورة، بتراكب خفيف على
+   حافتها السفلية (~-24px) لخلق إحساس "ورقة عائمة فوق الصورة" */
 /* ------------------------------------------------------------------ */
 .contentCol {
-  width: 100%;
-  padding: 2rem 1.5rem 2.25rem;
+  position: relative;
+  z-index: 1;
+  width: calc(100% - 32px);
+  max-width: 480px;
+  margin: -24px auto 0;
+  padding: 1.5rem 1.25rem 1.75rem;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
 }
 
 .content {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: right;
 }
 
 .badge {
@@ -199,13 +199,7 @@
   box-shadow: var(--shadow-hover);
 }
 
-/* ===== تجربة الديسكتوب — شريط المعلومات، ديسكتوب فقط (768px فما فوق).
-   مخفي بالكامل بالموبايل — لا صور جوّاه، فما في أي خطر تحميل مكرر للصورة. ===== */
-.infoStripBridge {
-  display: none;
-}
-
-/* عمود صورة الديسكتوب (الصورة الأفقية الجديدة) — مخفي بالكامل بالموبايل.
+/* عمود صورة الديسكتوب (الصورة الأفقية) — مخفي بالكامل بالموبايل.
    sizes الخاص فيها بترجع 1px بالموبايل، فحتى لو انطلب تحميلها (eager)
    ما بتاخد إلا أصغر نسخة ممكنة، مش الحجم الكامل */
 .imageColDesktop {
@@ -216,23 +210,146 @@
   display: none;
 }
 
-/* ===== الموبايل فقط — الزرّان جنبًا لجنب دايمًا، بنفس الارتفاع وGap متوازن =====
-   عرض طبيعي (auto) لكل زر بدل فرض عرض متساوٍ، مع padding/font-size
-   مضبوطين عشان النص ما ينكسر لسطرين حتى على أضيق الشاشات (320px). */
-@media (max-width: 768px) {
+/* ===== بطاقة المعلومات — موبايل: بطاقة واحدة مكدّسة (صف لكل عنصر)
+   تحت بطاقة المحتوى مباشرة. الديسكتوب (768px فما فوق) بيعيد تعريف كل
+   شي هون بشكل شامل داخل media query تحت (صف أفقي بعمودين متساويين
+   بدل التكديس) — كل خاصية جديدة هون تم التأكد إنه الديسكتوب بيلغيها
+   صراحة، فما في أي تسريب ===== */
+.infoStripBridge {
+  display: block;
+  width: calc(100% - 32px);
+  max-width: 480px;
+  margin: 1rem auto 2rem;
+}
+
+.infoStrip {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.infoList {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: none;
+  min-width: 0;
+  padding: 0.9rem 1.1rem;
+}
+
+/* فاصل أفقي بين الصفوف بدل الفاصل العمودي المستخدم بالديسكتوب — ما في
+   أي فاصل عمودي إطلاقًا هون */
+.infoItem + .infoItem {
+  border-top: 1px solid var(--color-border);
+}
+
+.infoIconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background-color: var(--color-secondary-light);
+}
+
+.infoIcon {
+  color: var(--color-secondary);
+}
+
+.infoIconWrapOpen {
+  background-color: var(--color-secondary-light);
+}
+
+.infoIconWrapOpen .infoIcon {
+  color: var(--color-secondary);
+}
+
+.infoIconWrapClosed {
+  background-color: rgba(229, 62, 62, 0.12);
+}
+
+.infoIconWrapClosed .infoIcon {
+  color: var(--color-error);
+}
+
+.statusDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-inline-end: 4px;
+  flex-shrink: 0;
+}
+
+.statusDotOpen {
+  background-color: var(--color-secondary);
+}
+
+.statusDotClosed {
+  background-color: var(--color-error);
+}
+
+.infoText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.infoValue {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.3;
+  white-space: normal;
+}
+
+.infoLabel {
+  font-size: 0.78rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  white-space: normal;
+}
+
+/* ===== الموبايل فقط — الزرّان مكدّسين عموديًا بعرض كامل، الأساسي فوق
+   ("تواصل معنا" أول عنصر بالـDOM أصلًا)، بارتفاع متساوٍ ومساحة لمس مريحة ===== */
+@media (max-width: 767px) {
   .actions {
+    width: 100%;
+    align-self: stretch;
+    flex-direction: column;
     flex-wrap: nowrap;
-    justify-content: center;
-    gap: 0.5rem;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0.75rem;
   }
 
   .ctaPrimary,
   .ctaSecondary {
-    flex: 0 1 auto;
+    flex: none;
+    width: 100%;
     min-width: 0;
-    padding-inline: 0.85rem;
-    font-size: 0.875rem;
+    padding-block: 0.9rem;
+    padding-inline: 1.25rem;
+    font-size: 0.95rem;
     white-space: nowrap;
+  }
+
+  /* تعويض حدود 1px الإضافية بزر "موقعنا" حتى يتساوى ارتفاع الزرّين تمامًا */
+  .ctaSecondary {
+    padding-block: calc(0.9rem - 1px);
   }
 }
 
@@ -339,6 +456,7 @@
     transform: translateY(-50%);
     width: clamp(380px, 42vw, 440px);
     max-width: calc(100% - 40px);
+    margin: 0;
     padding: 2rem 1.75rem;
     display: block;
     direction: rtl;
@@ -380,8 +498,9 @@
     justify-content: center;
     position: relative;
     z-index: 3;
-    margin-top: -38px;
-    margin-bottom: 28px;
+    width: 100%;
+    max-width: none;
+    margin: -38px 0 28px;
   }
 
   /* البطاقة نفسها — بدون أي تغيير على العرض/الخلفية/الحدود/نصف القطر/
@@ -397,10 +516,12 @@
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-lg);
     padding: 0.85rem 0.5rem;
+    overflow: visible;
   }
 
   .infoList {
     display: flex;
+    flex-direction: row;
     align-items: stretch;
     justify-content: space-between;
     list-style: none;
@@ -432,6 +553,7 @@
 
   .infoItem + .infoItem {
     border-inline-start: 1px solid var(--color-border);
+    border-top: none;
   }
 
   /* لا فاصل إطلاقًا بين عمودي "الموقع" و"الخبرة" — أُزيل حد عنصر
@@ -498,7 +620,9 @@
   .infoText {
     display: flex;
     flex-direction: column;
+    gap: 0;
     min-width: 0;
+    flex: initial;
   }
 
   .infoValue {
