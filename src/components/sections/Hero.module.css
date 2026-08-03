@@ -213,14 +213,16 @@
   display: none;
 }
 
-/* ===== بطاقة المعلومات — موبايل (340px - 767px): ثلاث بطاقات مستقلة
-   جنب بعض بصف واحد (CSS grid)، كل وحدة إلها خلفيتها/حدودها/نصف قطرها/
-   ظلها الخاص، بدون أي container بصري مشترك وبدون أي فاصل بينهم. أيقونة
-   أعلى كل بطاقة، نص بمنتصفها تحتها. الشاشات الأضيق جداً (340px فما دون)
-   بترجع لتصميم التكديس القديم عبر media query تحت. الديسكتوب (768px
-   فما فوق) بيعيد تعريف كل شي هون بشكل شامل داخل media query لتحت (صف
-   أفقي بفواصل عمودية بدل بطاقات مستقلة) — كل خاصية جديدة هون تم التأكد
-   إنه الديسكتوب بيلغيها صراحة، فما في أي تسريب ===== */
+/* ===== بطاقة المعلومات — موبايل (340px - 767px): بطاقتان مستقلتان جنب
+   بعض بصف واحد (CSS grid) — الحالة اللحظية والموقع بس (عنصر "الخبرة"
+   مخفي بالموبايل فقط عبر media query تحت، وضل ظاهر بالديسكتوب). كل
+   بطاقة إلها خلفيتها/حدودها/نصف قطرها/ظلها الخاص، بدون أي container
+   بصري مشترك وبدون أي فاصل بينهم. أيقونة أعلى كل بطاقة، نص بمنتصفها
+   تحتها. الشاشات الأضيق جداً (340px فما دون) بترجع لتصميم التكديس
+   القديم عبر media query تحت. الديسكتوب (768px فما فوق) بيعيد تعريف كل
+   شي هون بشكل شامل داخل media query لتحت (صف أفقي بثلاث عناصر وفواصل
+   عمودية) — كل خاصية جديدة هون تم التأكد إنه الديسكتوب بيلغيها صراحة،
+   فما في أي تسريب ===== */
 .infoStripBridge {
   display: block;
   width: calc(100% - 32px);
@@ -229,7 +231,7 @@
 }
 
 /* شفاف تمامًا — كل بطاقة صارت مستقلة بمظهرها الخاص، مفيش "كرت كبير"
-   يلف الثلاثة */
+   يلف البطاقتين */
 .infoStrip {
   width: 100%;
   background: transparent;
@@ -241,8 +243,8 @@
 
 .infoList {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
   list-style: none;
 }
 
@@ -251,12 +253,12 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 0.35rem;
+  gap: 0.4rem;
   min-width: 0;
-  padding: 12px 6px;
+  padding: 14px 10px;
   background: rgba(255, 255, 255, 0.96);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-xl);
   box-shadow: var(--shadow-card);
 }
 
@@ -265,8 +267,8 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background-color: var(--color-secondary-light);
 }
@@ -313,27 +315,27 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 0.2rem;
+  gap: 0.25rem;
   min-width: 0;
 }
 
 .infoValue {
-  font-size: 0.86rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--color-primary);
-  line-height: 1.25;
-  white-space: normal;
-}
-
-.infoLabel {
-  font-size: 0.72rem;
-  color: var(--color-text-secondary);
   line-height: 1.3;
   white-space: normal;
 }
 
-/* ===== أضيق من 340px — ثلاث بطاقات مستقلة ما بتضل مريحة، رجوع لتصميم
-   التكديس (بطاقة واحدة، صف لكل عنصر، أيقونة جنب النص) ===== */
+.infoLabel {
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+  line-height: 1.35;
+  white-space: normal;
+}
+
+/* ===== أضيق من 340px — بطاقتان مستقلتان ما بتضلّان مريحتين، رجوع
+   لتصميم التكديس (بطاقة واحدة، صف لكل عنصر، أيقونة جنب النص) ===== */
 @media (max-width: 339px) {
   .infoStrip {
     background: rgba(255, 255, 255, 0.96);
@@ -415,6 +417,13 @@
   /* تعويض حدود 1px الإضافية بزر "موقعنا" حتى يتساوى ارتفاع الزرّين تمامًا */
   .ctaSecondary {
     padding-block: calc(0.9rem - 1px);
+  }
+
+  /* عنصر "الخبرة" (+40 سنة) مخفي ببطاقة معلومات الموبايل فقط — ضل بالـDOM
+     (بيستخدمه الديسكتوب زي ما هو) بس ما بيحجز أي مساحة بالـgrid، فبتضل
+     بطاقتا الحالة والموقع بس ظاهرتين جنب بعض */
+  .infoItem:nth-child(2) {
+    display: none;
   }
 }
 
