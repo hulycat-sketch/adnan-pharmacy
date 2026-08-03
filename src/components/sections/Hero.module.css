@@ -431,6 +431,44 @@
     color: var(--color-secondary);
   }
 
+  /* حالة الصيدلية الحيّة (مفتوح/مغلق) — نفس حجم/شكل دائرة الأيقونة
+     المعتادة بالضبط، بس بلون يعكس الحالة (أخضر = مفتوح، أحمر = مغلق).
+     "مفتوح" مطابق تمامًا للون الافتراضي الموجود أصلًا بالبطاقتين
+     الثانية والثالثة؛ "مغلق" بيستخدم --color-error الموجودة أصلًا
+     بنظام الألوان (globals.css) مش لون جديد */
+  .infoIconWrapOpen {
+    background-color: var(--color-secondary-light);
+  }
+
+  .infoIconWrapOpen .infoIcon {
+    color: var(--color-secondary);
+  }
+
+  .infoIconWrapClosed {
+    background-color: rgba(229, 62, 62, 0.12);
+  }
+
+  .infoIconWrapClosed .infoIcon {
+    color: var(--color-error);
+  }
+
+  .statusDot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-inline-end: 4px;
+    flex-shrink: 0;
+  }
+
+  .statusDotOpen {
+    background-color: var(--color-secondary);
+  }
+
+  .statusDotClosed {
+    background-color: var(--color-error);
+  }
+
   .infoText {
     display: flex;
     flex-direction: column;

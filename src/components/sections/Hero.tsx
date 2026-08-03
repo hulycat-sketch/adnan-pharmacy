@@ -1,14 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, Clock, MapPin, type LucideIcon } from "lucide-react";
+import { Clock, MapPin } from "lucide-react";
 import { PHARMACY, HERO_SECTION, IMAGES, MAP, ABOUT_LEGACY } from "@/lib/constants";
+import PharmacyStatusItem from "./PharmacyStatusItem";
 import styles from "./Hero.module.css";
 
-const ICONS: Record<string, LucideIcon> = {
-  Calendar,
-  Clock,
-  MapPin,
-};
+const LOCATION_FACT = ABOUT_LEGACY.facts[2];
 
 export default function Hero() {
   const description = HERO_SECTION.description;
@@ -99,26 +96,36 @@ export default function Hero() {
           فقط (768px فما فوق). خارج قسم الـHero عمدًا (مش جوا heroCard) —
           overflow:hidden على heroCard/hero ضروري لقصّ الصورة full-bleed
           وأقواس الخلفية الزخرفية، فلو ضل الشريط جواهم كان رح ينقصّ لما
-          نحطه يمتد تحت حدود الـHero. البيانات الثلاث معاد استخدامها حرفيًا
-          من ABOUT_LEGACY.facts (نفس المصدر المستخدم بصفحة "نبذة عنا")، مش
-          نص مُخترَع أو حالة "مفتوح الآن" حيّة غير موثّقة بالمشروع */}
+          نحطه يمتد تحت حدود الـHero.
+          العنصر الأول (حالة المفتوح/المغلق) عنصر عميل منفصل (PharmacyStatusItem)
+          بيحسب الوقت الفعلي بتوقيت الأردن — باقي الـHero يضل Server Component
+          عادي. العنصر التاني نص Hero-specific (مش من ABOUT_LEGACY). العنصر
+          الثالث (الموقع) لسا معاد استخدامه حرفيًا من ABOUT_LEGACY.facts نفس
+          المصدر المستخدم بصفحة "نبذة عنا" */}
       <div className={styles.infoStripBridge}>
         <div className={styles.infoStrip}>
           <ul className={styles.infoList}>
-            {ABOUT_LEGACY.facts.map((fact) => {
-              const Icon = ICONS[fact.icon];
-              return (
-                <li key={fact.label} className={styles.infoItem}>
-                  <span className={styles.infoIconWrap} aria-hidden="true">
-                    <Icon width={18} height={18} strokeWidth={2} className={styles.infoIcon} />
-                  </span>
-                  <span className={styles.infoText}>
-                    <span className={styles.infoValue}>{fact.value}</span>
-                    <span className={styles.infoLabel}>{fact.label}</span>
-                  </span>
-                </li>
-              );
-            })}
+            <PharmacyStatusItem />
+
+            <li className={styles.infoItem}>
+              <span className={styles.infoIconWrap} aria-hidden="true">
+                <Clock width={18} height={18} strokeWidth={2} className={styles.infoIcon} />
+              </span>
+              <span className={styles.infoText}>
+                <span className={styles.infoValue}>+40 سنة</span>
+                <span className={styles.infoLabel}>في خدمة أهالي إربد</span>
+              </span>
+            </li>
+
+            <li className={styles.infoItem}>
+              <span className={styles.infoIconWrap} aria-hidden="true">
+                <MapPin width={18} height={18} strokeWidth={2} className={styles.infoIcon} />
+              </span>
+              <span className={styles.infoText}>
+                <span className={styles.infoValue}>{LOCATION_FACT.value}</span>
+                <span className={styles.infoLabel}>{LOCATION_FACT.label}</span>
+              </span>
+            </li>
           </ul>
         </div>
       </div>
