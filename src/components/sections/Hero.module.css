@@ -386,9 +386,12 @@
 
   /* البطاقة نفسها — بدون أي تغيير على العرض/الخلفية/الحدود/نصف القطر/
      الظل/الحشوة عن الجولة السابقة، بس صارت جزء من التدفّق العادي
-     (centered عبر flex بدل absolute+inset-inline) */
+     (centered عبر flex بدل absolute+inset-inline). عرض 85% (نزّلناه من
+     89% — تخفيض ~4.5%) عشان يبين هامش أكبر شوي من صورة الـHero يمين
+     ويسار، وبيضل بالمنتصف تلقائيًا عبر justify-content:center بالعنصر
+     الأب */
   .infoStrip {
-    width: 89%;
+    width: 85%;
     background: rgba(255, 255, 255, 0.94);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-xl);
