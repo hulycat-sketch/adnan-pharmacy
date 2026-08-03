@@ -434,31 +434,12 @@
     border-inline-start: 1px solid var(--color-border);
   }
 
-  /* نقل الفاصل بين عمودي "الموقع" و"الخبرة" ~14px نحو اليمين، بدون ما
-     نمسّ عرض أي عمود من التلاتة (الفواصل التانية والأعمدة كلها زي ما
-     هي). بنشيل حدّ عنصر الموقع الافتراضي (يلي كان عند حافة العمود
-     بالضبط) ونرسم خط بديل بموضع مستقل (pseudo-element) يمتد خارج
-     صندوق العنصر شوي، جوا الفراغ الفاضي أصلًا بعد المحتوى */
+  /* لا فاصل إطلاقًا بين عمودي "الموقع" و"الخبرة" — أُزيل حد عنصر
+     الموقع الافتراضي نهائيًا وبدون أي بديل (لا pseudo-element ولا
+     border ولا box-shadow ولا gradient). الفاصل التاني (بين "الخبرة"
+     و"الحالة") ضل زي ما هو تمامًا عبر القاعدة العامة تحت */
   .infoItem:nth-child(3) {
     border-inline-start: none;
-  }
-
-  .infoItem:nth-child(3)::after {
-    /* عرض 2px + scaleX(0.5) بدل width:1px مباشرة — العنصر بيقع على
-       إحداثي كسري (بما إنه عرض عمود الموقع نفسه كسري، ناتج نسبة مئوية)،
-       فخط 1px عادي بينرسم ضبابي/مزدوج المظهر (anti-aliasing عبر
-       بكسلين). التحجيم هون هو الحل المعياري لخط شعرة حاد بغض النظر عن
-       موضعه الكسري */
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: -14px;
-    width: 2px;
-    transform: scaleX(0.5);
-    transform-origin: center;
-    background-color: var(--color-border);
-    pointer-events: none;
   }
 
   .infoIconWrap {
