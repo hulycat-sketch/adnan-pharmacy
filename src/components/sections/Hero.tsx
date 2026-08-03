@@ -16,17 +16,17 @@ export default function Hero() {
     <>
       <section className={styles.hero} aria-labelledby="hero-heading">
         <div className={styles.heroCard}>
-          {/* صورة الموبايل — نفس صورة الديسكتوب الجديدة (أفقية، واجهة الشارع)
-              بقصّة عريضة مختلفة عبر CSS فقط (aspect-ratio + object-position
-              مختلفين بالقاعدة الأساسية غير المشروطة بـmedia query). عنصر
-              صورة منفصل عن صورة الديسكتوب — نفس الملف، بس sizes مختلف لكل
-              وحدة حتى ما يصير أي تحميل حقيقي مكرر: هاي بترجع قيمة ضئيلة
-              (1px) عند 768px فما فوق، وصورة الديسكتوب برجع نفس الشي تحت
-              768px */}
+          {/* صورة الموبايل — أصل مستقل تمامًا عن صورة الديسكتوب (تصوير
+              عمودي/portrait حقيقي للواجهة، اللافتة كاملة من الأعلى للأسفل
+              بدون أي قصّ). نسبة aspect-ratio القاعدة الأساسية مطابقة
+              لأبعاد الصورة الحقيقية بالضبط (703×823) فما في أي قصّ فعلي —
+              object-fit:cover هون مجرد إجراء احترازي قياسي. sizes بترجع
+              قيمة ضئيلة (1px) عند 768px فما فوق حتى ما يصير أي تحميل غير
+              ضروري لهاي الصورة على الديسكتوب */}
           <div className={styles.imageCol}>
             <div className={styles.imageWrapper}>
               <Image
-                src="/images/Adnan_Pharmacy_storefront_building_final.png"
+                src="/images/home-hero-pharmacy-final.jpg"
                 alt={heroAlt}
                 fill
                 quality={75}
