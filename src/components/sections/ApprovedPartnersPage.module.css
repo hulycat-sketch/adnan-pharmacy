@@ -55,13 +55,33 @@
   margin: 0 auto;
 }
 
+/* بطاقة الشعار — خلفية بيضاء، حد رمادي فاتح جداً، ظل ناعم (نفس Token
+   الظل المستخدم بباقي بطاقات الموقع)، وhover خفيف (رفعة بسيطة + ظل
+   أقوى شوي بس، بدون scale ولا glow). min-height بدل height الثابت
+   حتى تتّسع البطاقة تلقائيًا لو الشعار+الحشوة احتاجوا مساحة أكتر، بدل
+   ما ينقصّ أي شعار */
 .logoTile {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 0 1 calc(50% - 0.625rem);
-  height: 84px;
+  min-height: 116px;
+  padding: 16px 14px;
+  background: #ffffff;
+  border: 1px solid #E8E8E8;
+  border-radius: 18px;
+  box-shadow: var(--shadow-card);
+  /* بدون overflow:hidden — بعض الشعارات بتستخدم transform:scale() (من
+     constants.ts، موجود من قبل هالتصميم) يخليها تكبر بصريًا شوي عن
+     صندوقها الأصلي (GIG Jordan، Al Nisr Al Arabi، Arab Assurers)، وoverflow:hidden
+     كان عم يقصّها عند حافة البطاقة */
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.logoTile:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
 }
 
 .logoImage {
@@ -215,7 +235,7 @@
 }
 
 .universities .logoTile {
-  height: 80px;
+  min-height: 112px;
 }
 
 .universities {
@@ -226,7 +246,7 @@
    واحدًا فاضي أصلًا */
 .sparse .logoTile {
   flex-basis: calc(50% - 1.5rem);
-  height: 84px;
+  min-height: 116px;
 }
 
 .sparse .logoImage {
@@ -247,7 +267,7 @@
 
   .logoTile {
     flex-basis: calc(33.333% - 1rem);
-    height: 64px;
+    min-height: 96px;
   }
 
   .logoImage {
@@ -259,7 +279,7 @@
 
   .sparse .logoTile {
     flex-basis: calc(33.333% - 2rem);
-    height: 96px;
+    min-height: 128px;
   }
 
   .sparse .logoImage {
@@ -272,7 +292,7 @@
      ظهورها أصغر بصريًا من شركات التأمين. تكبير ~17% (زيادة صندوق العرض
      بس، بدون أي لمس على PNG أو visualScale أو object-fit) */
   .banks .logoTile {
-    height: 75px;
+    min-height: 107px;
   }
 
   .banks .logoImage {
@@ -293,7 +313,7 @@
 
   .logoTile {
     flex-basis: calc(25% - 1.5rem);
-    height: 72px;
+    min-height: 104px;
   }
 
   .logoImage {
@@ -313,7 +333,7 @@
      أو object-fit) */
   .banks .logoTile {
     flex-basis: calc(25% - 1.5rem);
-    height: 84px;
+    min-height: 116px;
   }
 
   .banks .logoImage {
@@ -324,7 +344,7 @@
   /* الجامعات — 4 أعمدة — ارتفاع الخانة وصندوق الشعار زي ما هم بدون تغيير */
   .universities .logoTile {
     flex-basis: calc(25% - 1.5rem);
-    height: 84px;
+    min-height: 116px;
   }
 
   .universities .logoImage {
@@ -336,11 +356,17 @@
      بس عرض العمود صار أوسع (كانت 3 أعمدة) */
   .sparse .logoTile {
     flex-basis: calc(50% - 1rem);
-    height: 110px;
+    min-height: 142px;
   }
 
   .sparse .logoImage {
     max-width: 240px;
     max-height: 110px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logoTile {
+    transition: none;
   }
 }
