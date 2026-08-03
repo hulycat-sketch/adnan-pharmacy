@@ -444,12 +444,19 @@
   }
 
   .infoItem:nth-child(3)::after {
+    /* عرض 2px + scaleX(0.5) بدل width:1px مباشرة — العنصر بيقع على
+       إحداثي كسري (بما إنه عرض عمود الموقع نفسه كسري، ناتج نسبة مئوية)،
+       فخط 1px عادي بينرسم ضبابي/مزدوج المظهر (anti-aliasing عبر
+       بكسلين). التحجيم هون هو الحل المعياري لخط شعرة حاد بغض النظر عن
+       موضعه الكسري */
     content: "";
     position: absolute;
     top: 0;
     bottom: 0;
     right: -14px;
-    width: 1px;
+    width: 2px;
+    transform: scaleX(0.5);
+    transform-origin: center;
     background-color: var(--color-border);
     pointer-events: none;
   }
