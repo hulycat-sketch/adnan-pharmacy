@@ -72,11 +72,12 @@ export default function PharmacyStatusItem({ variant = "card" }: PharmacyStatusI
 
   if (variant === "utility") {
     const dotClass = isOpen ? styles.utilityDotOpen : styles.utilityDotClosed;
+    const valueStatusClass = isOpen ? styles.utilityValueOpen : styles.utilityValueClosed;
     return (
       <span className={styles.utilityItem}>
         <Clock width={16} height={16} strokeWidth={2} className={styles.utilityIcon} aria-hidden="true" />
         <span className={styles.utilityText} aria-live="polite">
-          <span className={styles.utilityValue}>
+          <span className={`${styles.utilityValue} ${valueStatusClass}`}>
             <span className={`${styles.utilityDot} ${dotClass}`} aria-hidden="true" />
             {isOpen ? "مفتوح الآن" : "مغلق الآن"}
           </span>
