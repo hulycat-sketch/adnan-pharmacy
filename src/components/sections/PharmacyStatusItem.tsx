@@ -59,8 +59,34 @@ function getServerSnapshot(): boolean {
   return true;
 }
 
-export default function PharmacyStatusItem() {
+type PharmacyStatusItemProps = {
+  /** "card": التصميم الأصلي (بطاقة بحدود/ظل، مستخدم بالموبايل/التابلت).
+   *  "utility": صف أفقي خفيف بدون بطاقة (مستخدم جوا اللوحة الزجاجية
+   *  بالديسكتوب 1024px+ فقط) — نفس منطق isPharmacyOpenNow تمامًا، بس
+   *  markup/classes مختلفة بالكامل وما بتتقاطع مع أي شي تاني */
+  variant?: "card" | "utility";
+};
+
+export default function PharmacyStatusItem({ variant = "card" }: PharmacyStatusItemProps) {
   const isOpen = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+
+  if (variant === "utility") {
+    const dotClass = isOpen ? styles.utilityDotOpen : styles.utilityDotClosed;
+    return (
+      <span className={styles.utilityItem}>
+        <Clock width={16} height={16} strokeWidth={2} className={styles.utilityIcon} aria-hidden="true" />
+        <span className={styles.utilityText} aria-live="polite">
+          <span className={styles.utilityValue}>
+            <span className={`${styles.utilityDot} ${dotClass}`} aria-hidden="true" />
+            {isOpen ? "مفتوح الآن" : "مغلق الآن"}
+          </span>
+          <span className={styles.utilityLabel}>
+            {isOpen ? "حتى 3:00 فجراً" : "يفتح 9:00 صباحًا"}
+          </span>
+        </span>
+      </span>
+    );
+  }
 
   const statusClass = isOpen ? styles.infoIconWrapOpen : styles.infoIconWrapClosed;
   const dotClass = isOpen ? styles.statusDotOpen : styles.statusDotClosed;

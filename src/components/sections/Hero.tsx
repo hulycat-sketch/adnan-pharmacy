@@ -91,21 +91,44 @@ export default function Hero() {
                   موقعنا
                 </a>
               </div>
+
+              {/* صف المعلومات المساعدة (Utility Row) — ديسكتوب فقط
+                  (1024px فما فوق)، جوا اللوحة الزجاجية نفسها تحت
+                  الأزرار مباشرة. بدون بطاقات ولا ظلال ولا خلفية إضافية،
+                  مفصول بخط رفيع جداً فوقه بس. مخفي تماماً تحت 1024px —
+                  الموبايل/التابلت لسا عندهم نظام البطاقات العائمة
+                  الأصلي (infoStripBridge تحت) بدون أي تغيير */}
+              <div className={styles.utilityRow}>
+                <PharmacyStatusItem variant="utility" />
+
+                <span className={styles.utilityDivider} aria-hidden="true" />
+
+                <span className={styles.utilityItem}>
+                  <MapPin width={16} height={16} strokeWidth={2} className={styles.utilityIcon} aria-hidden="true" />
+                  <span className={styles.utilityText}>
+                    <span className={styles.utilityValue}>{LOCATION_FACT.value}</span>
+                    <span className={styles.utilityLabel}>بالقرب من البوابة الشمالية لجامعة اليرموك</span>
+                  </span>
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* شريط معلومات عائم — جسر بصري بين الـHero وقسم "خدماتنا"، ديسكتوب
-          فقط (768px فما فوق). خارج قسم الـHero عمدًا (مش جوا heroCard) —
-          overflow:hidden على heroCard/hero ضروري لقصّ الصورة full-bleed
-          وأقواس الخلفية الزخرفية، فلو ضل الشريط جواهم كان رح ينقصّ لما
-          نحطه يمتد تحت حدود الـHero.
-          العنصر الأول (حالة المفتوح/المغلق) عنصر عميل منفصل (PharmacyStatusItem)
-          بيحسب الوقت الفعلي بتوقيت الأردن — باقي الـHero يضل Server Component
-          عادي. العنصر التاني نص Hero-specific (مش من ABOUT_LEGACY). العنصر
-          الثالث (الموقع) لسا معاد استخدامه حرفيًا من ABOUT_LEGACY.facts نفس
-          المصدر المستخدم بصفحة "نبذة عنا" */}
+      {/* شريط معلومات عائم — جسر بصري بين الـHero وقسم "خدماتنا"، موبايل
+          وتابلت فقط (أقل من 1024px — مخفي بالكامل عند 1024px فما فوق
+          لصالح صف المعلومات المساعدة الجديد جوا اللوحة الزجاجية فوق).
+          خارج قسم الـHero عمدًا (مش جوا heroCard) — overflow:hidden على
+          heroCard/hero ضروري لقصّ الصورة full-bleed وأقواس الخلفية
+          الزخرفية، فلو ضل الشريط جواهم كان رح ينقصّ لما نحطه يمتد تحت
+          حدود الـHero.
+          العنصر الأول (حالة المفتوح/المغلق) عنصر عميل منفصل (PharmacyStatusItem،
+          variant="card" الافتراضي) بيحسب الوقت الفعلي بتوقيت الأردن —
+          باقي الـHero يضل Server Component عادي. العنصر التاني نص
+          Hero-specific (مش من ABOUT_LEGACY). العنصر الثالث (الموقع) لسا
+          معاد استخدامه حرفيًا من ABOUT_LEGACY.facts نفس المصدر المستخدم
+          بصفحة "نبذة عنا" */}
       <div className={styles.infoStripBridge}>
         <div className={styles.infoStrip}>
           <ul className={styles.infoList}>
