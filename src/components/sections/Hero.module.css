@@ -755,8 +755,50 @@
     padding: 2.25rem 2rem;
   }
 
+  /* إزالة الحاوية الخارجية الكبيرة (الكرت المشترك) — بتصير شفافة تمامًا،
+     مجرد wrapper بدون أي مظهر بصري. كل بطاقة معلومة (.infoItem) تصير
+     كرت مستقل عائم لحاله بدل ما تكون قسم جوا كرت أكبر. نفس القيم
+     البصرية القديمة تمامًا (الخلفية/الحدود/الـradius/الظل) بس منقولة من
+     .infoStrip لـ.infoItem — القياسات الخارجية (عرض 85%، التراكب مع
+     صورة الـHero، المحاذاة الأفقية) كلها من الـ768px block فوق، ما
+     انلمست إطلاقًا */
   .infoStrip {
-    padding: 1.1rem 1rem;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .infoList {
+    gap: 1rem;
+  }
+
+  .infoItem {
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    padding: 1.1rem 1.25rem;
+  }
+
+  /* بما إنه كل عنصر صار بطاقة مستقلة بحدودها الخاصة، حيلة محاذاة عنصر
+     الموقع (كانت تعويض عن كونه جزء من صف مشترك بلا حدود) والفاصل
+     العمودي بين "الخبرة" و"الحالة" ما عادوا لازمين — كل بطاقة إلها
+     حدودها الخاصة هلق. لازم نرجّع border-inline-start وborder-top صراحة
+     لعنصرين 2 و3 (كانوا none من قواعد الـ768px block القديمة الخاصة
+     بالفاصل — العنصر الأول بس كان بياخد border:1px solid كامل ومتساوي
+     على كل الجهات) */
+  .infoItem:nth-child(3) {
+    justify-content: flex-start;
+    padding-left: 1.25rem;
+    border-inline-start: 1px solid var(--color-border);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .infoItem + .infoItem {
+    border-inline-start: 1px solid var(--color-border);
+    border-top: 1px solid var(--color-border);
   }
 
   .infoValue {
@@ -774,8 +816,8 @@
     padding: 2.5rem 2.25rem;
   }
 
-  .infoStrip {
-    padding: 1.2rem 1.25rem;
+  .infoItem {
+    padding: 1.2rem 1.5rem;
   }
 }
 
