@@ -770,35 +770,41 @@
     padding: 0;
   }
 
-  .infoList {
-    gap: 1rem;
+  /* تبسيط: إخفاء بطاقة "+40 سنة" (العنصر الثاني بالـDOM) — بس على
+     الديسكتوب. تضل ظاهرة بالموبايل/التابلت زي ما هي بالضبط. nth-child
+     بيحسب موضع DOM بغض النظر عن display:none، فمفيش تأثير على ترتيب
+     أو محتوى العنصرين الباقيين */
+  .infoItem:nth-child(2) {
+    display: none;
   }
 
+  /* بطاقتان بس هلق (بدل ثلاثة) — center بدل space-between حتى يترّكزا
+     كوحدة واحدة بمسافة متوازنة بينهما، مش يتمددا لتعبئة الصف كامل */
+  .infoList {
+    gap: 1.5rem;
+    justify-content: center;
+  }
+
+  /* بطاقة عائمة فخمة بدون حدود (Apple/Stripe/Linear-style) — إحساس
+     "عائم" بس بالظل، بدون border. flex:0 0 28.5% (بدل 1 1 0) عشان
+     البطاقتين يضلّوا بعرض أصغر ~12% من عرضهم الحالي (بدل ما يتمددا
+     لملء المساحة يلي فضيت من إخفاء البطاقة التالتة) */
   .infoItem {
+    flex: 0 0 28.5%;
     background: rgba(255, 255, 255, 0.94);
-    border: 1px solid var(--color-border);
+    border: none;
     border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-lg);
+    box-shadow:
+      0 10px 36px rgba(27, 43, 94, 0.095),
+      0 2px 8px rgba(27, 43, 94, 0.04);
     padding: 1.1rem 1.25rem;
   }
 
-  /* بما إنه كل عنصر صار بطاقة مستقلة بحدودها الخاصة، حيلة محاذاة عنصر
-     الموقع (كانت تعويض عن كونه جزء من صف مشترك بلا حدود) والفاصل
-     العمودي بين "الخبرة" و"الحالة" ما عادوا لازمين — كل بطاقة إلها
-     حدودها الخاصة هلق. لازم نرجّع border-inline-start وborder-top صراحة
-     لعنصرين 2 و3 (كانوا none من قواعد الـ768px block القديمة الخاصة
-     بالفاصل — العنصر الأول بس كان بياخد border:1px solid كامل ومتساوي
-     على كل الجهات) */
+  /* حيلة محاذاة عنصر الموقع (كانت لصف مشترك بلا حدود) ما عادت لازمة —
+     كل بطاقة مستقلة هلق بمحاذاة عادية متل باقي البطاقات */
   .infoItem:nth-child(3) {
     justify-content: flex-start;
     padding-left: 1.25rem;
-    border-inline-start: 1px solid var(--color-border);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .infoItem + .infoItem {
-    border-inline-start: 1px solid var(--color-border);
-    border-top: 1px solid var(--color-border);
   }
 
   .infoValue {
@@ -818,6 +824,10 @@
 
   .infoItem {
     padding: 1.2rem 1.5rem;
+  }
+
+  .infoItem:nth-child(3) {
+    padding-left: 1.5rem;
   }
 }
 
