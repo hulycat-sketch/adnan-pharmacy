@@ -70,9 +70,11 @@
   transform: scale(calc(var(--scale, 1) * var(--visual-scale, 1)));
 }
 
-/* الحدّ الأقصى لارتفاع كل فئة — قيم مقفلة، ما تتغيّر بأي breakpoint */
+/* الحدّ الأقصى لارتفاع كل فئة — قيم مقفلة، ما تتغيّر بأي breakpoint.
+   logoWide وحدها كانت أصغر شوي من الباقي (55px) — رفعناها لـ58px
+   (ضمن مدى 56-60px المطلوب) بدون لمس باقي الفئات الأكبر أصلًا */
 .logoWide {
-  max-height: 55px;
+  max-height: 58px;
 }
 
 .logoCompact {

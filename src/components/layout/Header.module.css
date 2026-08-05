@@ -173,7 +173,7 @@ height: 48px;
   display:          block;
   width:            22px;
   height:           2px;
-  background-color: var(--color-primary);
+  background-color: var(--color-secondary);
   transition:       var(--transition-base);
   transform-origin: center;
 }

@@ -10,7 +10,12 @@ type BeforeInstallPromptEvent = Event & {
 };
 
 const DISMISS_STORAGE_KEY = "adnan-pharmacy-pwa-install-dismissed-until";
-const DISMISS_DURATION_MS = 7 * 24 * 60 * 60 * 1000; // 7 أيام
+const DISMISS_DURATION_MS = 30 * 24 * 60 * 60 * 1000; // 30 يوم
+
+// ما لازم يظهر فورًا — بيبين بعد أول شرط يتحقق من الاثنين: سكرول ~400px
+// أو مرور 8-10 ثانية (هون 9000ms، منتصف المدى)، حتى ما يقاطع فتح الصفحة
+const REVEAL_SCROLL_THRESHOLD_PX = 400;
+const REVEAL_TIMEOUT_MS = 9000;
 
 function detectIOS(): boolean {
   const ua = window.navigator.userAgent;
@@ -44,6 +49,7 @@ export default function PwaInstall() {
   const [isIOS, setIsIOS] = useState(false);
   const [justInstalled, setJustInstalled] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
     /* eslint-disable react-hooks/set-state-in-effect -- مزامنة مقصودة مع واقع
@@ -77,6 +83,26 @@ export default function PwaInstall() {
     };
   }, []);
 
+  // تأجيل الظهور حتى أول شرط يتحقق (سكرول أو مؤقّت) — بمجرد ما revealed
+  // يصير true، الـcleanup بيشيل الـlistener/timer فورًا، فما في أي عمل زائد بعدها
+  useEffect(() => {
+    if (revealed) return;
+
+    const reveal = () => setRevealed(true);
+
+    const handleScroll = () => {
+      if (window.scrollY >= REVEAL_SCROLL_THRESHOLD_PX) reveal();
+    };
+
+    const timeoutId = window.setTimeout(reveal, REVEAL_TIMEOUT_MS);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [revealed]);
+
   const handleInstallClick = async () => {
     if (!deferredPrompt) return;
     await deferredPrompt.prompt();
@@ -97,6 +123,7 @@ export default function PwaInstall() {
   if (isStandalone || justInstalled) return null;
   if (dismissed) return null;
   if (!isIOS && !deferredPrompt) return null;
+  if (!revealed) return null;
 
   return (
     <section className={styles.section} aria-labelledby="pwa-install-heading">
