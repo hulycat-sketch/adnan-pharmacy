@@ -107,7 +107,7 @@ export default function Hero() {
                   <MapPin width={16} height={16} strokeWidth={2} className={styles.utilityIcon} aria-hidden="true" />
                   <span className={styles.utilityText}>
                     <span className={styles.utilityValue}>{LOCATION_FACT.value}</span>
-                    <span className={styles.utilityLabel}>بالقرب من البوابة الشمالية لجامعة اليرموك</span>
+                    <span className={styles.utilityLabel}>مقابل أسواق الغزاوي</span>
                   </span>
                 </span>
               </div>
@@ -150,7 +150,7 @@ export default function Hero() {
               </span>
               <span className={styles.infoText}>
                 <span className={styles.infoValue}>{LOCATION_FACT.value}</span>
-                <span className={styles.infoLabel}>بالقرب من البوابة الشمالية لجامعة اليرموك</span>
+                <span className={styles.infoLabel}>مقابل أسواق الغزاوي</span>
               </span>
             </li>
           </ul>

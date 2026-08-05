@@ -75,13 +75,8 @@ export default function Footer() {
 
             <li>
               <Phone className={styles.contactIcon} width={20} height={20} aria-hidden="true" />
-              <a
-                href={`https://wa.me/${CONTACT.whatsapp}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.contactLink}
-              >
-                <span className={styles.phoneNumber}>{CONTACT.whatsappDisplay}</span>
+              <a href={`tel:${CONTACT.phone}`} className={styles.contactLink}>
+                <span className={styles.phoneNumber}>{CONTACT.phoneDisplay}</span>
               </a>
             </li>
 

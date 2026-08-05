@@ -395,7 +395,7 @@ export const ABOUT_LEGACY = {
     { icon: 'Clock',     label: 'من الخبرة',          value: 'أكثر من أربعة عقود', mobileValue: '+40 سنة' },
     // عبارة مختصرة للسرد هون فقط — العنوان التفصيلي الكامل موجود بمعلومات
     // التواصل (CONTACT.addressLandmark) وما بلزم يتكرر بهالقسم
-    { icon: 'MapPin',    label: 'موقعنا منذ البداية', value: 'شارع الجامعة – إربد', mobileLabel: 'شارع الجامعة', mobileValue: 'إربد' },
+    { icon: 'MapPin',    label: 'موقعنا منذ البداية', value: 'دوار الجامعة – إربد', mobileLabel: 'دوار الجامعة', mobileValue: 'إربد' },
   ],
 } as const
 
