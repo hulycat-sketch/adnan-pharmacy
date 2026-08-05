@@ -96,8 +96,8 @@
   align-items: center;
   justify-content: center;
   flex: 0 1 calc(50% - 0.625rem);
-  min-height: 80px;
-  padding: 8px 16px;
+  min-height: 116px;
+  padding: 16px 14px;
   background: #ffffff;
   border: 1px solid #E8E8E8;
   border-radius: 18px;
@@ -121,35 +121,37 @@
   transform: scale(calc(var(--scale, 1) * var(--visual-scale, 1)));
 }
 
-/* صناديق الشعارات بالموبايل — محسوبة عمدًا حتى تضل داخل مساحة البطاقة
-   الفعلية (80px ارتفاع، حشوة 8px/16px — نفس الارتفاع الداخلي المتاح
-   64px يلي كان أصلًا بالجولة السابقة 92px/14px16px، بس بحشوة عمودية
-   أقل بدل بطاقة أطول) حتى بأسوأ حالة تضخيم (visualScale 1.2-1.3
-   المستخدم ببعض الشعارات عبر transform بـ.logoImage تحت — القيم هون هي
-   "القاعدة" قبل هالتضخيم، محسوبة عكسيًا حتى النتيجة النهائية بعد الضرب
-   تضل بهامش أمان واضح من حواف البطاقة، مش ملاصقة إلها). بدون هيك حساب،
-   الشعارات المضخّمة (خصوصًا شعارات البنوك ذات visualScale:1.3) كانت
-   تفيض فعليًا عن حدود بطاقتها لأنه transform:scale() بصري بحت وما
-   بيأثر على الـlayout إطلاقًا */
 .logoImageWide {
-  max-width: 72px;
-  max-height: 45px;
+  max-width: 132px;
+  max-height: 50px;
 }
 
 .logoImageMedium {
-  max-width: 72px;
-  max-height: 45px;
+  max-width: 110px;
+  max-height: 58px;
 }
 
 .logoImageSquare {
-  max-width: 48px;
-  max-height: 48px;
+  max-width: 68px;
+  max-height: 68px;
 }
 
-/* فئة البنوك — صارت تستخدم نفس صندوق .logoImageWide الموحّد فوق (بدل
-   صندوق خاص أكبر كان يفيض)، ونفس ارتفاع/حشوة .logoTile الموحّدة تحت.
-   كل شعار بنك بيوصل لحجمه النهائي الصحيح عبر visualScale الخاص فيه
-   (constants.ts)، بدون أي صندوق إضافي يخليه يفيض */
+/* فئة البنوك — بطاقة مستطيلة مضغوطة خاصة فيها بس (مش صندوق موحّد مع باقي
+   الفئات). صندوق .logoImageWide الافتراضي (132×50) كان بيفيض فعليًا عن
+   حدود بطاقة قصيرة، لأنه بعض شعارات البنوك عندها visualScale:1.3 (تضخيم
+   بصري بحت عبر transform:scale() بـ.logoImage فوق، ما بيأثر على الـlayout
+   إطلاقًا) — صندوق أصغر هون (72×45) محسوب عكسيًا حتى حتى بعد الضرب بـ1.3
+   (أسوأ حالة) تضل النتيجة النهائية بهامش أمان واضح جوا بطاقة 80px/8px14px،
+   بدل ما تلامس حوافها */
+.banks .logoTile {
+  min-height: 80px;
+  padding: 8px 14px;
+}
+
+.banks .logoImageWide {
+  max-width: 72px;
+  max-height: 45px;
+}
 
 /* ترتيب البنوك بالموبايل بس — طلب تعديل جديد للترتيب:
    [Safwa,Jordan Islamic] [Arab Bank,Al Rajhi] [bank aletihad,Housing]
@@ -279,35 +281,18 @@
   row-gap: 1.25rem;
 }
 
-/* فئة تحوي 3 شعارات فأقل (النقابات حاليًا) — نفس ارتفاع البطاقة الموحّد
-   (80px) لباقي الفئات. عمود هالفئة أضيق شوي من العمود العادي (flex-basis
-   بيطرح 1.5rem بدل 0.625rem)، فصندوق الشعار هون أصغر شوي من
-   .logoImageWide/.logoImageMedium الموحّد حتى يضل بهامش أمان واضح جوا
-   عمودها الأضيق حتى بأسوأ حالة تضخيم (Dental Association، visualScale:1.25) */
+/* فئة تحوي 3 شعارات فأقل (النقابات حاليًا) — تكبيرها بما إنها بتاخد صفًا
+   واحدًا فاضي أصلًا. الارتفاع بالموبايل نزل من 116px لـ84px (العرض زي
+   ما هو) — كان في فراغ عمودي واضح فوق وتحت الشعارات، خصوصاً Dental
+   Association (58px ارتفاع شعار جوا بطاقة 116px) */
 .sparse .logoTile {
   flex-basis: calc(50% - 1.5rem);
-  min-height: 80px;
+  min-height: 84px;
 }
 
 .sparse .logoImage {
-  max-width: 58px;
-  max-height: 42px;
-}
-
-/* موبايل فقط — .universities .logoImageSquare/.logoTile فوق قواعد
-   أساسية (bare) بتتشارك فعليًا مع التابلت (ما في override خاص فيهم جوا
-   media query التابلت تحت)، فلازم التعديل هون يكون داخل media query
-   محصورة بالموبايل، مش تعديل مباشر على القاعدة الأساسية، حتى ما يتغيّر
-   شكل الجامعات بالتابلت إطلاقًا */
-@media (max-width: 768px) {
-  .universities .logoTile {
-    min-height: 80px;
-  }
-
-  .universities .logoImageSquare {
-    max-width: 58px;
-    max-height: 58px;
-  }
+  max-width: 190px;
+  max-height: 84px;
 }
 
 /* ===== Tablet (769px فما فوق) — 3 شعارات بالصف ===== */
