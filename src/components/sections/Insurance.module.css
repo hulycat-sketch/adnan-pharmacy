@@ -84,96 +84,91 @@
   transform: translateY(0);
 }
 
-/* ===== بطاقات الفئات — أربع بطاقات معلوماتية فقط (بدون شعارات وبدون
-   تبويبات) — أيقونة خط بسيطة خضراء + اسم الفئة فقط ===== */
+/* ===== اختصارات تنقّل مضغوطة — أربع وحدات (رابط حقيقي لكل وحدة) بتوصل
+   مباشرة لقسمها بصفحة /approved-partners، مش بطاقات فلترة داخل الصفحة
+   ولا معلومات ثابتة متل التصميم السابق. أيقونة جنب النص مباشرة (بدون
+   دائرة خلفها)، بدون ظل ظاهر، بحدّ خفيف محايد — "شركات التأمين" وحدها
+   بالتعبئة الخضراء (العنصر الأساسي) ===== */
 
 .categoryGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-  max-width: 960px;
+  gap: 10px;
+  max-width: 480px;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
 
 .categoryCard {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* كانت 0.75rem — قللناها موبايل بس (الديسكتوب معاد تثبيتها بـ769px) */
-  gap: 0.5rem;
-  /* كانت 23px — قللناها موبايل بس ~18px إجمالي بين الـpadding والـgap،
-     الأيقونة وحجم الخط ما تغيّروا */
-  padding: 16px 1rem;
+  gap: 8px;
+  min-height: 54px;
+  padding: 0 15px;
   border: 1px solid var(--color-border);
-  border-radius: 20px;
+  border-radius: 15px;
   background-color: var(--color-bg-white);
-  box-shadow: var(--shadow-card);
-  text-align: center;
+  text-decoration: none;
   transition:
-    transform 200ms ease-out,
-    box-shadow 200ms ease-out,
-    border-color 200ms ease-out;
+    border-color 180ms ease-out,
+    background-color 180ms ease-out,
+    box-shadow 180ms ease-out;
 }
 
-/* الرفعة والتكبير محصورين بأجهزة فيها ماوس فعليًا — البطاقات معلوماتية
-   بس (بدون رابط)، فبدون هالقيد ممكن اللمس يفعّل حركة "تعليق" غير مقصودة.
-   :focus-within هون بالأساس سياج أمان (ما في عنصر قابل للتركيز جوا
-   البطاقة حاليًا)، بس محفوظ لو انضاف رابط/زر مستقبلًا */
+.categoryCard:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+/* الرفعة/التظليل محصورة بأجهزة فيها ماوس فعليًا — بدون هالقيد ممكن اللمس
+   يفعّل حالة "hover" عالقة على الموبايل بعد النقر */
 @media (hover: hover) and (pointer: fine) {
-  .categoryCard:hover,
-  .categoryCard:focus-within {
-    box-shadow: var(--shadow-hover);
-    transform: translateY(-4px);
+  .categoryCard:hover {
     border-color: #cbe9c8;
+    background-color: var(--color-bg);
   }
 
-  .categoryCard:hover .categoryIconWrapper::before,
-  .categoryCard:focus-within .categoryIconWrapper::before {
-    transform: scale(1.08);
+  .categoryCardPrimary:hover {
+    background-color: var(--color-secondary-dark);
+    border-color: var(--color-secondary-dark);
   }
-}
-
-/* دائرة فاتحة زخرفية جديدة (::before) ورا الأيقونة — ما كانت موجودة أصلًا
-   بهالبطاقات (بخلاف بطاقات "خدماتنا")، أضفناها خصيصًا حتى تنفّس بشكل
-   مستقل عن الـSVG نفسه (يلي بيضل ثابت تمامًا بحجمه وموضعه) */
-.categoryIconWrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 72px;
-  height: 72px;
-}
-
-.categoryIconWrapper::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background-color: var(--color-secondary-light);
-  transition: transform 200ms ease-out;
-  transform-origin: center;
 }
 
 .categoryIcon {
-  position: relative;
-  z-index: 1;
+  width: 21px;
+  height: 21px;
+  flex-shrink: 0;
   color: var(--color-secondary);
 }
 
 .categoryLabel {
-  font-size: 1rem;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: var(--color-primary);
+  line-height: 1.2;
+}
+
+/* "شركات التأمين" — الاختصار الأساسي، نفس تعبئة الأزرار الخضراء
+   المستخدمة بباقي الموقع (ctaBtn) */
+.categoryCardPrimary {
+  border-color: var(--color-secondary);
+  background-color: var(--color-secondary);
+}
+
+.categoryCardPrimary .categoryIcon {
+  color: #ffffff;
+}
+
+.categoryCardPrimary .categoryLabel {
+  color: #ffffff;
 }
 
 /* ===== شريط شعارات الجهات المعتمدة المتحرك — نفس مكوّن TrustedBrandsMarquee
    المستخدم بقسم "العلامات التجارية الموثوقة"، بدون عنوان وبدون خلفية/padding
    خاصين فيه (standalone={false}) — إحنا هون بنتحكم بالمسافة حواليه فقط ===== */
 .marqueeWrap {
-  margin-top: 2.25rem;
+  margin-top: 30px;
 }
 
 /* ===== زر "استعرض جميع الجهات المعتمدة" — نفس ستايل الزر الأخضر
@@ -213,30 +208,20 @@
   outline-offset: 2px;
 }
 
-/* ===== Tablet (769px فما فوق) — أربع بطاقات بصف واحد ===== */
+/* ===== Tablet (769px فما فوق) — صف واحد بأربع وحدات متساوية. عرض كل
+   وحدة عند أضيق تابلت (769px) ~174px (أوسع بكتير من الحد الأدنى 150px)،
+   فما في داعٍ لـfallback شبكة 2×2 — max-width بيمنع الوحدات من التمدد
+   الزائد بعروض تابلت الأوسع (قرب 1023px) ===== */
 @media (min-width: 769px) {
   .categoryGrid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1.25rem;
+    gap: 12px;
+    max-width: 800px;
   }
 
   .categoryCard {
-    /* كانت 2.25rem (36px) لكل جهة — قللنا 5px من كل جهة (أعلى/أسفل) حتى
-       يكون إجمالي تقليل الارتفاع 10px بالضبط */
-    padding: 31px 1.25rem;
-    /* تثبيت صريح لقيمة الـgap الأصلية — التعديل الأخير غيّرها بالموبايل
-       بس، فلازم نعيدها هون حتى الديسكتوب يضل مطابق تمامًا للسابق */
-    gap: 0.75rem;
-  }
-
-  .categoryIcon {
-    width: 48px;
-    height: 48px;
-  }
-
-  .categoryIconWrapper {
-    width: 78px;
-    height: 78px;
+    min-height: 55px;
+    padding: 0 16px;
   }
 }
 
@@ -254,6 +239,26 @@
   .title {
     font-size: 1.875rem;
   }
+
+  .categoryGrid {
+    max-width: 880px;
+    gap: 14px;
+  }
+
+  .categoryCard {
+    min-height: 56px;
+    padding: 0 20px;
+    border-radius: 16px;
+  }
+
+  .categoryIcon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .categoryLabel {
+    font-size: 1rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -270,11 +275,6 @@
   }
 
   .ctaBtn {
-    transition: none !important;
-  }
-
-  .categoryIconWrapper::before {
-    transform: none !important;
     transition: none !important;
   }
 }

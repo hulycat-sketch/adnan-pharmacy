@@ -5,6 +5,16 @@ import styles from "./ApprovedPartnersPage.module.css";
 
 type Company = (typeof INSURANCE_COMPANIES)[number];
 
+// أنكر ثابت لكل قسم — لازم يطابق حرفيًا CATEGORY_ANCHOR بملف
+// Insurance.tsx (اختصارات التنقّل بالصفحة الرئيسية). "unions" مختلف
+// عمدًا عن id الفئة الداخلي "syndicates"
+const CATEGORY_ANCHOR: Record<string, string> = {
+  insurance: "insurance",
+  banks: "banks",
+  universities: "universities",
+  syndicates: "unions",
+};
+
 const SHAPE_CLASS: Record<string, string> = {
   wide: styles.logoImageWide,
   medium: styles.logoImageMedium,
@@ -54,6 +64,7 @@ export default function ApprovedPartnersPage() {
           return (
             <section
               key={category.id}
+              id={CATEGORY_ANCHOR[category.id]}
               className={styles.categorySection}
               aria-labelledby={`category-${category.id}-heading`}
             >
