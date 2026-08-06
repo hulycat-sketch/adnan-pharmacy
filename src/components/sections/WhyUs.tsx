@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import {
   Calendar,
   ShieldCheck,
@@ -76,13 +75,10 @@ function StatItem({
   return (
     <div className={styles.statItem}>
       <span className={styles.statValue} aria-live="off">
-        {stat.prefix}
+        {stat.prefix && <span className={styles.statPrefix}>{stat.prefix}</span>}
         {animatedValue.toLocaleString("en-US")}
       </span>
       <span className={styles.statLabel}>{stat.label}</span>
-      {"sublabel" in stat && (
-        <span className={styles.statSublabel}>{stat.sublabel}</span>
-      )}
     </div>
   );
 }
@@ -130,18 +126,6 @@ export default function WhyUs() {
           }
         `}</style>
       </noscript>
-
-      {/* علامة مائية زخرفية بحتة — رمز الحبة الدائري بس (بدون الاسم/الشعار
-          الكامل)، بشفافية خفيفة جدًا. aria-hidden وpointer-events:none
-          حتى ما تتدخل بالمحتوى أو تُقرأ من قارئات الشاشة إطلاقًا */}
-      <Image
-        src="/images/footer-logo.png"
-        alt=""
-        aria-hidden="true"
-        width={800}
-        height={800}
-        className={styles.watermark}
-      />
 
       <div className={`container ${styles.contentLayer}`}>
         <div className={styles.heading}>
