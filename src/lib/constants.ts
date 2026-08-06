@@ -558,6 +558,16 @@ export const WHY_US_SECTION = {
   title: 'لماذا صيدلية عدنان؟',
 } as const
 
+// شريط الإحصاءات (Count-up) أعلى النقاط الأربع — value رقم صرف (بدون
+// فواصل آلاف)، الفاصلة بتنضاف تلقائيًا وقت العرض عبر toLocaleString.
+// sublabel اختياري (نص مساعد أصغر تحت التسمية، مستخدم هون بس لإحصائية
+// السنين لعرض "منذ 1981")
+export const WHY_US_STATS = [
+  { id: 'insurance', value: 30,   prefix: '+', label: 'جهة تأمينية معتمدة' },
+  { id: 'products',  value: 8000, prefix: '+', label: 'صنف صحي وتجميلي' },
+  { id: 'years',     value: 45,   prefix: '',  label: 'عامًا من العطاء والثقة', sublabel: 'منذ 1981' },
+] as const
+
 export const WHY_US_POINTS = [
   {
     id:          'since-1981',

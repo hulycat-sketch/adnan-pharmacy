@@ -88,39 +88,70 @@
   color: var(--color-secondary);
 }
 
-/* ===== الشبكة (صورة + مزايا) ===== */
-
-.grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
 /* ------------------------------------------------------------------ */
-/* عمود الصورة */
+/* شريط الإحصاءات (Count-up) — بدون بطاقات مستقلة ولا ظلال قوية، خلفية
+   موحّدة خفيفة جدًا (نفس --color-bg-section المستخدم بأماكن تانية بالموقع)
+   تفصل الشريط بصريًا عن خلفية القسم البيضاء وعن النقاط الأربع تحته */
 /* ------------------------------------------------------------------ */
-.imageWrapper {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 3 / 2;
-  border-radius: 1.125rem;
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 12px;
+  row-gap: 14px;
+  padding: 20px 16px;
+  border-radius: 16px;
+  background-color: var(--color-bg-section);
   opacity: 0;
-  transform: scale(0.98);
-  transition: opacity 0.65s ease, transform 0.65s ease;
-  /* بتبلش بعد ما حركة العنوان تخلص (0.55s) — دخول متتابع: عنوان، صورة،
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  /* بتبلش بعد ما حركة العنوان تخلص (0.55s) — دخول متتابع: عنوان، إحصاءات،
      نقاط، مو كلهم مع بعض */
   transition-delay: 0.55s;
 }
 
-.whyUs.visible .imageWrapper {
+.whyUs.visible .statsRow {
   opacity: 1;
-  transform: scale(1);
+  transform: translateY(0);
 }
 
-.image {
-  object-fit: cover;
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+}
+
+/* الإحصائية الثالثة (45 عامًا) — تمتد بعرض عمودي الشبكة الاثنين حتى تقدر
+   تتمركز بمنتصف الصف الثاني، بس عرضها الفعلي محصور بـ47% فقط (مش صف
+   كامل) عبر justify-self:center + width */
+.statItem:nth-child(3) {
+  grid-column: span 2;
+  justify-self: center;
+  width: 47%;
+}
+
+.statValue {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-secondary);
+  line-height: 1.15;
+  white-space: nowrap;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.statLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary);
+  line-height: 1.35;
+}
+
+.statSublabel {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.3;
 }
 
 /* ------------------------------------------------------------------ */
@@ -275,7 +306,8 @@
   }
 }
 
-/* ===== Desktop (1024px فما فوق) — عمودين جنبًا لجنب، الصورة يمين ===== */
+/* ===== Desktop (1024px فما فوق) — شريط إحصاءات ثلاثي الأعمدة، وشبكة
+   النقاط الأربع 2×2 (بدون تغيير)، الاثنين بعرض أقصى موحّد ومتمركزين ===== */
 @media (min-width: 1024px) {
   .whyUs {
     padding-top: 2.75rem;
@@ -294,23 +326,49 @@
     font-size: 2.625rem;
   }
 
-  .grid {
-    flex-direction: row;
-    align-items: center;
-    gap: 2.5rem;
+  /* شريط الإحصاءات — ثلاثة أعمدة متساوية، فواصل عمودية رفيعة بين كل عمود
+     والتالي بدل الخلفية الموحّدة اللي بتكفي وحدها بالموبايل (شبكة عمودين) */
+  .statsRow {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 0;
+    row-gap: 0;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 28px 24px;
+    border-radius: 20px;
   }
 
-  .imageWrapper {
-    border-radius: 1.5rem;
+  .statItem {
+    padding: 0 20px;
   }
 
-  .imageCol {
-    flex: 1.15;
-    max-width: 650px;
+  /* إلغاء تمديد/توسيط الموبايل الخاص بالإحصائية الثالثة — بالديسكتوب
+     بتاخد عمودها العادي متل الباقي بالضبط */
+  .statItem:nth-child(3) {
+    grid-column: auto;
+    justify-self: stretch;
+    width: auto;
+  }
+
+  .statItem + .statItem {
+    border-inline-start: 1px solid var(--color-border);
+  }
+
+  .statValue {
+    font-size: 44px;
+  }
+
+  .statLabel {
+    font-size: 16px;
+  }
+
+  .statSublabel {
+    font-size: 13px;
   }
 
   .pointsCol {
-    flex: 1;
+    max-width: 880px;
+    margin: 0 auto;
     gap: 0.5rem 0;
   }
 
@@ -346,7 +404,7 @@
    بغض النظر عن حالة IntersectionObserver/JavaScript ===== */
 @media (prefers-reduced-motion: reduce) {
   .title,
-  .imageWrapper,
+  .statsRow,
   .pointItem {
     opacity: 1 !important;
     transform: none !important;
