@@ -116,6 +116,13 @@
   color: var(--color-secondary);
 }
 
+/* عنصر خاص بالرقم نفسه (منفصل عن .statPrefix) — بيضمن انعكاس ترتيب
+   flex-direction:row-reverse بالموبايل يشتغل بشكل موثوق بين عنصرين
+   حقيقيين، بدل الاعتماد على عقدة نص مجهولة */
+.statNumber {
+  display: inline-block;
+}
+
 .statLabel {
   font-size: 14px;
   font-weight: 600;
@@ -202,23 +209,38 @@
    والنص بجانبها وفق RTL، بفاصل أفقي خفيف بين الصفوف بدل فواصل الشبكة
    القديمة. الديسكتوب (1024px فما فوق) بقواعده تحت ما إله علاقة إطلاقًا ===== */
 @media (max-width: 1023px) {
-  /* شريط الإحصاءات — صف واحد بثلاث خانات متساوية (نفس بنية الديسكتوب،
-     بس بمقاسات موبايل). الارتفاع (~120px) محسوب من الحشوة + محتوى
-     الرقم/الوصف، وmin-height سياج أمان بس لضمان البقاء ضمن مدى 118-125px
-     المطلوب حتى لو اختلف ارتفاع السطر الفعلي شوي بمتصفح/جهاز معيّن */
+  /* شريط الإحصاءات — أعرض شوي من باقي محتوى القسم (يكسر حشوة .container
+     الجانبية بـ4px من كل جهة، فيصير الهامش الفعلي من حافة الشاشة ~20px
+     بدل 24px = ~40px إجمالي بدل 48px)، مع سقف أقصى معقول. width:auto +
+     margin-inline:auto هو يلي بيحافظ على التمركز الصحيح تلقائيًا حتى لو
+     السقف الأقصى (480px) اتفعّل قرب حافة مدى الموبايل (1023px) */
   .statsRow {
-    padding: 25px 8px;
+    width: calc(100% + 8px);
+    max-width: 480px;
+    margin-inline: auto;
+    padding: 20px 6px;
     min-height: 118px;
-    /* مسافة ~24px قبل أول نقطة تحت — القسمين ما كان بينهم أي فراغ قبل هيك */
-    margin-bottom: 24px;
+    /* المسافة قبل أول نقطة تحت */
+    margin-bottom: 30px;
+  }
+
+  .statItem {
+    padding: 0 2px;
   }
 
   .statValue {
-    font-size: 30px;
+    font-size: 35px;
+    /* بالـDOM علامة "+" أولًا ثم الرقم (شوفي StatItem بـWhyUs.tsx)، فبيطلع
+       "+30" افتراضيًا. row-reverse هون بيعكس الترتيب البصري بس (بدون أي
+       لمس على الـDOM) فيطلع "30+"/"8,000+" بالموبايل بس — الديسكتوب ما
+       بتأثر لأنه القاعدة هون محصورة بهالـmedia query */
+    display: inline-flex;
+    align-items: baseline;
+    flex-direction: row-reverse;
   }
 
   .statLabel {
-    font-size: 12.5px;
+    font-size: 13.5px;
     line-height: 1.3;
     white-space: normal;
     display: -webkit-box;
@@ -232,15 +254,15 @@
     flex-direction: column;
   }
 
-  /* ارتفاع كل سطر ~96px (ضمن مدى 92-100px المطلوب) — حشوة 20px أعلى/أسفل
-     + دائرة الأيقونة 56px */
+  /* ارتفاع كل سطر ~108px (ضمن مدى 104-112px المطلوب) — حشوة 24px أعلى/
+     أسفل + دائرة الأيقونة 60px */
   .pointItem {
     flex-direction: row;
     align-items: center;
     text-align: right;
     width: 100%;
     gap: 16px;
-    padding: 20px 0;
+    padding: 24px 0;
     border-bottom: 1px solid var(--color-border);
   }
 
@@ -250,8 +272,8 @@
 
   .pointIcon {
     flex-shrink: 0;
-    width: 56px;
-    height: 56px;
+    width: 60px;
+    height: 60px;
     margin-bottom: 0;
   }
 
@@ -269,7 +291,7 @@
   }
 
   .pointTitle {
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 600;
     line-height: 1.4;
   }

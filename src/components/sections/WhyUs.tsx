@@ -76,7 +76,7 @@ function StatItem({
     <div className={styles.statItem}>
       <span className={styles.statValue} aria-live="off">
         {stat.prefix && <span className={styles.statPrefix}>{stat.prefix}</span>}
-        {animatedValue.toLocaleString("en-US")}
+        <span className={styles.statNumber}>{animatedValue.toLocaleString("en-US")}</span>
       </span>
       <span className={styles.statLabel}>{stat.label}</span>
     </div>
