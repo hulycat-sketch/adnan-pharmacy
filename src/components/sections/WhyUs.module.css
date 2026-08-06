@@ -68,9 +68,9 @@
 /* ------------------------------------------------------------------ */
 .statsRow {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  column-gap: 12px;
-  row-gap: 14px;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 0;
+  row-gap: 0;
   padding: 20px 16px;
   border-radius: 16px;
   background-color: var(--color-bg-section);
@@ -95,13 +95,10 @@
   gap: 4px;
 }
 
-/* الإحصائية الثالثة (45 عامًا) — تمتد بعرض عمودي الشبكة الاثنين حتى تقدر
-   تتمركز بمنتصف الصف الثاني، بس عرضها الفعلي محصور بـ47% فقط (مش صف
-   كامل) عبر justify-self:center + width */
-.statItem:nth-child(3) {
-  grid-column: span 2;
-  justify-self: center;
-  width: 47%;
+/* فاصل عمودي رفيع بين كل إحصائية والتالية — صف واحد بثلاث خانات متساوية
+   بكل العروض (موبايل وديسكتوب سوا)، بدون ترتيب 2+1 */
+.statItem + .statItem {
+  border-inline-start: 1px solid var(--color-border);
 }
 
 .statValue {
@@ -205,18 +202,45 @@
    والنص بجانبها وفق RTL، بفاصل أفقي خفيف بين الصفوف بدل فواصل الشبكة
    القديمة. الديسكتوب (1024px فما فوق) بقواعده تحت ما إله علاقة إطلاقًا ===== */
 @media (max-width: 1023px) {
+  /* شريط الإحصاءات — صف واحد بثلاث خانات متساوية (نفس بنية الديسكتوب،
+     بس بمقاسات موبايل). الارتفاع (~120px) محسوب من الحشوة + محتوى
+     الرقم/الوصف، وmin-height سياج أمان بس لضمان البقاء ضمن مدى 118-125px
+     المطلوب حتى لو اختلف ارتفاع السطر الفعلي شوي بمتصفح/جهاز معيّن */
+  .statsRow {
+    padding: 25px 8px;
+    min-height: 118px;
+    /* مسافة ~24px قبل أول نقطة تحت — القسمين ما كان بينهم أي فراغ قبل هيك */
+    margin-bottom: 24px;
+  }
+
+  .statValue {
+    font-size: 30px;
+  }
+
+  .statLabel {
+    font-size: 12.5px;
+    line-height: 1.3;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
   .pointsCol {
     display: flex;
     flex-direction: column;
   }
 
+  /* ارتفاع كل سطر ~96px (ضمن مدى 92-100px المطلوب) — حشوة 20px أعلى/أسفل
+     + دائرة الأيقونة 56px */
   .pointItem {
     flex-direction: row;
     align-items: center;
     text-align: right;
     width: 100%;
     gap: 16px;
-    padding: 18px 0;
+    padding: 20px 0;
     border-bottom: 1px solid var(--color-border);
   }
 
@@ -253,6 +277,10 @@
   .pointDescription {
     font-size: 15px;
     line-height: 1.7;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
 
@@ -291,18 +319,6 @@
 
   .statItem {
     padding: 0 20px;
-  }
-
-  /* إلغاء تمديد/توسيط الموبايل الخاص بالإحصائية الثالثة — بالديسكتوب
-     بتاخد عمودها العادي متل الباقي بالضبط */
-  .statItem:nth-child(3) {
-    grid-column: auto;
-    justify-self: stretch;
-    width: auto;
-  }
-
-  .statItem + .statItem {
-    border-inline-start: 1px solid var(--color-border);
   }
 
   .statValue {
