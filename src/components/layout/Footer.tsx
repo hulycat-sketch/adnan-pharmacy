@@ -88,6 +88,21 @@ export default function Footer() {
                 {CONTACT.workingHours.closedLabel} {CONTACT.workingHours.closedValue}
               </span>
             </li>
+
+            <li>
+              <FacebookIcon className={styles.contactIcon} />
+              <a
+                href={SOCIAL.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="صفحتنا على فيسبوك"
+                className={styles.contactLink}
+              >
+                تابعنا على فيسبوك
+                <br />
+                {PHARMACY.name}
+              </a>
+            </li>
           </ul>
         </div>
       </div>

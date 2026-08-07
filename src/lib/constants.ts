@@ -159,6 +159,9 @@ export const NAV_LINKS = [
 // -----------------------------------------------------------------------------
 export const QUICK_CONTACT = {
   whatsappMessage: 'مرحبًا، أتواصل معكم من موقع صيدلية عدنان.',
+  // رسالة زر واتساب العائم (كل الصفحات) — نص مختلف عمدًا عن whatsappMessage
+  // فوق (خاص بصفحة /contact تحديدًا)، حسب طلب صريح لهاد الزر بالذات
+  floatingMessage: 'مرحباً، أود الاستفسار من صيدلية عدنان.',
   messengerUrl: 'https://m.me/100057314685906',
   facebookUrl:  'https://www.facebook.com/profile.php?id=100057314685906',
 } as const

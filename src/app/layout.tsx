@@ -29,6 +29,7 @@ import './globals.css'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import OneSignalInit from '../components/OneSignalInit'
+import FloatingWhatsApp from '../components/FloatingWhatsApp'
 
 // -----------------------------------------------------------------------------
 // 1. الخط — IBM Plex Sans Arabic
@@ -98,6 +99,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Footer />
 
         <OneSignalInit />
+
+        <FloatingWhatsApp />
 
       </body>
 
