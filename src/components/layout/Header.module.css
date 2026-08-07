@@ -172,8 +172,12 @@ height: 48px;
 .bar {
   display:          block;
   width:            22px;
-  height:           2px;
-  background-color: var(--color-secondary);
+  /* كانت 2px — زيادة طفيفة لسماكة الخط حتى يضل اللون الكحلي واضح فوق
+     خلفية الهيدر البيضاء */
+  height:           2.5px;
+  /* نفس اللون الكحلي الداكن المستخدم كخلفية الـFooter (--footer-bg)،
+     رجوع عن الأخضر المؤقت لجولة سابقة — مش لون جديد */
+  background-color: var(--color-primary-dark);
   transition:       var(--transition-base);
   transform-origin: center;
 }
