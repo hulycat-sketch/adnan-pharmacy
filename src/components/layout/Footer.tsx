@@ -99,8 +99,6 @@ export default function Footer() {
                 className={styles.contactLink}
               >
                 تابعنا على فيسبوك
-                <br />
-                {PHARMACY.name}
               </a>
             </li>
           </ul>
@@ -109,16 +107,6 @@ export default function Footer() {
 
       <div className={styles.bottomBar}>
         <div className={`container ${styles.bottomInner}`}>
-          <a
-            href={SOCIAL.facebook}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.socialLink}
-            aria-label="صفحتنا على فيسبوك"
-          >
-            <FacebookIcon className={styles.socialIcon} />
-          </a>
-
           <div className={styles.copyrightBlock}>
             <p className={styles.copyright}>
               © {year} جميع الحقوق محفوظة ل{PHARMACY.name}
