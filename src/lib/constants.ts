@@ -606,6 +606,16 @@ export const BLOG_SECTION = {
   description: 'مقالات صحية موثوقة ونصائح صيدلانية عملية تساعدكم على اتخاذ قرارات أكثر وعيًا لصحتكم وصحة عائلتكم.',
 } as const
 
+// قسم "أحدث المقالات" بالصفحة الرئيسية — عنوان/وصف خاصين فيه (مختلفين
+// عن BLOG_SECTION فوق، يلي بيخدم صفحة /blog نفسها)، بيعرض 3 مقالات
+// مختارة يدويًا فقط عبر slugs (البيانات نفسها من src/lib/blog.ts —
+// getArticleBySlug — بدون أي تكرار أو نسخ محتوى)
+export const LATEST_ARTICLES_SECTION = {
+  title:    'أحدث المقالات',
+  subtitle: 'نشارككم مقالات صحية موثوقة ونصائح عملية لمساعدتكم على اتخاذ قرارات صحية أفضل لكم ولعائلاتكم.',
+  slugs: ['supplements-pharmacist-consultation', 'choosing-blood-pressure-monitor', 'child-fever-safety'] as const,
+} as const
+
 export const BLOG_CONSULTATION = {
   title:       'هل تحتاجون إلى استشارة؟',
   description: 'يسعد فريق صيدلية عدنان بمساعدتكم وتقديم الإرشاد الصيدلاني المناسب لاحتياجاتكم.',

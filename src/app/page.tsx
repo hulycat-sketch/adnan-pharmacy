@@ -5,6 +5,7 @@ import NotificationOptIn from "@/components/sections/NotificationOptIn";
 import Services from "@/components/sections/Services";
 import WhyUs from "@/components/sections/WhyUs";
 import Insurance from "@/components/sections/Insurance";
+import LatestArticles from "@/components/sections/LatestArticles";
 import TrustedBrandsMarquee from "@/components/sections/TrustedBrandsMarquee";
 import ScrollToTopOnMount from "@/components/sections/ScrollToTopOnMount";
 import { TRUSTED_BRANDS, SITE } from "@/lib/constants";
@@ -23,6 +24,7 @@ export default function Home() {
       <PwaInstall />
       <Insurance />
       <WhyUs />
+      <LatestArticles />
       <TrustedBrandsMarquee
         title="العلامات التجارية الموثوقة"
         description="نوفر مجموعة مختارة من أبرز العلامات العالمية في العناية بالبشرة والصحة والجمال."

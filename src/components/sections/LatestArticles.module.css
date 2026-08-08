@@ -1,0 +1,255 @@
+.latestArticles {
+  background-color: #ffffff;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 2.5rem;
+  padding-bottom: 1.75rem;
+}
+
+/* ===== عنوان القسم — نفس بنية "الجهات المعتمدة لدينا" بالضبط ===== */
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 0 1.5rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.latestArticles.visible .title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.underline {
+  position: relative;
+  display: block;
+  width: 2rem;
+  height: 4px;
+  margin-top: 1.25rem;
+  border-radius: 9999px;
+  background-color: var(--color-secondary);
+}
+
+.underline::before,
+.underline::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 90px;
+  height: 1px;
+  background-color: var(--color-border);
+  transform: translateY(-50%);
+}
+
+.underline::before {
+  right: 100%;
+  margin-right: 12px;
+}
+
+.underline::after {
+  left: 100%;
+  margin-left: 12px;
+}
+
+.subtitle {
+  margin-top: 1rem;
+  max-width: 640px;
+  color: var(--color-text-secondary);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition-delay: 0.55s;
+}
+
+.latestArticles.visible .subtitle {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== شبكة البطاقات — نسخة أخف من بطاقة صفحة /blog: بدون حدّ، بدون
+   تاريخ/مدة قراءة، مع سطر "اقرأ المقال" بدل ذلك. عمود واحد بالموبايل ===== */
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding: 0 1.5rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #ffffff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  text-decoration: none;
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+  padding: 1.1rem;
+  text-align: right;
+}
+
+.cardTitle {
+  margin: 0.7rem 0 0;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--color-primary);
+}
+
+/* سطران بحد أقصى — بخلاف بطاقة صفحة /blog يلي بدون أي قصّ */
+.excerpt {
+  margin-top: 0.5rem;
+  margin-bottom: 0.85rem;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.readMore {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: auto;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-secondary);
+}
+
+/* ===== زر "عرض جميع المقالات" — نفس ستايل الزر الأخضر الأساسي
+   المستخدم بزر "عرض جميع الجهات المعتمدة" بالضبط ===== */
+
+.ctaWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.75rem;
+  padding: 0 1.5rem;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  border-radius: 9999px;
+  background-color: var(--color-secondary);
+  color: #ffffff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.ctaBtn:hover {
+  background-color: var(--color-secondary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-hover);
+  color: #ffffff;
+}
+
+.ctaBtn:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+/* ===== Mobile/Tablet (حتى 1023px) — زر أضيق شوي + مسافة أكبر قبل
+   قسم العلامات التجارية ===== */
+@media (max-width: 1023px) {
+  .container {
+    padding-bottom: 42px;
+  }
+
+  .ctaBtn {
+    padding-inline: 1.25rem;
+  }
+}
+
+/* ===== Tablet (769px فما فوق) — عمودين ===== */
+@media (min-width: 769px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ===== Desktop (1024px فما فوق) — 3 أعمدة (صف واحد بالضبط لـ3 مقالات) ===== */
+@media (min-width: 1024px) {
+  .container {
+    padding-top: 3.25rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .heading {
+    margin-bottom: 2.5rem;
+  }
+
+  .title {
+    font-size: 1.875rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .title,
+  .subtitle,
+  .card,
+  .ctaBtn {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .card,
+  .ctaBtn {
+    transition: none !important;
+  }
+}
