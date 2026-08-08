@@ -613,7 +613,7 @@ export const BLOG_SECTION = {
 export const LATEST_ARTICLES_SECTION = {
   title:    'أحدث المقالات',
   subtitle: 'نشارككم مقالات صحية موثوقة ونصائح عملية لمساعدتكم على اتخاذ قرارات صحية أفضل لكم ولعائلاتكم.',
-  slugs: ['menopause-guide', 'identify-skin-type', 'child-fever-safety'] as const,
+  slugs: ['supplements-pharmacist-consultation', 'choosing-blood-pressure-monitor', 'child-fever-safety'] as const,
 } as const
 
 export const BLOG_CONSULTATION = {

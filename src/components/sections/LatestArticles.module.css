@@ -199,6 +199,18 @@
   outline-offset: 2px;
 }
 
+/* ===== Mobile/Tablet (حتى 1023px) — زر أضيق شوي + مسافة أكبر قبل
+   قسم العلامات التجارية ===== */
+@media (max-width: 1023px) {
+  .container {
+    padding-bottom: 42px;
+  }
+
+  .ctaBtn {
+    padding-inline: 1.25rem;
+  }
+}
+
 /* ===== Tablet (769px فما فوق) — عمودين ===== */
 @media (min-width: 769px) {
   .grid {
