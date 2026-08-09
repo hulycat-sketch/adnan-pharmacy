@@ -47,15 +47,25 @@
   will-change: transform;
 }
 
-/* خانة الشعار — الارتفاع مقفل حرفيًا (94px موبايل) ولا يتغيّر بأي حال؛
-   العرض وحده Responsive (clamp) حتى يظهر عدد الشعارات المطلوب بكل عرض */
+/* خانة الشعار — إطار/بطاقة بيضاء حوالين كل شعار (نفس فكرة تصميم
+   Lovable المرجعي)، محصورة بهالشريط فقط (شريط التأمينات) ولا تؤثر
+   على TrustedBrandsMarquee إطلاقًا. الارتفاع مقفل حرفيًا (94px موبايل)
+   ولا يتغيّر بأي حال؛ العرض وحده Responsive (clamp) حتى يظهر عدد
+   الشعارات المطلوب بكل عرض. الأبعاد تحت مكبَّرة بمقدار الحشوة+الحدّ
+   الجدد بالضبط (padding+border) حتى تضل مساحة الشعار الفعلية (وبالتالي
+   حجمه المرئي) بدون أي تغيير — البطاقة بس بتضيف إطار حوالينه */
 .tile {
   flex-shrink: 0;
-  width: clamp(130px, 38vw, 155px);
-  height: 94px;
+  width: clamp(152px, calc(38vw + 22px), 177px);
+  height: 116px;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--color-bg-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
 }
 
 .logo {
@@ -97,7 +107,7 @@
   }
 
   .tile {
-    width: 120px;
+    width: 142px;
   }
 }
 
@@ -126,8 +136,9 @@
   }
 
   .tile {
-    width: clamp(160px, 20vw, 200px);
-    height: 113px;
+    width: clamp(186px, calc(20vw + 26px), 226px);
+    height: 139px;
+    padding: 12px;
   }
 
   .logo {
@@ -178,8 +189,9 @@
   }
 
   .tile {
-    width: clamp(150px, 11vw, 165px);
-    height: 133px;
+    width: clamp(180px, calc(11vw + 30px), 195px);
+    height: 163px;
+    padding: 14px;
   }
 
   .logo {
