@@ -102,7 +102,7 @@ export default function Insurance() {
 
         <div className={styles.ctaWrap}>
           <Link href="/approved-partners" className={styles.ctaBtn}>
-            عرض جميع الجهات المعتمدة
+            عرض جميع الجهات
             <ArrowLeft width={18} height={18} aria-hidden="true" />
           </Link>
         </div>
