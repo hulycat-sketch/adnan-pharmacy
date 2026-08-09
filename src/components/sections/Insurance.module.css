@@ -177,8 +177,9 @@
 .ctaWrap {
   display: flex;
   justify-content: center;
-  /* أصغر شوي من المسافة فوق الشريط (كانت 2.25rem قبل إضافة الشريط) */
-  margin-top: 1.75rem;
+  /* أقرب شوي لبطاقات الشريط (كانت 1.75rem) — المسافة تحت الزر ما تأثرت،
+     هاي بس المسافة فوقه */
+  margin-top: 1.125rem;
   padding: 0 1.5rem;
 }
 

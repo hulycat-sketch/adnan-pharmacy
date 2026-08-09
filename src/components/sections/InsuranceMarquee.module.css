@@ -49,15 +49,17 @@
 
 /* خانة الشعار — إطار/بطاقة بيضاء حوالين كل شعار (نفس فكرة تصميم
    Lovable المرجعي)، محصورة بهالشريط فقط (شريط التأمينات) ولا تؤثر
-   على TrustedBrandsMarquee إطلاقًا. الارتفاع مقفل حرفيًا (94px موبايل)
+   على TrustedBrandsMarquee إطلاقًا. الارتفاع مقفل حرفيًا (100px موبايل)
    ولا يتغيّر بأي حال؛ العرض وحده Responsive (clamp) حتى يظهر عدد
-   الشعارات المطلوب بكل عرض. الأبعاد تحت مكبَّرة بمقدار الحشوة+الحدّ
-   الجدد بالضبط (padding+border) حتى تضل مساحة الشعار الفعلية (وبالتالي
-   حجمه المرئي) بدون أي تغيير — البطاقة بس بتضيف إطار حوالينه */
+   الشعارات المطلوب بكل عرض — العرض ثابت تمامًا، ما انلمس بجولة
+   "تصغير الارتفاع" هاي. logoCompact رفعناها ~4% (تحت) لأنها كانت
+   الفئة الوحيدة يلي ضلّ فيها فراغ واضح بعد التصغير؛ logoVertical
+   بالديسكتوب انخفضت لتفادي فيضان الشعار برا حدود الخانة بعد
+   التصغير (كانت 117px، صارت الخانة نفسها 110px بالضبط) */
 .tile {
   flex-shrink: 0;
   width: clamp(152px, calc(38vw + 22px), 177px);
-  height: 116px;
+  height: 100px;
   padding: 10px;
   display: flex;
   align-items: center;
@@ -88,7 +90,7 @@
 }
 
 .logoCompact {
-  max-height: 67px;
+  max-height: 70px;
 }
 
 .logoVertical {
@@ -137,7 +139,7 @@
 
   .tile {
     width: clamp(186px, calc(20vw + 26px), 226px);
-    height: 139px;
+    height: 120px;
     padding: 12px;
   }
 
@@ -152,7 +154,7 @@
   }
 
   .logoCompact {
-    max-height: 81px;
+    max-height: 84px;
   }
 
   .logoVertical {
@@ -190,7 +192,7 @@
 
   .tile {
     width: clamp(180px, calc(11vw + 30px), 195px);
-    height: 163px;
+    height: 140px;
     padding: 14px;
   }
 
@@ -203,11 +205,11 @@
   }
 
   .logoCompact {
-    max-height: 100px;
+    max-height: 104px;
   }
 
   .logoVertical {
-    max-height: 117px;
+    max-height: 110px;
   }
 
   .logoCircular {
