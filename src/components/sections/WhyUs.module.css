@@ -206,6 +206,44 @@
   color: var(--color-text-secondary);
 }
 
+/* ------------------------------------------------------------------ */
+/* زر "عن صيدلية عدنان" — نفس لغة تصميم أزرار CTA الخضراء المستخدمة
+   بباقي الصفحة الرئيسية (اللون/الاستدارة/الأيقونة/الحركة)، بس بحجم
+   مضغوط عمدًا — رابط ثانوي "اعرف أكتر" بنهاية القسم، مش المفروض يبين
+   بثقل زر Hero الأساسي */
+/* ------------------------------------------------------------------ */
+.ctaWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.75rem;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.375rem;
+  border-radius: 9999px;
+  background-color: var(--color-secondary);
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.ctaBtn:hover {
+  background-color: var(--color-secondary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-hover);
+  color: #ffffff;
+}
+
+.ctaBtn:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
 /* ===== موبايل/تابلت (أقل من 1024px) فقط — تحويل قائمة المزايا الأربع من
    شبكة 2×2 إلى قائمة عمودية: صف كامل العرض لكل ميزة، الأيقونة على اليمين
    والنص بجانبها وفق RTL، بفاصل أفقي خفيف بين الصفوف بدل فواصل الشبكة
@@ -445,6 +483,10 @@
   .pointDescription {
     margin-top: 0.45rem;
     font-size: 0.875rem;
+  }
+
+  .ctaWrap {
+    margin-top: 2rem;
   }
 }
 

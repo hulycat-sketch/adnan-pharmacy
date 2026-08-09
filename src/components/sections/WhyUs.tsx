@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import {
   Calendar,
   ShieldCheck,
   UserRound,
   Heart,
   Leaf,
+  ArrowLeft,
   type LucideIcon,
 } from "lucide-react";
 import { WHY_US_POINTS, WHY_US_STATS } from "@/lib/constants";
@@ -162,6 +164,13 @@ export default function WhyUs() {
               </div>
             );
           })}
+        </div>
+
+        <div className={styles.ctaWrap}>
+          <Link href="/about" className={styles.ctaBtn}>
+            عن صيدلية عدنان
+            <ArrowLeft width={15} height={15} aria-hidden="true" />
+          </Link>
         </div>
       </div>
     </section>
