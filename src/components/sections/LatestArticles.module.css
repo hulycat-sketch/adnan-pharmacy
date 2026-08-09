@@ -177,11 +177,17 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.85rem 2rem;
+  /* الارتفاع/الحشوة العمودية/حجم الخط تحت مطابقين حرفيًا لزر Hero
+     الأساسي ("تواصل معنا" — .ctaPrimary بـHero.module.css) بكل نقطة
+     توقف، حتى تكون كل أزرار CTA الأساسية بنفس الوزن البصري بالموقع.
+     الحشوة الأفقية (padding-inline) ما تأثرت — ضلّت 2rem زي ما كانت
+     (وبتضل تنكسر لـ1.25rem بالموبايل/التابلت بالبلوك تحت زي ما كانت) */
+  padding-block: 0.875rem;
+  padding-inline: 2rem;
   border-radius: 9999px;
   background-color: var(--color-secondary);
   color: #ffffff;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
   transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
@@ -211,6 +217,16 @@
   }
 }
 
+/* ===== موبايل (حتى 767px) — نفس مقاس زر Hero بالموبايل بالضبط:
+   الارتفاع محسوب بـmin-height بدل الحشوة العمودية ===== */
+@media (max-width: 767px) {
+  .ctaBtn {
+    min-height: 50px;
+    padding-block: 0;
+    font-size: 0.9rem;
+  }
+}
+
 /* ===== Tablet (769px فما فوق) — عمودين ===== */
 @media (min-width: 769px) {
   .grid {
@@ -236,6 +252,11 @@
   .grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
+  }
+
+  .ctaBtn {
+    padding-block: 0.7rem;
+    font-size: 0.9rem;
   }
 }
 
