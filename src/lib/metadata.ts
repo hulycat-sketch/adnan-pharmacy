@@ -200,12 +200,11 @@ export const pharmacySchema = {
     SOCIAL.facebook,
     // TODO: Add remaining official social media URLs (Instagram, etc.) once confirmed.
   ],
-  // TODO: Add geo coordinates once Google Maps location is finalized.
-  // geo: {
-  //   '@type':    'GeoCoordinates',
-  //   latitude:   32.5568,
-  //   longitude:  35.8469,
-  // },
+  geo: {
+    '@type':    'GeoCoordinates',
+    latitude:   32.5413528,
+    longitude:  35.8509307,
+  },
 }
 
 
