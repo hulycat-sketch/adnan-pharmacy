@@ -30,7 +30,7 @@ const COUNT_UP_DURATION_MS = 1400;
 // startedRef بيمنع أي إعادة تشغيل لو shouldStart رجع اهتز، وprefers-reduced-motion
 // بيقفز للقيمة النهائية فورًا بدون أي رسوم متحركة
 function useCountUp(target: number, shouldStart: boolean): number {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(target);
   const startedRef = useRef(false);
 
   useEffect(() => {
@@ -47,6 +47,8 @@ function useCountUp(target: number, shouldStart: boolean): number {
 
     let rafId: number;
     const startTime = performance.now();
+
+    setValue(0);
 
     const tick = (now: number) => {
       const progress = Math.min((now - startTime) / COUNT_UP_DURATION_MS, 1);
