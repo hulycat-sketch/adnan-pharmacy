@@ -45,7 +45,7 @@ export default function Hero() {
           <div className={styles.imageColDesktop}>
             <div className={styles.imageWrapper}>
               <Image
-                src="/images/Adnan_Pharmacy_storefront_building_final.png"
+                src="/images/home-hero-pharmacy-final.jpg"
                 alt={heroAlt}
                 fill
                 quality={75}
