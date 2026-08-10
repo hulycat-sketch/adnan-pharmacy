@@ -9,6 +9,7 @@ import ScrollToTopOnMount from "@/components/sections/ScrollToTopOnMount";
 
 export const metadata: Metadata = generatePageMetadata({
   title: "نبذة عنا",
+  description: "صيدلية عدنان في إربد، تأسست عام 1981 على يد الدكتور عدنان المومني، ومسيرة عائلية في القطاع الصحي يواصلها اليوم الدكتور محمد عدنان المومني.",
   path: "/about",
 });
 
