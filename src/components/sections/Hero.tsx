@@ -38,18 +38,19 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* صورة الديسكتوب (أفقية، واجهة الشارع) — full-bleed بعرض الشاشة
-              الكامل هلق، عنصر صورة منفصل مخفي بالكامل تحت 768px، وsizes
-              بترجع قيمة ضئيلة (1px) هناك بنفس المنطق. أصل حقيقي جديد أضافه
-              المستخدم، بدون أي تعديل عليه */}
+          {/* صورة الديسكتوب — تجربة "Split Layout": نفس أصل صورة الموبايل
+              (portrait، home-hero-pharmacy-final.jpg) بعمودها الخاص جنب
+              البطاقة، contain بدل cover (بدون أي قصّ). sizes معدّلة هون
+              لأنه الصورة ما عادت full-bleed (عمود جزئي من العرض تقريبًا)
+              — القيمة السابقة (100vw) كانت رح تحمّل نسخة أكبر من اللازم */}
           <div className={styles.imageColDesktop}>
             <div className={styles.imageWrapper}>
               <Image
-                src="/images/Adnan_Pharmacy_storefront_building_final.png"
+                src="/images/home-hero-pharmacy-final.jpg"
                 alt={heroAlt}
                 fill
                 quality={75}
-                sizes="(min-width: 768px) calc(100vw - 0px), 1px"
+                sizes="(min-width: 768px) 55vw, 1px"
                 loading="eager"
                 fetchPriority="high"
                 className={styles.image}
