@@ -38,11 +38,11 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* صورة الديسكتوب — تجربة "Split Layout": نفس أصل صورة الموبايل
-              (portrait، home-hero-pharmacy-final.jpg) بعمودها الخاص جنب
-              البطاقة، contain بدل cover (بدون أي قصّ). sizes معدّلة هون
-              لأنه الصورة ما عادت full-bleed (عمود جزئي من العرض تقريبًا)
-              — القيمة السابقة (100vw) كانت رح تحمّل نسخة أكبر من اللازم */}
+          {/* صورة الديسكتوب — تجربة "Split Layout" مضغوطة: نفس أصل صورة
+              الموبايل (portrait، home-hero-pharmacy-final.jpg) بحاوية
+              محكومة الحجم (~420×440px)، cover بقصّ خفيف بدل contain.
+              sizes معدّلة هون كمان — الحاوية صارت سقفها ~440px ثابت
+              تقريبًا (مش نسبة من عرض الشاشة زي الجولة السابقة 55vw) */}
           <div className={styles.imageColDesktop}>
             <div className={styles.imageWrapper}>
               <Image
@@ -50,7 +50,7 @@ export default function Hero() {
                 alt={heroAlt}
                 fill
                 quality={75}
-                sizes="(min-width: 768px) 55vw, 1px"
+                sizes="(min-width: 768px) 440px, 1px"
                 loading="eager"
                 fetchPriority="high"
                 className={styles.image}
