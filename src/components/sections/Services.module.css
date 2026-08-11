@@ -115,6 +115,15 @@
 }
 
 @media (min-width: 1024px) {
+  /* تصغير المسافة فوق العنوان بس (كانت 1.25rem=20px، صارت 0.875rem=14px)
+     — جزء من تقليل الفراغ الكلي بين نهاية الـHero وعنوان "خدماتنا"
+     (Hero margin-bottom=36px + هاي الـ14px = ~50px إجمالي، ضمن المدى
+     45-55px المطلوب). padding-inline وpadding-bottom (المسافة قبل
+     البطاقات) ما انلمسوا إطلاقًا — لسا 1.5rem/2.5rem زي الأساس */
+  .container {
+    padding-top: 0.875rem;
+  }
+
   .grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 1.25rem;
