@@ -7,12 +7,14 @@ import styles from "./Hero.module.css";
 
 const LOCATION_FACT = ABOUT_LEGACY.facts[2];
 
-// صورة الديسكتوب (4:3، عمود مستقل بالتصميم "بدون بطاقة") — مؤقتة، رح
-// تنستبدل بصورة احترافية لاحقًا. المكان الوحيد يلي لازم يتغيّر لما توصل
-// الصورة الجديدة. لو الصورة الجديدة إلها تركيبة مختلفة (موقع اللافتة/
-// المدخل)، راجعي كمان object-position بـ.image داخل الـ768px media
-// query بـHero.module.css (معلَّق بالتفصيل هناك).
-const DESKTOP_HERO_IMAGE = "/images/home-hero-pharmacy-final.jpg";
+// صورة الديسكتوب النهائية (landscape حقيقية، home-hero-pharmacy-
+// desktop.webp، 1371×1147 فعليًا ≈ 1.195:1). المكان الوحيد يلي لازم
+// يتغيّر لو استبدلنا الصورة لاحقًا. لو الصورة الجديدة إلها نسبة أبعاد
+// مختلفة، راجعي aspect-ratio بـ.imageWrapper داخل الـ768px media query
+// بـHero.module.css (معلَّق بالتفصيل هناك) — الكونتينر محكوم حاليًا
+// بنسبة هالصورة بالضبط (صفر قصّ)، فتغيير الصورة لصورة بنسبة مختلفة
+// رح يحتاج تحديث تلك النسبة كمان.
+const DESKTOP_HERO_IMAGE = "/images/home-hero-pharmacy-desktop.webp";
 
 export default function Hero() {
   const description = HERO_SECTION.description;
@@ -46,10 +48,11 @@ export default function Hero() {
           </div>
 
           {/* صورة الديسكتوب — تصميم "بدون بطاقة" (Minimal Healthcare):
-              عمود مستقل جنب المحتوى مباشرة، 4:3، بدون أي Card/Overlay/
-              نص فوقها. المصدر DESKTOP_HERO_IMAGE فوق — مكان وحيد واضح
-              لتغييره لاحقًا. sizes تقريبية (العمود مرن بين ~336-543px
-              حسب العرض ضمن حاوية 1200px قصوى، راجعي Hero.module.css) */}
+              عمود مستقل جنب المحتوى مباشرة، landscape حقيقية (1.195:1)،
+              بدون أي Card/Overlay/نص فوقها. المصدر DESKTOP_HERO_IMAGE
+              فوق — مكان وحيد واضح لتغييره لاحقًا. sizes تقريبية (العمود
+              ياخد ٪42 من عرض الصف، راجعي Hero.module.css للأرقام
+              الفعلية بكل نقطة توقف) */}
           <div className={styles.imageColDesktop}>
             <div className={styles.imageWrapper}>
               <Image
@@ -57,7 +60,7 @@ export default function Hero() {
                 alt={heroAlt}
                 fill
                 quality={75}
-                sizes="(min-width: 768px) 50vw, 1px"
+                sizes="(min-width: 768px) 42vw, 1px"
                 loading="eager"
                 fetchPriority="high"
                 className={styles.image}
