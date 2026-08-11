@@ -7,6 +7,13 @@ import styles from "./Hero.module.css";
 
 const LOCATION_FACT = ABOUT_LEGACY.facts[2];
 
+// صورة الديسكتوب (4:3، عمود مستقل بالتصميم "بدون بطاقة") — مؤقتة، رح
+// تنستبدل بصورة احترافية لاحقًا. المكان الوحيد يلي لازم يتغيّر لما توصل
+// الصورة الجديدة. لو الصورة الجديدة إلها تركيبة مختلفة (موقع اللافتة/
+// المدخل)، راجعي كمان object-position بـ.image داخل الـ768px media
+// query بـHero.module.css (معلَّق بالتفصيل هناك).
+const DESKTOP_HERO_IMAGE = "/images/home-hero-pharmacy-final.jpg";
+
 export default function Hero() {
   const description = HERO_SECTION.description;
 
@@ -38,19 +45,19 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* صورة الديسكتوب — تجربة "Split Layout" مضغوطة: نفس أصل صورة
-              الموبايل (portrait، home-hero-pharmacy-final.jpg) بحاوية
-              محكومة الحجم (~420×440px)، cover بقصّ خفيف بدل contain.
-              sizes معدّلة هون كمان — الحاوية صارت سقفها ~440px ثابت
-              تقريبًا (مش نسبة من عرض الشاشة زي الجولة السابقة 55vw) */}
+          {/* صورة الديسكتوب — تصميم "بدون بطاقة" (Minimal Healthcare):
+              عمود مستقل جنب المحتوى مباشرة، 4:3، بدون أي Card/Overlay/
+              نص فوقها. المصدر DESKTOP_HERO_IMAGE فوق — مكان وحيد واضح
+              لتغييره لاحقًا. sizes تقريبية (العمود مرن بين ~336-543px
+              حسب العرض ضمن حاوية 1200px قصوى، راجعي Hero.module.css) */}
           <div className={styles.imageColDesktop}>
             <div className={styles.imageWrapper}>
               <Image
-                src="/images/home-hero-pharmacy-final.jpg"
+                src={DESKTOP_HERO_IMAGE}
                 alt={heroAlt}
                 fill
                 quality={75}
-                sizes="(min-width: 768px) 440px, 1px"
+                sizes="(min-width: 768px) 50vw, 1px"
                 loading="eager"
                 fetchPriority="high"
                 className={styles.image}
@@ -94,10 +101,11 @@ export default function Hero() {
               </div>
 
               {/* صف المعلومات المساعدة (Utility Row) — ديسكتوب فقط
-                  (1024px فما فوق)، جوا اللوحة الزجاجية نفسها تحت
-                  الأزرار مباشرة. بدون بطاقات ولا ظلال ولا خلفية إضافية،
-                  مفصول بخط رفيع جداً فوقه بس. مخفي تماماً تحت 1024px —
-                  الموبايل/التابلت لسا عندهم نظام البطاقات العائمة
+                  (768px فما فوق الآن، بعد التصميم الجديد "بدون بطاقة" —
+                  كانت 1024px فما فوق بس بالتصميم السابق)، مباشرة جوا
+                  عمود المحتوى تحت الأزرار. بدون بطاقات ولا ظلال ولا
+                  خلفية إضافية، مفصول بخط رفيع جداً فوقه بس. مخفي تمامًا
+                  تحت 768px — الموبايل لسا عندها نظام البطاقات العائمة
                   الأصلي (infoStripBridge تحت) بدون أي تغيير */}
               <div className={styles.utilityRow}>
                 <PharmacyStatusItem variant="utility" />
@@ -118,8 +126,9 @@ export default function Hero() {
       </section>
 
       {/* شريط معلومات عائم — جسر بصري بين الـHero وقسم "خدماتنا"، موبايل
-          وتابلت فقط (أقل من 1024px — مخفي بالكامل عند 1024px فما فوق
-          لصالح صف المعلومات المساعدة الجديد جوا اللوحة الزجاجية فوق).
+          فقط (أقل من 768px — مخفي بالكامل عند 768px فما فوق لصالح صف
+          المعلومات المساعدة الجديد جوا عمود المحتوى فوق. كانت 1024px
+          بالتصميم السابق، قبل إزالة اللوحة الزجاجية).
           خارج قسم الـHero عمدًا (مش جوا heroCard) — overflow:hidden على
           heroCard/hero ضروري لقصّ الصورة full-bleed وأقواس الخلفية
           الزخرفية، فلو ضل الشريط جواهم كان رح ينقصّ لما نحطه يمتد تحت
