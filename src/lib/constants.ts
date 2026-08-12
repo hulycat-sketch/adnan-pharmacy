@@ -613,7 +613,7 @@ export const BLOG_SECTION = {
 export const LATEST_ARTICLES_SECTION = {
   title:    'أحدث المقالات',
   subtitle: 'نشارككم مقالات صحية موثوقة ونصائح عملية لمساعدتكم على اتخاذ قرارات صحية أفضل لكم ولعائلاتكم.',
-  slugs: ['supplements-pharmacist-consultation', 'choosing-blood-pressure-monitor', 'child-fever-safety'] as const,
+  slugs: ['supplements-pharmacist-consultation', 'vitamin-c-serum-benefits', 'child-fever-safety'] as const,
 } as const
 
 export const BLOG_CONSULTATION = {
