@@ -55,6 +55,12 @@ export default function NotificationOptIn() {
 
     initOneSignalOnce()
       .then(() => {
+        // [NOTIF-DEBUG-TEMP] احذف هالسطر بعد التشخيص
+        console.log("[NOTIF-DEBUG-TEMP] init resolved:", {
+          cancelled,
+          isOneSignalConfigured: isOneSignalConfigured(),
+        });
+
         if (cancelled || !isOneSignalConfigured()) return;
 
         setPushSupported(OneSignal.Notifications.isPushSupported());
@@ -74,8 +80,12 @@ export default function NotificationOptIn() {
         };
         OneSignal.User.PushSubscription.addEventListener("change", handleSubscriptionChange);
       })
-      .catch(() => {
+      .catch((error) => {
         // فشل التهيئة (مثلاً App ID غير صالح) — البطاقة ببساطة ما بتظهر
+        // [NOTIF-DEBUG-TEMP] احذف هالسطر بعد التشخيص — كانت هاي catch()
+        // فاضية تمامًا بدون أي تسجيل، فأي فشل حقيقي بـOneSignal.init() كان
+        // بيختفي بصمت كاملة بدون أثر بالـconsole
+        console.error("[NOTIF-DEBUG-TEMP] initOneSignalOnce() rejected:", error);
       });
 
     return () => {
@@ -177,6 +187,23 @@ export default function NotificationOptIn() {
 
   const showCard = mounted && ready && pathname === "/" && !dismissed;
 
+  // [NOTIF-DEBUG-TEMP] احذف هالسطر بعد التشخيص
+  console.log("[NOTIF-DEBUG-TEMP] render check:", {
+    mounted,
+    ready,
+    pathname,
+    dismissed,
+    showCard,
+    pushSupported,
+    isIOS,
+    isStandalone,
+    permission,
+    nativeNotificationPermission: typeof window !== "undefined" && "Notification" in window ? window.Notification.permission : "n/a",
+    optedIn,
+    subscriptionId,
+    justSubscribed,
+  });
+
   if (!showCard) return null;
 
   // ترتيب الفحوصات مهم: iOS لازم تُفحص قبل pushSupported — سفاري iOS بره
@@ -193,6 +220,9 @@ export default function NotificationOptIn() {
           : optedIn === true && subscriptionId
             ? "subscribed"
             : "needs-optin";
+
+  // [NOTIF-DEBUG-TEMP] احذف هالسطر بعد التشخيص
+  console.log("[NOTIF-DEBUG-TEMP] status resolved:", status);
 
   if (status === "unsupported") return null;
   if (status === "subscribed" && !justSubscribed) return null;
