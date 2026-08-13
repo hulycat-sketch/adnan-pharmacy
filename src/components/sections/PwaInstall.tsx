@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Smartphone, X } from "lucide-react";
+import { detectIOS, detectStandalone } from "@/lib/platform";
 import styles from "./PwaInstall.module.css";
 
 type BeforeInstallPromptEvent = Event & {
@@ -16,20 +17,6 @@ const DISMISS_DURATION_MS = 30 * 24 * 60 * 60 * 1000; // 30 يوم
 // أو مرور 8-10 ثانية (هون 9000ms، منتصف المدى)، حتى ما يقاطع فتح الصفحة
 const REVEAL_SCROLL_THRESHOLD_PX = 400;
 const REVEAL_TIMEOUT_MS = 9000;
-
-function detectIOS(): boolean {
-  const ua = window.navigator.userAgent;
-  const isIOSByUA = /iphone|ipad|ipod/i.test(ua);
-  // iPadOS 13+ Safari يعرّف نفسه كـ"Macintosh" افتراضيًا — هاد فحص إضافي موثوق لتمييزه
-  const isIPadOS = window.navigator.platform === "MacIntel" && window.navigator.maxTouchPoints > 1;
-  return isIOSByUA || isIPadOS;
-}
-
-function detectStandalone(): boolean {
-  const displayModeStandalone = window.matchMedia("(display-mode: standalone)").matches;
-  const iosStandalone = (window.navigator as Navigator & { standalone?: boolean }).standalone === true;
-  return displayModeStandalone || iosStandalone;
-}
 
 function readIsDismissed(): boolean {
   const raw = window.localStorage.getItem(DISMISS_STORAGE_KEY);
